@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yangxin.mapper.ItemsCommentsMapper">
+  <resultMap id="BaseResultMap" type="org.yangxin.pojo.ItemsComments">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="item_id" jdbcType="VARCHAR" property="itemId" />
+    <result column="item_name" jdbcType="VARCHAR" property="itemName" />
+    <result column="item_spec_id" jdbcType="VARCHAR" property="itemSpecId" />
+    <result column="sepc_name" jdbcType="VARCHAR" property="sepcName" />
+    <result column="comment_level" jdbcType="INTEGER" property="commentLevel" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, item_id, item_name, item_spec_id, sepc_name, comment_level, content, 
+    created_time, updated_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from items_comments
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from items_comments
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.yangxin.pojo.ItemsComments">
+    insert into items_comments (id, user_id, item_id, 
+      item_name, item_spec_id, sepc_name, 
+      comment_level, content, created_time, 
+      updated_time)
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{itemId,jdbcType=VARCHAR}, 
+      #{itemName,jdbcType=VARCHAR}, #{itemSpecId,jdbcType=VARCHAR}, #{sepcName,jdbcType=VARCHAR}, 
+      #{commentLevel,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{updatedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.yangxin.pojo.ItemsComments">
+    insert into items_comments
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="itemId != null">
+        item_id,
+      </if>
+      <if test="itemName != null">
+        item_name,
+      </if>
+      <if test="itemSpecId != null">
+        item_spec_id,
+      </if>
+      <if test="sepcName != null">
+        sepc_name,
+      </if>
+      <if test="commentLevel != null">
+        comment_level,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null">
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemSpecId != null">
+        #{itemSpecId,jdbcType=VARCHAR},
+      </if>
+      <if test="sepcName != null">
+        #{sepcName,jdbcType=VARCHAR},
+      </if>
+      <if test="commentLevel != null">
+        #{commentLevel,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.ItemsComments">
+    update items_comments
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null">
+        item_id = #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null">
+        item_name = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemSpecId != null">
+        item_spec_id = #{itemSpecId,jdbcType=VARCHAR},
+      </if>
+      <if test="sepcName != null">
+        sepc_name = #{sepcName,jdbcType=VARCHAR},
+      </if>
+      <if test="commentLevel != null">
+        comment_level = #{commentLevel,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.ItemsComments">
+    update items_comments
+    set user_id = #{userId,jdbcType=VARCHAR},
+      item_id = #{itemId,jdbcType=VARCHAR},
+      item_name = #{itemName,jdbcType=VARCHAR},
+      item_spec_id = #{itemSpecId,jdbcType=VARCHAR},
+      sepc_name = #{sepcName,jdbcType=VARCHAR},
+      comment_level = #{commentLevel,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

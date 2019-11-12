@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yangxin.mapper.ItemsParamMapper">
+  <resultMap id="BaseResultMap" type="org.yangxin.pojo.ItemsParam">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="item_id" jdbcType="VARCHAR" property="itemId" />
+    <result column="produc_place" jdbcType="VARCHAR" property="producPlace" />
+    <result column="foot_period" jdbcType="VARCHAR" property="footPeriod" />
+    <result column="brand" jdbcType="VARCHAR" property="brand" />
+    <result column="factory_name" jdbcType="VARCHAR" property="factoryName" />
+    <result column="factory_address" jdbcType="VARCHAR" property="factoryAddress" />
+    <result column="packaging_method" jdbcType="VARCHAR" property="packagingMethod" />
+    <result column="weight" jdbcType="VARCHAR" property="weight" />
+    <result column="storage_method" jdbcType="VARCHAR" property="storageMethod" />
+    <result column="eat_method" jdbcType="VARCHAR" property="eatMethod" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, item_id, produc_place, foot_period, brand, factory_name, factory_address, packaging_method, 
+    weight, storage_method, eat_method, created_time, updated_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from items_param
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from items_param
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.yangxin.pojo.ItemsParam">
+    insert into items_param (id, item_id, produc_place, 
+      foot_period, brand, factory_name, 
+      factory_address, packaging_method, weight, 
+      storage_method, eat_method, created_time, 
+      updated_time)
+    values (#{id,jdbcType=VARCHAR}, #{itemId,jdbcType=VARCHAR}, #{producPlace,jdbcType=VARCHAR}, 
+      #{footPeriod,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, #{factoryName,jdbcType=VARCHAR}, 
+      #{factoryAddress,jdbcType=VARCHAR}, #{packagingMethod,jdbcType=VARCHAR}, #{weight,jdbcType=VARCHAR}, 
+      #{storageMethod,jdbcType=VARCHAR}, #{eatMethod,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{updatedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.yangxin.pojo.ItemsParam">
+    insert into items_param
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="itemId != null">
+        item_id,
+      </if>
+      <if test="producPlace != null">
+        produc_place,
+      </if>
+      <if test="footPeriod != null">
+        foot_period,
+      </if>
+      <if test="brand != null">
+        brand,
+      </if>
+      <if test="factoryName != null">
+        factory_name,
+      </if>
+      <if test="factoryAddress != null">
+        factory_address,
+      </if>
+      <if test="packagingMethod != null">
+        packaging_method,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="storageMethod != null">
+        storage_method,
+      </if>
+      <if test="eatMethod != null">
+        eat_method,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="producPlace != null">
+        #{producPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="footPeriod != null">
+        #{footPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null">
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="factoryName != null">
+        #{factoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="factoryAddress != null">
+        #{factoryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="packagingMethod != null">
+        #{packagingMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="storageMethod != null">
+        #{storageMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="eatMethod != null">
+        #{eatMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.ItemsParam">
+    update items_param
+    <set>
+      <if test="itemId != null">
+        item_id = #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="producPlace != null">
+        produc_place = #{producPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="footPeriod != null">
+        foot_period = #{footPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null">
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="factoryName != null">
+        factory_name = #{factoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="factoryAddress != null">
+        factory_address = #{factoryAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="packagingMethod != null">
+        packaging_method = #{packagingMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="storageMethod != null">
+        storage_method = #{storageMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="eatMethod != null">
+        eat_method = #{eatMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.ItemsParam">
+    update items_param
+    set item_id = #{itemId,jdbcType=VARCHAR},
+      produc_place = #{producPlace,jdbcType=VARCHAR},
+      foot_period = #{footPeriod,jdbcType=VARCHAR},
+      brand = #{brand,jdbcType=VARCHAR},
+      factory_name = #{factoryName,jdbcType=VARCHAR},
+      factory_address = #{factoryAddress,jdbcType=VARCHAR},
+      packaging_method = #{packagingMethod,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=VARCHAR},
+      storage_method = #{storageMethod,jdbcType=VARCHAR},
+      eat_method = #{eatMethod,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
