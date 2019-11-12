@@ -1,5 +1,8 @@
 package org.yangxin.pojo;
 
+import lombok.Builder;
+
+@Builder
 public class Stu {
     private Integer id;
 
