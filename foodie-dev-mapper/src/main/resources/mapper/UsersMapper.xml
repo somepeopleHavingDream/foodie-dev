@@ -1,35 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.yangxin.mapper.UsersMapper">
-  <resultMap id="BaseResultMap" type="org.yangxin.pojo.Users">
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
-    <result column="realname" jdbcType="VARCHAR" property="realname" />
-    <result column="face" jdbcType="VARCHAR" property="face" />
-    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="sex" jdbcType="INTEGER" property="sex" />
-    <result column="birthday" jdbcType="DATE" property="birthday" />
-    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
-    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="org.yangxin.pojo.Users">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="realname" jdbcType="VARCHAR" property="realname"/>
+        <result column="face" jdbcType="VARCHAR" property="face"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
+        <result column="birthday" jdbcType="DATE" property="birthday"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, username, password, nickname, realname, face, mobile, email, sex, birthday, created_time, 
     updated_time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from users
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from users
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByUsername" parameterType="java.lang.String" resultType="int">
+        select count(*)
+        from users
+        where username = #{username}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from users
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="org.yangxin.pojo.Users">
+    <insert id="insert" parameterType="org.yangxin.pojo.Users">
     insert into users (id, username, password, 
       nickname, realname, face, 
       mobile, email, sex, 
@@ -41,125 +48,125 @@
       #{birthday,jdbcType=DATE}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="org.yangxin.pojo.Users">
-    insert into users
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="username != null">
-        username,
-      </if>
-      <if test="password != null">
-        password,
-      </if>
-      <if test="nickname != null">
-        nickname,
-      </if>
-      <if test="realname != null">
-        realname,
-      </if>
-      <if test="face != null">
-        face,
-      </if>
-      <if test="mobile != null">
-        mobile,
-      </if>
-      <if test="email != null">
-        email,
-      </if>
-      <if test="sex != null">
-        sex,
-      </if>
-      <if test="birthday != null">
-        birthday,
-      </if>
-      <if test="createdTime != null">
-        created_time,
-      </if>
-      <if test="updatedTime != null">
-        updated_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="nickname != null">
-        #{nickname,jdbcType=VARCHAR},
-      </if>
-      <if test="realname != null">
-        #{realname,jdbcType=VARCHAR},
-      </if>
-      <if test="face != null">
-        #{face,jdbcType=VARCHAR},
-      </if>
-      <if test="mobile != null">
-        #{mobile,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null">
-        #{sex,jdbcType=INTEGER},
-      </if>
-      <if test="birthday != null">
-        #{birthday,jdbcType=DATE},
-      </if>
-      <if test="createdTime != null">
-        #{createdTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updatedTime != null">
-        #{updatedTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.Users">
-    update users
-    <set>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="nickname != null">
-        nickname = #{nickname,jdbcType=VARCHAR},
-      </if>
-      <if test="realname != null">
-        realname = #{realname,jdbcType=VARCHAR},
-      </if>
-      <if test="face != null">
-        face = #{face,jdbcType=VARCHAR},
-      </if>
-      <if test="mobile != null">
-        mobile = #{mobile,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null">
-        sex = #{sex,jdbcType=INTEGER},
-      </if>
-      <if test="birthday != null">
-        birthday = #{birthday,jdbcType=DATE},
-      </if>
-      <if test="createdTime != null">
-        created_time = #{createdTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updatedTime != null">
-        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.Users">
+    <insert id="insertSelective" parameterType="org.yangxin.pojo.Users">
+        insert into users
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="nickname != null">
+                nickname,
+            </if>
+            <if test="realname != null">
+                realname,
+            </if>
+            <if test="face != null">
+                face,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="realname != null">
+                #{realname,jdbcType=VARCHAR},
+            </if>
+            <if test="face != null">
+                #{face,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=INTEGER},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=DATE},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.Users">
+        update users
+        <set>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="realname != null">
+                realname = #{realname,jdbcType=VARCHAR},
+            </if>
+            <if test="face != null">
+                face = #{face,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=INTEGER},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday,jdbcType=DATE},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.Users">
     update users
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
@@ -174,40 +181,4 @@
       updated_time = #{updatedTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <!--<resultMap id="BaseResultMap" type="org.yangxin.pojo.Users">-->
-    <!--<result column="USER" jdbcType="CHAR" property="user" />-->
-    <!--<result column="CURRENT_CONNECTIONS" jdbcType="BIGINT" property="currentConnections" />-->
-    <!--<result column="TOTAL_CONNECTIONS" jdbcType="BIGINT" property="totalConnections" />-->
-  <!--</resultMap>-->
-  <!--<insert id="insert" parameterType="org.yangxin.pojo.Users">-->
-    <!--insert into users (USER, CURRENT_CONNECTIONS, TOTAL_CONNECTIONS-->
-      <!--)-->
-    <!--values (#{user,jdbcType=CHAR}, #{currentConnections,jdbcType=BIGINT}, #{totalConnections,jdbcType=BIGINT}-->
-      <!--)-->
-  <!--</insert>-->
-  <!--<insert id="insertSelective" parameterType="org.yangxin.pojo.Users">-->
-    <!--insert into users-->
-    <!--<trim prefix="(" suffix=")" suffixOverrides=",">-->
-      <!--<if test="user != null">-->
-        <!--USER,-->
-      <!--</if>-->
-      <!--<if test="currentConnections != null">-->
-        <!--CURRENT_CONNECTIONS,-->
-      <!--</if>-->
-      <!--<if test="totalConnections != null">-->
-        <!--TOTAL_CONNECTIONS,-->
-      <!--</if>-->
-    <!--</trim>-->
-    <!--<trim prefix="values (" suffix=")" suffixOverrides=",">-->
-      <!--<if test="user != null">-->
-        <!--#{user,jdbcType=CHAR},-->
-      <!--</if>-->
-      <!--<if test="currentConnections != null">-->
-        <!--#{currentConnections,jdbcType=BIGINT},-->
-      <!--</if>-->
-      <!--<if test="totalConnections != null">-->
-        <!--#{totalConnections,jdbcType=BIGINT},-->
-      <!--</if>-->
-    <!--</trim>-->
-  <!--</insert>-->
 </mapper>
