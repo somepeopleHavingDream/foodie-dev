@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.yangxin.enums.ResultEnum;
 import org.yangxin.service.UserService;
-import org.yangxin.utils.JSONResult;
+import org.yangxin.utils.JSONUtil;
 
 /**
  * 通行证Controller
@@ -35,21 +35,21 @@ public class PassportController {
      * @return 状态码
      */
     @GetMapping("/usernameIsExist")
-    public JSONResult usernameIsExist(@RequestParam String username) {
+    public JSONUtil usernameIsExist(@RequestParam String username) {
         log.info("username: [{}]", username);
 
         // 判断用户名不能为空
         if (StringUtils.isEmpty(username)) {
-//            return JSONResult.errorMsg("用户名不能为空");
-            return JSONResult.errorMsg(ResultEnum.USERNAME_CANT_EMPTY.getMessage());
+//            return JSONUtil.errorMsg("用户名不能为空");
+            return JSONUtil.errorMsg(ResultEnum.USERNAME_CANT_EMPTY.getMessage());
         }
 
         // 查找注册的用户名是否存在
         if (userService.queryUsernameIsExist(username)) {
-            return JSONResult.errorMsg(ResultEnum.USERNAME_ALREADY_EXIST.getMessage());
+            return JSONUtil.errorMsg(ResultEnum.USERNAME_ALREADY_EXIST.getMessage());
         }
 
         // 请求成功，用户名没有重复
-        return JSONResult.ok();
+        return JSONUtil.ok();
     }
 }

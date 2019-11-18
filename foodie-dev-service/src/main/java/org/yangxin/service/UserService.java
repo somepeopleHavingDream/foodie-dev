@@ -1,5 +1,8 @@
 package org.yangxin.service;
 
+import org.yangxin.pojo.Users;
+import org.yangxin.pojo.bo.UserBO;
+
 /**
  * 用户Service
  *
@@ -14,4 +17,9 @@ public interface UserService {
      * @return 是否存在
      */
     boolean queryUsernameIsExist(String username);
+
+    /**
+     * 创建用户
+     */
+    Users createUser(UserBO userBO);
 }
