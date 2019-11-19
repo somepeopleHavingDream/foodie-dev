@@ -1,5 +1,7 @@
 package org.yangxin.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -17,6 +19,7 @@ import java.util.Objects;
  * @author yangxin
  * 2019/11/13 21:38
  */
+@Api(value = "注册登录", tags = {"用于注册登录的相关接口"})
 @RestController
 @RequestMapping("/passport")
 @Slf4j
@@ -34,6 +37,7 @@ public class PassportController {
      * @param username 用户名
      * @return 状态码
      */
+    @ApiOperation(value = "用户名是否存在", notes = "用户名是否存在", httpMethod = "GET")
     @GetMapping("/usernameIsExist")
     public JSONResult usernameIsExist(@RequestParam String username) {
         log.info("username: [{}]", username);
@@ -52,6 +56,10 @@ public class PassportController {
         return JSONResult.ok();
     }
 
+    /**
+     * 用户注册
+     */
+    @ApiOperation(value = "用户注册", notes = "用户注册", httpMethod = "POST")
     @PostMapping("/register")
     public JSONResult register(@RequestBody UserBO userBO) {
         String username = userBO.getUsername();

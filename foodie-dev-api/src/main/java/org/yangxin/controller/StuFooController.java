@@ -5,7 +5,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.yangxin.service.StuService;
+import springfox.documentation.annotations.ApiIgnore;
 
+/**
+ * @author yangxin
+ * 2019/11/19 21:45
+ */
+@ApiIgnore
 @RestController
 public class StuFooController {
     private final StuService stuService;
