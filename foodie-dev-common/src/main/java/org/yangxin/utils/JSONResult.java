@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * 555：异常抛出信息
  * 556：用户qq校验异常
  */
-public class JSONUtil {
+public class JSONResult {
     // 定义jackson对象
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -30,60 +30,60 @@ public class JSONUtil {
     @JsonIgnore
     private String ok;	// 不使用
 
-    public static JSONUtil build(Integer status, String msg, Object data) {
-        return new JSONUtil(status, msg, data);
+    public static JSONResult build(Integer status, String msg, Object data) {
+        return new JSONResult(status, msg, data);
     }
 
-    public static JSONUtil build(Integer status, String msg, Object data, String ok) {
-        return new JSONUtil(status, msg, data, ok);
+    public static JSONResult build(Integer status, String msg, Object data, String ok) {
+        return new JSONResult(status, msg, data, ok);
     }
 
-    public static JSONUtil ok(Object data) {
-        return new JSONUtil(data);
+    public static JSONResult ok(Object data) {
+        return new JSONResult(data);
     }
 
-    public static JSONUtil ok() {
-        return new JSONUtil(null);
+    public static JSONResult ok() {
+        return new JSONResult(null);
     }
 
-    public static JSONUtil errorMsg(String msg) {
-        return new JSONUtil(500, msg, null);
+    public static JSONResult errorMsg(String msg) {
+        return new JSONResult(500, msg, null);
     }
 
-    public static JSONUtil errorMap(Object data) {
-        return new JSONUtil(501, "error", data);
+    public static JSONResult errorMap(Object data) {
+        return new JSONResult(501, "error", data);
     }
 
-    public static JSONUtil errorTokenMsg(String msg) {
-        return new JSONUtil(502, msg, null);
+    public static JSONResult errorTokenMsg(String msg) {
+        return new JSONResult(502, msg, null);
     }
 
-    public static JSONUtil errorException(String msg) {
-        return new JSONUtil(555, msg, null);
+    public static JSONResult errorException(String msg) {
+        return new JSONResult(555, msg, null);
     }
 
-    public static JSONUtil errorUserQQ(String msg) {
-        return new JSONUtil(556, msg, null);
+    public static JSONResult errorUserQQ(String msg) {
+        return new JSONResult(556, msg, null);
     }
 
-    public JSONUtil() {
+    public JSONResult() {
 
     }
 
-    public JSONUtil(Integer status, String msg, Object data) {
+    private JSONResult(Integer status, String msg, Object data) {
         this.status = status;
         this.msg = msg;
         this.data = data;
     }
 
-    public JSONUtil(Integer status, String msg, Object data, String ok) {
+    private JSONResult(Integer status, String msg, Object data, String ok) {
         this.status = status;
         this.msg = msg;
         this.data = data;
         this.ok = ok;
     }
 
-    public JSONUtil(Object data) {
+    private JSONResult(Object data) {
         this.status = 200;
         this.msg = "OK";
         this.data = data;

@@ -3,13 +3,13 @@ package org.yangxin.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.yangxin.enums.ResultEnum;
+import org.yangxin.pojo.bo.UserBO;
 import org.yangxin.service.UserService;
-import org.yangxin.utils.JSONUtil;
+import org.yangxin.utils.JSONResult;
+
+import java.util.Objects;
 
 /**
  * 通行证Controller
@@ -35,21 +35,54 @@ public class PassportController {
      * @return 状态码
      */
     @GetMapping("/usernameIsExist")
-    public JSONUtil usernameIsExist(@RequestParam String username) {
+    public JSONResult usernameIsExist(@RequestParam String username) {
         log.info("username: [{}]", username);
 
         // 判断用户名不能为空
         if (StringUtils.isEmpty(username)) {
-//            return JSONUtil.errorMsg("用户名不能为空");
-            return JSONUtil.errorMsg(ResultEnum.USERNAME_CANT_EMPTY.getMessage());
+            return JSONResult.errorMsg(ResultEnum.USERNAME_OR_PASSWORD_CANT_EMPTY.getMessage());
         }
 
         // 查找注册的用户名是否存在
         if (userService.queryUsernameIsExist(username)) {
-            return JSONUtil.errorMsg(ResultEnum.USERNAME_ALREADY_EXIST.getMessage());
+            return JSONResult.errorMsg(ResultEnum.USERNAME_ALREADY_EXIST.getMessage());
         }
 
         // 请求成功，用户名没有重复
-        return JSONUtil.ok();
+        return JSONResult.ok();
+    }
+
+    @PostMapping("/register")
+    public JSONResult register(@RequestBody UserBO userBO) {
+        String username = userBO.getUsername();
+        String password = userBO.getPassword();
+        String confirmPassword = userBO.getConfirmPassword();
+
+        // 判断用户名和密码必须不为空
+        if (StringUtils.isEmpty(username)
+                || StringUtils.isEmpty(password)
+                || StringUtils.isEmpty(confirmPassword)) {
+            return JSONResult.errorMsg(ResultEnum.USERNAME_OR_PASSWORD_CANT_EMPTY.getMessage());
+        }
+
+        // 查询用户名是否存在
+        if (userService.queryUsernameIsExist(username)) {
+            return JSONResult.errorMsg(ResultEnum.USERNAME_ALREADY_EXIST.getMessage());
+        }
+
+        // 密码长度不能少于6位
+        if (password.length() < 6) {
+            return JSONResult.errorMsg(ResultEnum.PASSWORD_LENGTH_INVALID.getMessage());
+        }
+
+        // 判断两次密码是否一致
+        if (!Objects.equals(password, confirmPassword)) {
+            return JSONResult.errorMsg(ResultEnum.PASSWORD_CONFIRM_NOT_EQUAL.getMessage());
+        }
+
+        // 实现注册
+        userService.createUser(userBO);
+
+        return JSONResult.ok();
     }
 }
