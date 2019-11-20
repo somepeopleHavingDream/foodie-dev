@@ -76,4 +76,10 @@ public class UserServiceImpl implements UserService {
 
         return null;
     }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public Users queryUserForLogin(String username, String password) {
+        return usersMapper.selectByUsernamePassword(username, password);
+    }
 }

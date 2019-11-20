@@ -26,6 +26,6 @@ public class UserBO {
     /**
      * 第二次输入的密码
      */
-    @ApiModelProperty(value = "确认密码", name = "confirmPassword", example = "123456", required = true)
+    @ApiModelProperty(value = "确认密码", name = "confirmPassword", example = "123456")
     private String confirmPassword;
 }

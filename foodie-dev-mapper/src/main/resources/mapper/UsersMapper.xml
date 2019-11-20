@@ -32,6 +32,13 @@
         where username = #{username}
     </select>
 
+    <select id="selectByUsernamePassword" parameterType="Map" resultMap="BaseResultMap">
+        select *
+        from users
+        where username = #{username}
+        and password = #{password}
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from users
     where id = #{id,jdbcType=VARCHAR}

@@ -22,4 +22,13 @@ public interface UsersMapper {
      * @return 记录数
      */
     int selectByUsername(String username);
+
+    /**
+     * 通过用户名和密码查询一个用户记录
+     *
+     * @param username 用户名
+     * @param password 密码
+     * @return 用户记录
+     */
+    Users selectByUsernamePassword(String username, String password);
 }

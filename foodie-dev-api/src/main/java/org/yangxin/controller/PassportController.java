@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.yangxin.enums.ResultEnum;
+import org.yangxin.pojo.Users;
 import org.yangxin.pojo.bo.UserBO;
 import org.yangxin.service.UserService;
 import org.yangxin.utils.JSONResult;
+import org.yangxin.utils.MD5Util;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
 /**
@@ -95,5 +98,30 @@ public class PassportController {
         userService.createUser(userBO);
 
         return JSONResult.ok();
+    }
+
+    /**
+     * 用户登录
+     */
+    @ApiOperation(value = "用户登录", notes = "用户登录", httpMethod = "POST")
+    @PostMapping("/login")
+    public JSONResult login(@RequestBody UserBO userBO) throws NoSuchAlgorithmException {
+        log.info("userBO: [{}]", userBO);
+
+        String username = userBO.getUsername();
+        String password = userBO.getPassword();
+
+        // 判断用户名和密码必须不为空
+        if (StringUtils.isEmpty(userBO) || StringUtils.isEmpty(password)) {
+            return JSONResult.errorMsg(ResultEnum.USERNAME_OR_PASSWORD_CANT_EMPTY.getMessage());
+        }
+
+        // 实现登录
+        Users users = userService.queryUserForLogin(username, MD5Util.getMD5Str(password));
+        if (users == null) {
+            return JSONResult.errorMsg(ResultEnum.USERNAME_OR_PASSWORD_ERROR.getMessage());
+        }
+
+        return JSONResult.ok(users);
     }
 }
