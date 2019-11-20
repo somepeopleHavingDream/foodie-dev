@@ -60,8 +60,11 @@ public class PassportController {
      * 用户注册
      */
     @ApiOperation(value = "用户注册", notes = "用户注册", httpMethod = "POST")
+    // 前端源码里，访问的url地址是register
     @PostMapping("/register")
     public JSONResult register(@RequestBody UserBO userBO) {
+        log.info("userBO: [{}]", userBO);
+
         String username = userBO.getUsername();
         String password = userBO.getPassword();
         String confirmPassword = userBO.getConfirmPassword();
