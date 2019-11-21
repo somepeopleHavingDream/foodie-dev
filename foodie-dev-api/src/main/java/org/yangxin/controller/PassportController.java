@@ -3,16 +3,19 @@ package org.yangxin.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.yangxin.enums.ResultEnum;
 import org.yangxin.pojo.Users;
-import org.yangxin.pojo.bo.UserBO;
+import org.yangxin.pojo.query.UserQuery;
+import org.yangxin.pojo.vo.UserVO;
 import org.yangxin.service.UserService;
-import org.yangxin.utils.JSONResult;
-import org.yangxin.utils.MD5Util;
+import org.yangxin.utils.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
@@ -42,21 +45,21 @@ public class PassportController {
      */
     @ApiOperation(value = "用户名是否存在", notes = "用户名是否存在", httpMethod = "GET")
     @GetMapping("/usernameIsExist")
-    public JSONResult usernameIsExist(@RequestParam String username) {
+    public JsonResult usernameIsExist(@RequestParam String username) {
         log.info("username: [{}]", username);
 
         // 判断用户名不能为空
         if (StringUtils.isEmpty(username)) {
-            return JSONResult.errorMsg(ResultEnum.USERNAME_OR_PASSWORD_CANT_EMPTY.getMessage());
+            return JsonResult.errorMsg(ResultEnum.USERNAME_OR_PASSWORD_CANT_EMPTY.getMessage());
         }
 
         // 查找注册的用户名是否存在
         if (userService.queryUsernameIsExist(username)) {
-            return JSONResult.errorMsg(ResultEnum.USERNAME_ALREADY_EXIST.getMessage());
+            return JsonResult.errorMsg(ResultEnum.USERNAME_ALREADY_EXIST.getMessage());
         }
 
         // 请求成功，用户名没有重复
-        return JSONResult.ok();
+        return JsonResult.ok();
     }
 
     /**
@@ -65,39 +68,48 @@ public class PassportController {
     @ApiOperation(value = "用户注册", notes = "用户注册", httpMethod = "POST")
     // 前端源码里，访问的url地址是register
     @PostMapping("/register")
-    public JSONResult register(@RequestBody UserBO userBO) {
-        log.info("userBO: [{}]", userBO);
+    public JsonResult register(@RequestBody UserQuery userQuery,
+                               HttpServletRequest request,
+                               HttpServletResponse response) {
+        log.info("userQuery: [{}]", userQuery);
 
-        String username = userBO.getUsername();
-        String password = userBO.getPassword();
-        String confirmPassword = userBO.getConfirmPassword();
+        String username = userQuery.getUsername();
+        String password = userQuery.getPassword();
+        String confirmPassword = userQuery.getConfirmPassword();
 
         // 判断用户名和密码必须不为空
         if (StringUtils.isEmpty(username)
                 || StringUtils.isEmpty(password)
                 || StringUtils.isEmpty(confirmPassword)) {
-            return JSONResult.errorMsg(ResultEnum.USERNAME_OR_PASSWORD_CANT_EMPTY.getMessage());
+            return JsonResult.errorMsg(ResultEnum.USERNAME_OR_PASSWORD_CANT_EMPTY.getMessage());
         }
 
         // 查询用户名是否存在
         if (userService.queryUsernameIsExist(username)) {
-            return JSONResult.errorMsg(ResultEnum.USERNAME_ALREADY_EXIST.getMessage());
+            return JsonResult.errorMsg(ResultEnum.USERNAME_ALREADY_EXIST.getMessage());
         }
 
         // 密码长度不能少于6位
         if (password.length() < 6) {
-            return JSONResult.errorMsg(ResultEnum.PASSWORD_LENGTH_INVALID.getMessage());
+            return JsonResult.errorMsg(ResultEnum.PASSWORD_LENGTH_INVALID.getMessage());
         }
 
         // 判断两次密码是否一致
         if (!Objects.equals(password, confirmPassword)) {
-            return JSONResult.errorMsg(ResultEnum.PASSWORD_CONFIRM_NOT_EQUAL.getMessage());
+            return JsonResult.errorMsg(ResultEnum.PASSWORD_CONFIRM_NOT_EQUAL.getMessage());
         }
 
         // 实现注册
-        userService.createUser(userBO);
+        Users users = userService.createUser(userQuery);
 
-        return JSONResult.ok();
+        // 封装用户视图对象
+        UserVO userVO = new UserVO();
+        BeanUtils.copyProperties(users, userVO);
+
+        // 设置cookie，cookie值必须被编码，因为cookie值很有可能有违法字符
+        CookieUtil.setCookie(request, response, "user", GsonUtil.obj2String(userVO), true);
+
+        return JsonResult.ok();
     }
 
     /**
@@ -105,23 +117,34 @@ public class PassportController {
      */
     @ApiOperation(value = "用户登录", notes = "用户登录", httpMethod = "POST")
     @PostMapping("/login")
-    public JSONResult login(@RequestBody UserBO userBO) throws NoSuchAlgorithmException {
-        log.info("userBO: [{}]", userBO);
+    public JsonResult login(@RequestBody UserQuery userQuery,
+                            HttpServletRequest request,
+                            HttpServletResponse response) throws NoSuchAlgorithmException {
+        log.info("userQuery: [{}]", userQuery);
 
-        String username = userBO.getUsername();
-        String password = userBO.getPassword();
+        String username = userQuery.getUsername();
+        String password = userQuery.getPassword();
 
         // 判断用户名和密码必须不为空
-        if (StringUtils.isEmpty(userBO) || StringUtils.isEmpty(password)) {
-            return JSONResult.errorMsg(ResultEnum.USERNAME_OR_PASSWORD_CANT_EMPTY.getMessage());
+        if (StringUtils.isEmpty(userQuery) || StringUtils.isEmpty(password)) {
+            return JsonResult.errorMsg(ResultEnum.USERNAME_OR_PASSWORD_CANT_EMPTY.getMessage());
         }
 
         // 实现登录
         Users users = userService.queryUserForLogin(username, MD5Util.getMD5Str(password));
         if (users == null) {
-            return JSONResult.errorMsg(ResultEnum.USERNAME_OR_PASSWORD_ERROR.getMessage());
+            return JsonResult.errorMsg(ResultEnum.USERNAME_OR_PASSWORD_ERROR.getMessage());
         }
 
-        return JSONResult.ok(users);
+        // 封装用户视图对象
+        UserVO userVO = new UserVO();
+        BeanUtils.copyProperties(users, userVO);
+
+        // 设置cookie，cookie值必须被编码，因为cookie值很有可能有违法字符
+        CookieUtil.setCookie(request, response, "user", GsonUtil.obj2String(userVO), true);
+
+        // 响应
+        return JsonResult.ok(userVO);
+//        return JsonResult.ok(users);
     }
 }

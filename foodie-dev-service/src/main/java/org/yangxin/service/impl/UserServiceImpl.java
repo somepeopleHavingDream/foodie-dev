@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.yangxin.enums.SexEnum;
 import org.yangxin.mapper.UsersMapper;
 import org.yangxin.pojo.Users;
-import org.yangxin.pojo.bo.UserBO;
+import org.yangxin.pojo.query.UserQuery;
 import org.yangxin.service.UserService;
 import org.yangxin.utils.DateUtil;
 import org.yangxin.utils.MD5Util;
@@ -45,17 +45,17 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public Users createUser(UserBO userBO) {
+    public Users createUser(UserQuery userQuery) {
         try {
             Users users = Users.builder()
                     // id
                     .id(sid.nextShort())
                     // 用户名
-                    .username(userBO.getUsername())
+                    .username(userQuery.getUsername())
                     // 密码
-                    .password(MD5Util.getMD5Str(userBO.getPassword()))
+                    .password(MD5Util.getMD5Str(userQuery.getPassword()))
                     // 昵称
-                    .nickname(userBO.getUsername())
+                    .nickname(userQuery.getUsername())
                     // 头像
                     .face(USER_FACE)
                     // 生日

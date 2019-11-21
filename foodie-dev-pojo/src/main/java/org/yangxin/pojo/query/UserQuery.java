@@ -1,4 +1,4 @@
-package org.yangxin.pojo.bo;
+package org.yangxin.pojo.query;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -10,7 +10,7 @@ import lombok.Data;
  */
 @ApiModel(value = "用户业务对象", description = "从客户端由用户传入的数据封装在此entity中")
 @Data
-public class UserBO {
+public class UserQuery {
     /**
      * 用户名
      */

@@ -11,7 +11,7 @@ import java.security.NoSuchAlgorithmException;
  * @author yangxin
  * 2019/11/18 20:57
  */
-public class MD5Util {
+public final class MD5Util {
     /**
      * 得到md5消息摘要字符串
      */

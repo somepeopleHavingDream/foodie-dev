@@ -1,7 +1,7 @@
 package org.yangxin.service;
 
 import org.yangxin.pojo.Users;
-import org.yangxin.pojo.bo.UserBO;
+import org.yangxin.pojo.query.UserQuery;
 
 /**
  * 用户Service
@@ -21,7 +21,7 @@ public interface UserService {
     /**
      * 创建用户
      */
-    Users createUser(UserBO userBO);
+    Users createUser(UserQuery userQuery);
 
     /**
      * 检索用户名和密码是否匹配，用于登录
