@@ -48,6 +48,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+            <!-- 这个地方要排除原来的包 -->
+            <!--<exclusions>-->
+                <!--<exclusion>-->
+                    <!--<groupId>org.springframework.boot</groupId>-->
+                    <!--<artifactId>spring-boot-starter-logging</artifactId>-->
+                <!--</exclusion>-->
+            <!--</exclusions>-->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
