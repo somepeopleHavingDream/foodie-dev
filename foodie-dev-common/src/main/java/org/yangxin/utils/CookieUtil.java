@@ -144,15 +144,11 @@ public final class CookieUtil {
     }
 
     /**
-     * @param request
-     * @param response
-     * @param cookieName
-     * @Description: 删除Cookie带cookie域名
+     * 删除Cookie带cookie域名
      */
     public static void deleteCookie(HttpServletRequest request, HttpServletResponse response,
                                     String cookieName) {
         doSetCookie(request, response, cookieName, null, -1, false);
-//        doSetCookie(request, response, cookieName, "", -1, false);
     }
 
 

@@ -45,21 +45,21 @@ public class PassportController {
      */
     @ApiOperation(value = "用户名是否存在", notes = "用户名是否存在", httpMethod = "GET")
     @GetMapping("/usernameIsExist")
-    public JsonResult usernameIsExist(@RequestParam String username) {
+    public JSONResult usernameIsExist(@RequestParam String username) {
         log.info("username: [{}]", username);
 
         // 判断用户名不能为空
         if (StringUtils.isEmpty(username)) {
-            return JsonResult.errorMsg(ResultEnum.USERNAME_OR_PASSWORD_CANT_EMPTY.getMessage());
+            return JSONResult.errorMsg(ResultEnum.USERNAME_OR_PASSWORD_CANT_EMPTY.getMessage());
         }
 
         // 查找注册的用户名是否存在
         if (userService.queryUsernameIsExist(username)) {
-            return JsonResult.errorMsg(ResultEnum.USERNAME_ALREADY_EXIST.getMessage());
+            return JSONResult.errorMsg(ResultEnum.USERNAME_ALREADY_EXIST.getMessage());
         }
 
         // 请求成功，用户名没有重复
-        return JsonResult.ok();
+        return JSONResult.ok();
     }
 
     /**
@@ -68,7 +68,7 @@ public class PassportController {
     @ApiOperation(value = "用户注册", notes = "用户注册", httpMethod = "POST")
     // 前端源码里，访问的url地址是register
     @PostMapping("/register")
-    public JsonResult register(@RequestBody UserQuery userQuery,
+    public JSONResult register(@RequestBody UserQuery userQuery,
                                HttpServletRequest request,
                                HttpServletResponse response) {
         log.info("userQuery: [{}]", userQuery);
@@ -81,22 +81,22 @@ public class PassportController {
         if (StringUtils.isEmpty(username)
                 || StringUtils.isEmpty(password)
                 || StringUtils.isEmpty(confirmPassword)) {
-            return JsonResult.errorMsg(ResultEnum.USERNAME_OR_PASSWORD_CANT_EMPTY.getMessage());
+            return JSONResult.errorMsg(ResultEnum.USERNAME_OR_PASSWORD_CANT_EMPTY.getMessage());
         }
 
         // 查询用户名是否存在
         if (userService.queryUsernameIsExist(username)) {
-            return JsonResult.errorMsg(ResultEnum.USERNAME_ALREADY_EXIST.getMessage());
+            return JSONResult.errorMsg(ResultEnum.USERNAME_ALREADY_EXIST.getMessage());
         }
 
         // 密码长度不能少于6位
         if (password.length() < 6) {
-            return JsonResult.errorMsg(ResultEnum.PASSWORD_LENGTH_INVALID.getMessage());
+            return JSONResult.errorMsg(ResultEnum.PASSWORD_LENGTH_INVALID.getMessage());
         }
 
         // 判断两次密码是否一致
         if (!Objects.equals(password, confirmPassword)) {
-            return JsonResult.errorMsg(ResultEnum.PASSWORD_CONFIRM_NOT_EQUAL.getMessage());
+            return JSONResult.errorMsg(ResultEnum.PASSWORD_CONFIRM_NOT_EQUAL.getMessage());
         }
 
         // 实现注册
@@ -109,7 +109,7 @@ public class PassportController {
         // 设置cookie，cookie值必须被编码，因为cookie值很有可能有违法字符
         CookieUtil.setCookie(request, response, "user", GsonUtil.obj2String(userVO), true);
 
-        return JsonResult.ok();
+        return JSONResult.ok();
     }
 
     /**
@@ -117,7 +117,7 @@ public class PassportController {
      */
     @ApiOperation(value = "用户登录", notes = "用户登录", httpMethod = "POST")
     @PostMapping("/login")
-    public JsonResult login(@RequestBody UserQuery userQuery,
+    public JSONResult login(@RequestBody UserQuery userQuery,
                             HttpServletRequest request,
                             HttpServletResponse response) throws NoSuchAlgorithmException {
         log.info("userQuery: [{}]", userQuery);
@@ -127,13 +127,13 @@ public class PassportController {
 
         // 判断用户名和密码必须不为空
         if (StringUtils.isEmpty(userQuery) || StringUtils.isEmpty(password)) {
-            return JsonResult.errorMsg(ResultEnum.USERNAME_OR_PASSWORD_CANT_EMPTY.getMessage());
+            return JSONResult.errorMsg(ResultEnum.USERNAME_OR_PASSWORD_CANT_EMPTY.getMessage());
         }
 
         // 实现登录
         Users users = userService.queryUserForLogin(username, MD5Util.getMD5Str(password));
         if (users == null) {
-            return JsonResult.errorMsg(ResultEnum.USERNAME_OR_PASSWORD_ERROR.getMessage());
+            return JSONResult.errorMsg(ResultEnum.USERNAME_OR_PASSWORD_ERROR.getMessage());
         }
 
         // 封装用户视图对象
@@ -144,7 +144,20 @@ public class PassportController {
         CookieUtil.setCookie(request, response, "user", GsonUtil.obj2String(userVO), true);
 
         // 响应
-        return JsonResult.ok(userVO);
-//        return JsonResult.ok(users);
+        return JSONResult.ok(userVO);
+    }
+
+    @ApiOperation(value = "用户退出登录", notes = "用户退出登录", httpMethod = "POST")
+    @PostMapping("/logout")
+    public JSONResult logout(@RequestParam String userId, HttpServletRequest request, HttpServletResponse response) {
+        log.info("userId: [{}]", userId);
+
+        // 清除用户的相关信息的cookie
+        CookieUtil.deleteCookie(request, response, "user");
+
+        // todo 用户退出登录，需要清空购物车
+        // todo 分布式会话中需要清除用户数据
+
+        return JSONResult.ok();
     }
 }
