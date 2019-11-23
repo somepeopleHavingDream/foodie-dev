@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.yangxin.enums.YesNoEnum;
 import org.yangxin.pojo.Carousel;
+import org.yangxin.pojo.Category;
 import org.yangxin.service.CarouselService;
+import org.yangxin.service.CategoryService;
 import org.yangxin.utils.JSONResult;
 
 import java.util.List;
@@ -24,10 +26,12 @@ import java.util.List;
 @RequestMapping("/index")
 public class IndexController {
     private final CarouselService carouselService;
+    private final CategoryService categoryService;
 
     @Autowired
-    public IndexController(CarouselService carouselService) {
+    public IndexController(CarouselService carouselService, CategoryService categoryService) {
         this.carouselService = carouselService;
+        this.categoryService = categoryService;
     }
 
     /**
@@ -45,4 +49,10 @@ public class IndexController {
      * 1. 第一次刷新主页查询大分类，渲染展示到首页
      * 2. 如果鼠标移到大分类，则加载其子分类的内容。如果已经存在子分类，则不需要加载（懒加载）
      */
+    @ApiOperation(value = "获取商品分类（一级分类）", notes = "获取商品分类（一级分类）", httpMethod = "GET")
+    @GetMapping("/cats")
+    public JSONResult categories() {
+        List<Category> categoryList = categoryService.queryAllRootLevelCategory();
+        return JSONResult.ok(categoryList);
+    }
 }

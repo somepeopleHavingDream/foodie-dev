@@ -1,30 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.yangxin.mapper.CategoryMapper">
-  <resultMap id="BaseResultMap" type="org.yangxin.pojo.Category">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="type" jdbcType="INTEGER" property="type" />
-    <result column="father_id" jdbcType="INTEGER" property="fatherId" />
-    <result column="logo" jdbcType="VARCHAR" property="logo" />
-    <result column="slogan" jdbcType="VARCHAR" property="slogan" />
-    <result column="cat_image" jdbcType="VARCHAR" property="catImage" />
-    <result column="bg_color" jdbcType="VARCHAR" property="bgColor" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="org.yangxin.pojo.Category">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="father_id" jdbcType="INTEGER" property="fatherId"/>
+        <result column="logo" jdbcType="VARCHAR" property="logo"/>
+        <result column="slogan" jdbcType="VARCHAR" property="slogan"/>
+        <result column="cat_image" jdbcType="VARCHAR" property="catImage"/>
+        <result column="bg_color" jdbcType="VARCHAR" property="bgColor"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, name, type, father_id, logo, slogan, cat_image, bg_color
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from category
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from category
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectByType" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from category
+        where type = #{type,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from category
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.yangxin.pojo.Category">
+    <insert id="insert" parameterType="org.yangxin.pojo.Category">
     insert into category (id, name, type, 
       father_id, logo, slogan, 
       cat_image, bg_color)
@@ -32,89 +38,89 @@
       #{fatherId,jdbcType=INTEGER}, #{logo,jdbcType=VARCHAR}, #{slogan,jdbcType=VARCHAR}, 
       #{catImage,jdbcType=VARCHAR}, #{bgColor,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="org.yangxin.pojo.Category">
-    insert into category
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="fatherId != null">
-        father_id,
-      </if>
-      <if test="logo != null">
-        logo,
-      </if>
-      <if test="slogan != null">
-        slogan,
-      </if>
-      <if test="catImage != null">
-        cat_image,
-      </if>
-      <if test="bgColor != null">
-        bg_color,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=INTEGER},
-      </if>
-      <if test="fatherId != null">
-        #{fatherId,jdbcType=INTEGER},
-      </if>
-      <if test="logo != null">
-        #{logo,jdbcType=VARCHAR},
-      </if>
-      <if test="slogan != null">
-        #{slogan,jdbcType=VARCHAR},
-      </if>
-      <if test="catImage != null">
-        #{catImage,jdbcType=VARCHAR},
-      </if>
-      <if test="bgColor != null">
-        #{bgColor,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.Category">
-    update category
-    <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        type = #{type,jdbcType=INTEGER},
-      </if>
-      <if test="fatherId != null">
-        father_id = #{fatherId,jdbcType=INTEGER},
-      </if>
-      <if test="logo != null">
-        logo = #{logo,jdbcType=VARCHAR},
-      </if>
-      <if test="slogan != null">
-        slogan = #{slogan,jdbcType=VARCHAR},
-      </if>
-      <if test="catImage != null">
-        cat_image = #{catImage,jdbcType=VARCHAR},
-      </if>
-      <if test="bgColor != null">
-        bg_color = #{bgColor,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.Category">
+    <insert id="insertSelective" parameterType="org.yangxin.pojo.Category">
+        insert into category
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="fatherId != null">
+                father_id,
+            </if>
+            <if test="logo != null">
+                logo,
+            </if>
+            <if test="slogan != null">
+                slogan,
+            </if>
+            <if test="catImage != null">
+                cat_image,
+            </if>
+            <if test="bgColor != null">
+                bg_color,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="fatherId != null">
+                #{fatherId,jdbcType=INTEGER},
+            </if>
+            <if test="logo != null">
+                #{logo,jdbcType=VARCHAR},
+            </if>
+            <if test="slogan != null">
+                #{slogan,jdbcType=VARCHAR},
+            </if>
+            <if test="catImage != null">
+                #{catImage,jdbcType=VARCHAR},
+            </if>
+            <if test="bgColor != null">
+                #{bgColor,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.Category">
+        update category
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="fatherId != null">
+                father_id = #{fatherId,jdbcType=INTEGER},
+            </if>
+            <if test="logo != null">
+                logo = #{logo,jdbcType=VARCHAR},
+            </if>
+            <if test="slogan != null">
+                slogan = #{slogan,jdbcType=VARCHAR},
+            </if>
+            <if test="catImage != null">
+                cat_image = #{catImage,jdbcType=VARCHAR},
+            </if>
+            <if test="bgColor != null">
+                bg_color = #{bgColor,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.Category">
     update category
     set name = #{name,jdbcType=VARCHAR},
       type = #{type,jdbcType=INTEGER},

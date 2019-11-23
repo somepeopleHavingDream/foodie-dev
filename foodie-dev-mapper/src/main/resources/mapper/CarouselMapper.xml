@@ -28,6 +28,7 @@
         <include refid="Base_Column_List"/>
         from carousel
         where is_show = #{isShow}
+        order by sort desc
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
