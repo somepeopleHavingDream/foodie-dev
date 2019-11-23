@@ -1,33 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.yangxin.mapper.CarouselMapper">
-  <resultMap id="BaseResultMap" type="org.yangxin.pojo.Carousel">
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
-    <result column="background_color" jdbcType="VARCHAR" property="backgroundColor" />
-    <result column="item_id" jdbcType="VARCHAR" property="itemId" />
-    <result column="cat_id" jdbcType="VARCHAR" property="catId" />
-    <result column="type" jdbcType="INTEGER" property="type" />
-    <result column="sort" jdbcType="INTEGER" property="sort" />
-    <result column="is_show" jdbcType="INTEGER" property="isShow" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="org.yangxin.pojo.Carousel">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="image_url" jdbcType="VARCHAR" property="imageUrl"/>
+        <result column="background_color" jdbcType="VARCHAR" property="backgroundColor"/>
+        <result column="item_id" jdbcType="VARCHAR" property="itemId"/>
+        <result column="cat_id" jdbcType="VARCHAR" property="catId"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+        <result column="is_show" jdbcType="INTEGER" property="isShow"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, image_url, background_color, item_id, cat_id, type, sort, is_show, create_time, 
     update_time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from carousel
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from carousel
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="selectByIsShow" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from carousel
+        where is_show = #{isShow}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from carousel
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="org.yangxin.pojo.Carousel">
+    <insert id="insert" parameterType="org.yangxin.pojo.Carousel">
     insert into carousel (id, image_url, background_color, 
       item_id, cat_id, type, 
       sort, is_show, create_time, 
@@ -37,107 +44,107 @@
       #{sort,jdbcType=INTEGER}, #{isShow,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="org.yangxin.pojo.Carousel">
-    insert into carousel
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="imageUrl != null">
-        image_url,
-      </if>
-      <if test="backgroundColor != null">
-        background_color,
-      </if>
-      <if test="itemId != null">
-        item_id,
-      </if>
-      <if test="catId != null">
-        cat_id,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="sort != null">
-        sort,
-      </if>
-      <if test="isShow != null">
-        is_show,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="imageUrl != null">
-        #{imageUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="backgroundColor != null">
-        #{backgroundColor,jdbcType=VARCHAR},
-      </if>
-      <if test="itemId != null">
-        #{itemId,jdbcType=VARCHAR},
-      </if>
-      <if test="catId != null">
-        #{catId,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=INTEGER},
-      </if>
-      <if test="sort != null">
-        #{sort,jdbcType=INTEGER},
-      </if>
-      <if test="isShow != null">
-        #{isShow,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.Carousel">
-    update carousel
-    <set>
-      <if test="imageUrl != null">
-        image_url = #{imageUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="backgroundColor != null">
-        background_color = #{backgroundColor,jdbcType=VARCHAR},
-      </if>
-      <if test="itemId != null">
-        item_id = #{itemId,jdbcType=VARCHAR},
-      </if>
-      <if test="catId != null">
-        cat_id = #{catId,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        type = #{type,jdbcType=INTEGER},
-      </if>
-      <if test="sort != null">
-        sort = #{sort,jdbcType=INTEGER},
-      </if>
-      <if test="isShow != null">
-        is_show = #{isShow,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.Carousel">
+    <insert id="insertSelective" parameterType="org.yangxin.pojo.Carousel">
+        insert into carousel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="imageUrl != null">
+                image_url,
+            </if>
+            <if test="backgroundColor != null">
+                background_color,
+            </if>
+            <if test="itemId != null">
+                item_id,
+            </if>
+            <if test="catId != null">
+                cat_id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="isShow != null">
+                is_show,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="imageUrl != null">
+                #{imageUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="backgroundColor != null">
+                #{backgroundColor,jdbcType=VARCHAR},
+            </if>
+            <if test="itemId != null">
+                #{itemId,jdbcType=VARCHAR},
+            </if>
+            <if test="catId != null">
+                #{catId,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="isShow != null">
+                #{isShow,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.Carousel">
+        update carousel
+        <set>
+            <if test="imageUrl != null">
+                image_url = #{imageUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="backgroundColor != null">
+                background_color = #{backgroundColor,jdbcType=VARCHAR},
+            </if>
+            <if test="itemId != null">
+                item_id = #{itemId,jdbcType=VARCHAR},
+            </if>
+            <if test="catId != null">
+                cat_id = #{catId,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null">
+                sort = #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="isShow != null">
+                is_show = #{isShow,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.Carousel">
     update carousel
     set image_url = #{imageUrl,jdbcType=VARCHAR},
       background_color = #{backgroundColor,jdbcType=VARCHAR},
