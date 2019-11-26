@@ -2,6 +2,7 @@ package org.yangxin.service;
 
 import org.yangxin.pojo.Category;
 import org.yangxin.pojo.vo.CategoryVO;
+import org.yangxin.pojo.vo.NewItemsVO;
 
 import java.util.List;
 
@@ -26,4 +27,12 @@ public interface CategoryService {
      * @return 子分类信息
      */
     List<CategoryVO> querySubCategoryList(Integer rootCategoryId);
+
+    /**
+     * 查询首页每个一级分类下的6条最新商品数据
+     *
+     * @param rootCategoryId 一级分类id
+     * @return 最新商品数据
+     */
+    List<NewItemsVO> querySixNewItemsLazy(Integer rootCategoryId);
 }

@@ -8,9 +8,12 @@ import org.yangxin.enums.CategoryTypeEnum;
 import org.yangxin.mapper.CategoryMapper;
 import org.yangxin.pojo.Category;
 import org.yangxin.pojo.vo.CategoryVO;
+import org.yangxin.pojo.vo.NewItemsVO;
 import org.yangxin.service.CategoryService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 分类
@@ -37,5 +40,14 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional(propagation = Propagation.SUPPORTS)
     public List<CategoryVO> querySubCategoryList(Integer rootCategoryId) {
         return categoryMapper.selectByRootCategoryId(rootCategoryId);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public List<NewItemsVO> querySixNewItemsLazy(Integer rootCategoryId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("rootCategoryId", rootCategoryId);
+
+        return categoryMapper.querySixNewItemsLazy(map);
     }
 }

@@ -1,9 +1,12 @@
 package org.yangxin.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.yangxin.pojo.Category;
 import org.yangxin.pojo.vo.CategoryVO;
+import org.yangxin.pojo.vo.NewItemsVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CategoryMapper {
     int deleteByPrimaryKey(Integer id);
@@ -33,4 +36,9 @@ public interface CategoryMapper {
      * @return 子分类信息
      */
     List<CategoryVO> selectByRootCategoryId(Integer rootCategoryId);
+
+    /**
+     * 查询首页每个一级分类下的6条最新商品数据
+     */
+    List<NewItemsVO> querySixNewItemsLazy(@Param("paramsMap") Map<String, Object> map);
 }

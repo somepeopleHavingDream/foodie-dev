@@ -29,6 +29,25 @@
             <result column="subFatherId" property="subFatherId"/>
         </collection>
     </resultMap>
+    <resultMap id="NewItemsVO" type="org.yangxin.pojo.vo.NewItemsVO">
+        <id column="rootCatId" property="rootCategoryId"/>
+        <result column="rootCatName" property="rootCategoryName"/>
+        <result column="slogan" property="slogan"/>
+        <result column="catImage" property="categoryImage"/>
+        <result column="bgColor" property="backgroundColor"/>
+
+        <!--
+            collection标签：用于定义关联的list集合类型的封装规则
+            property：对应三级分类的list属性名
+            ofType：集合的类型，三级分类的VO
+        -->
+        <collection property="simpleItemList" ofType="org.yangxin.pojo.vo.SimpleItemVO">
+            <id column="subId" property="subId"/>
+            <result column="itemId" property="itemId"/>
+            <result column="itemName" property="itemName"/>
+            <result column="itemUrl" property="itemURL"/>
+        </collection>
+    </resultMap>
     <sql id="Base_Column_List">
         id
         , name, type, father_id, logo, slogan, cat_image, bg_color
@@ -58,6 +77,28 @@
         left join category b
         on a.id = b.father_id
         where a.father_id = #{rootCategoryId};
+    </select>
+    <select id="querySixNewItemsLazy" parameterType="Map" resultMap="NewItemsVO">
+        select
+        c.id as rootCatId,
+        c.name as rootCatName,
+        c.slogan as slogan,
+        c.cat_image as catImage,
+        c.bg_color as bgColor,
+        i.id as itemId,
+        i.item_name as itemName,
+        ii.url as itemUrl,
+        i.created_time as createdTime
+        from category c
+        left join items i
+        on c.id = i.root_cat_id
+        left join items_img ii
+        on i.id = ii.item_id
+        where c.type = 1
+        and i.root_cat_id = #{paramsMap.rootCategoryId}
+        and ii.is_main = 1
+        order by i.created_time desc
+        limit 0, 6;
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete

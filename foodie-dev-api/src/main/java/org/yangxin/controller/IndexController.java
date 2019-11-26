@@ -14,6 +14,7 @@ import org.yangxin.enums.YesNoEnum;
 import org.yangxin.pojo.Carousel;
 import org.yangxin.pojo.Category;
 import org.yangxin.pojo.vo.CategoryVO;
+import org.yangxin.pojo.vo.NewItemsVO;
 import org.yangxin.service.CarouselService;
 import org.yangxin.service.CategoryService;
 import org.yangxin.utils.JSONResult;
@@ -68,10 +69,10 @@ public class IndexController {
      * @param rootCategoryId 一级分类id
      */
     @ApiOperation(value = "获取商品子分类", notes = "获取商品子分类", httpMethod = "GET")
-    @GetMapping("/subCat/{rootCategoryId}")
+    @GetMapping("/subCat/{rootCatId}")
     public JSONResult subCategory(
             @ApiParam(name = "rootCategoryId", value = "一级分类id", required = true)
-            @PathVariable(name = "rootCategoryId") Integer rootCategoryId) {
+            @PathVariable(name = "rootCatId") Integer rootCategoryId) {
         log.info("rootCategoryId: [{}]", rootCategoryId);
 
         if (rootCategoryId == null) {
@@ -80,5 +81,20 @@ public class IndexController {
 
         List<CategoryVO> categoryVOList = categoryService.querySubCategoryList(rootCategoryId);
         return JSONResult.ok(categoryVOList);
+    }
+
+    @ApiOperation(value = "查询每个一级分类下的最新6条商品数据", notes = "查询每个一级分类下的最新6条商品数据", httpMethod = "GET")
+    @GetMapping("/sixNewItems/{rootCatId}")
+    public JSONResult sixNewItems(
+            @ApiParam(name = "rootCategoryId", value = "一级分类id", required = true)
+            @PathVariable(name = "rootCatId") Integer rootCategoryId) {
+        log.info("rootCategoryId: [{}]", rootCategoryId);
+
+        if (rootCategoryId == null) {
+            return JSONResult.errorMap(ResultEnum.CATEGORY_IS_NOT_EXIST.getMessage());
+        }
+
+        List<NewItemsVO> newItemsVOList = categoryService.querySixNewItemsLazy(rootCategoryId);
+        return JSONResult.ok(newItemsVOList);
     }
 }

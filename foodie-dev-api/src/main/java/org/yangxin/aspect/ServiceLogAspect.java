@@ -34,7 +34,7 @@ public class ServiceLogAspect {
      */
     @Around("execution(* org.yangxin.service.impl..*.*(..))")
     public Object recordTimeLog(ProceedingJoinPoint joinPoint) throws Throwable {
-        log.info("开始执行[{}.{}]", joinPoint.getTarget().getClass(), joinPoint.getSignature().getName());
+//        log.info("开始执行[{}.{}]", joinPoint.getTarget().getClass(), joinPoint.getSignature().getName());
 
         // 记录开始时间
         long begin = System.currentTimeMillis();
@@ -48,10 +48,6 @@ public class ServiceLogAspect {
 
         if (takeTime > 3000) {
             log.error("执行结束，耗时[{}]毫秒", takeTime);
-        } else if (takeTime > 2000) {
-            log.warn("执行结束，耗时[{}]毫秒", takeTime);
-        } else {
-            log.info("执行结束，耗时[{}]毫秒", takeTime);
         }
 
         return result;
