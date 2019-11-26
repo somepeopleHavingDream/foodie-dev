@@ -11,9 +11,28 @@
         <result column="cat_image" jdbcType="VARCHAR" property="catImage"/>
         <result column="bg_color" jdbcType="VARCHAR" property="bgColor"/>
     </resultMap>
+    <resultMap id="CategoryVO" type="org.yangxin.pojo.vo.CategoryVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="fatherId" property="fatherId"/>
+
+        <!--
+            collection标签：用于定义关联的list集合类型的封装规则
+            property：对应三级分类的list属性名
+            ofType：集合的类型，三级分类的VO
+        -->
+        <collection property="subCatList" ofType="org.yangxin.pojo.vo.SubCategoryVO">
+            <id column="subId" property="subId"/>
+            <result column="subName" property="subName"/>
+            <result column="subType" property="subType"/>
+            <result column="subFatherId" property="subFatherId"/>
+        </collection>
+    </resultMap>
     <sql id="Base_Column_List">
-    id, name, type, father_id, logo, slogan, cat_image, bg_color
-  </sql>
+        id
+        , name, type, father_id, logo, slogan, cat_image, bg_color
+    </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -26,18 +45,33 @@
         from category
         where type = #{type,jdbcType=INTEGER}
     </select>
+    <select id="selectByRootCategoryId" parameterType="java.lang.Integer" resultMap="CategoryVO">
+        select a.id as id,
+        a.name as name,
+        a.type as type,
+        a.father_id as fatherId,
+        b.id as subId,
+        b.name as subName,
+        b.type as subType,
+        b.father_id as subFatherId
+        from category a
+        left join category b
+        on a.id = b.father_id
+        where a.father_id = #{rootCategoryId};
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from category
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+        delete
+        from category
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <insert id="insert" parameterType="org.yangxin.pojo.Category">
-    insert into category (id, name, type, 
-      father_id, logo, slogan, 
-      cat_image, bg_color)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
-      #{fatherId,jdbcType=INTEGER}, #{logo,jdbcType=VARCHAR}, #{slogan,jdbcType=VARCHAR}, 
-      #{catImage,jdbcType=VARCHAR}, #{bgColor,jdbcType=VARCHAR})
-  </insert>
+        insert into category (id, name, type,
+        father_id, logo, slogan,
+        cat_image, bg_color)
+        values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER},
+        #{fatherId,jdbcType=INTEGER}, #{logo,jdbcType=VARCHAR}, #{slogan,jdbcType=VARCHAR},
+        #{catImage,jdbcType=VARCHAR}, #{bgColor,jdbcType=VARCHAR})
+    </insert>
     <insert id="insertSelective" parameterType="org.yangxin.pojo.Category">
         insert into category
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -121,14 +155,14 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.Category">
-    update category
-    set name = #{name,jdbcType=VARCHAR},
-      type = #{type,jdbcType=INTEGER},
-      father_id = #{fatherId,jdbcType=INTEGER},
-      logo = #{logo,jdbcType=VARCHAR},
-      slogan = #{slogan,jdbcType=VARCHAR},
-      cat_image = #{catImage,jdbcType=VARCHAR},
-      bg_color = #{bgColor,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        update category
+        set name = #{name,jdbcType=VARCHAR},
+        type = #{type,jdbcType=INTEGER},
+        father_id = #{fatherId,jdbcType=INTEGER},
+        logo = #{logo,jdbcType=VARCHAR},
+        slogan = #{slogan,jdbcType=VARCHAR},
+        cat_image = #{catImage,jdbcType=VARCHAR},
+        bg_color = #{bgColor,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

@@ -1,6 +1,7 @@
 package org.yangxin.mapper;
 
 import org.yangxin.pojo.Category;
+import org.yangxin.pojo.vo.CategoryVO;
 
 import java.util.List;
 
@@ -24,4 +25,12 @@ public interface CategoryMapper {
      * @return 分类记录
      */
     List<Category> selectByType(Integer type);
+
+    /**
+     * 根据一级分类id查询子分类信息
+     *
+     * @param rootCategoryId 一级分类id
+     * @return 子分类信息
+     */
+    List<CategoryVO> selectByRootCategoryId(Integer rootCategoryId);
 }

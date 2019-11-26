@@ -2,13 +2,18 @@ package org.yangxin.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.yangxin.enums.ResultEnum;
 import org.yangxin.enums.YesNoEnum;
 import org.yangxin.pojo.Carousel;
 import org.yangxin.pojo.Category;
+import org.yangxin.pojo.vo.CategoryVO;
 import org.yangxin.service.CarouselService;
 import org.yangxin.service.CategoryService;
 import org.yangxin.utils.JSONResult;
@@ -24,6 +29,7 @@ import java.util.List;
 @Api(value = "首页", tags = {"首页展示的相关接口"})
 @RestController
 @RequestMapping("/index")
+@Slf4j
 public class IndexController {
     private final CarouselService carouselService;
     private final CategoryService categoryService;
@@ -54,5 +60,25 @@ public class IndexController {
     public JSONResult categories() {
         List<Category> categoryList = categoryService.queryAllRootLevelCategory();
         return JSONResult.ok(categoryList);
+    }
+
+    /**
+     * 子分类
+     *
+     * @param rootCategoryId 一级分类id
+     */
+    @ApiOperation(value = "获取商品子分类", notes = "获取商品子分类", httpMethod = "GET")
+    @GetMapping("/subCat/{rootCategoryId}")
+    public JSONResult subCategory(
+            @ApiParam(name = "rootCategoryId", value = "一级分类id", required = true)
+            @PathVariable(name = "rootCategoryId") Integer rootCategoryId) {
+        log.info("rootCategoryId: [{}]", rootCategoryId);
+
+        if (rootCategoryId == null) {
+            return JSONResult.errorMap(ResultEnum.CATEGORY_IS_NOT_EXIST.getMessage());
+        }
+
+        List<CategoryVO> categoryVOList = categoryService.querySubCategoryList(rootCategoryId);
+        return JSONResult.ok(categoryVOList);
     }
 }
