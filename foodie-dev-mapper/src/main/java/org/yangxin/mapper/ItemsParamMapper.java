@@ -14,4 +14,12 @@ public interface ItemsParamMapper {
     int updateByPrimaryKeySelective(ItemsParam record);
 
     int updateByPrimaryKey(ItemsParam record);
+
+    /**
+     * 根据商品Id查询商品参数
+     *
+     * @param itemId 商品Id
+     * @return 商品参数
+     */
+    ItemsParam selectByItemId(String itemId);
 }

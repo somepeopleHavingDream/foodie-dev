@@ -4,7 +4,7 @@ import org.yangxin.pojo.Users;
 import org.yangxin.pojo.query.UserQuery;
 
 /**
- * 用户Service
+ * 用户
  *
  * @author yangxin
  * 2019/11/13 21:31
