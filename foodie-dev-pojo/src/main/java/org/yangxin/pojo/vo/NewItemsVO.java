@@ -15,12 +15,12 @@ public class NewItemsVO {
     /**
      * 一级分类Id
      */
-    private Integer rootCategoryId;
+    private Integer rootCatId;
 
     /**
      * 一级分类名称
      */
-    private String rootCategoryName;
+    private String rootCatName;
 
     /**
      * 标语
@@ -30,12 +30,12 @@ public class NewItemsVO {
     /**
      * 分类图片
      */
-    private String categoryImage;
+    private String catImage;
 
     /**
      * 背景颜色
      */
-    private String backgroundColor;
+    private String bgColor;
 
     /**
      * 6个商品

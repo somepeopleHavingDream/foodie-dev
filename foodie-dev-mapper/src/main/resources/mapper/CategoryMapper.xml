@@ -30,11 +30,11 @@
         </collection>
     </resultMap>
     <resultMap id="NewItemsVO" type="org.yangxin.pojo.vo.NewItemsVO">
-        <id column="rootCatId" property="rootCategoryId"/>
-        <result column="rootCatName" property="rootCategoryName"/>
+        <id column="rootCatId" property="rootCatId"/>
+        <result column="rootCatName" property="rootCatName"/>
         <result column="slogan" property="slogan"/>
-        <result column="catImage" property="categoryImage"/>
-        <result column="bgColor" property="backgroundColor"/>
+        <result column="catImage" property="catImage"/>
+        <result column="bgColor" property="bgColor"/>
 
         <!--
             collection标签：用于定义关联的list集合类型的封装规则
@@ -45,7 +45,7 @@
             <id column="subId" property="subId"/>
             <result column="itemId" property="itemId"/>
             <result column="itemName" property="itemName"/>
-            <result column="itemUrl" property="itemURL"/>
+            <result column="itemUrl" property="itemUrl"/>
         </collection>
     </resultMap>
     <sql id="Base_Column_List">

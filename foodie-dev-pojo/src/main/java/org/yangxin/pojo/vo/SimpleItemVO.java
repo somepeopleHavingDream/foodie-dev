@@ -23,5 +23,5 @@ class SimpleItemVO {
     /**
      * 商品图片地址
      */
-    private String itemURL;
+    private String itemUrl;
 }

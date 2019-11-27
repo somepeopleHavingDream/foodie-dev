@@ -71,9 +71,9 @@ public class IndexController {
     @ApiOperation(value = "获取商品子分类", notes = "获取商品子分类", httpMethod = "GET")
     @GetMapping("/subCat/{rootCatId}")
     public JSONResult subCategory(
-            @ApiParam(name = "rootCategoryId", value = "一级分类id", required = true)
+            @ApiParam(name = "rootCatId", value = "一级分类id", required = true)
             @PathVariable(name = "rootCatId") Integer rootCategoryId) {
-        log.info("rootCategoryId: [{}]", rootCategoryId);
+        log.info("rootCatId: [{}]", rootCategoryId);
 
         if (rootCategoryId == null) {
             return JSONResult.errorMap(ResultEnum.CATEGORY_IS_NOT_EXIST.getMessage());
@@ -86,9 +86,9 @@ public class IndexController {
     @ApiOperation(value = "查询每个一级分类下的最新6条商品数据", notes = "查询每个一级分类下的最新6条商品数据", httpMethod = "GET")
     @GetMapping("/sixNewItems/{rootCatId}")
     public JSONResult sixNewItems(
-            @ApiParam(name = "rootCategoryId", value = "一级分类id", required = true)
+            @ApiParam(name = "rootCatId", value = "一级分类id", required = true)
             @PathVariable(name = "rootCatId") Integer rootCategoryId) {
-        log.info("rootCategoryId: [{}]", rootCategoryId);
+        log.info("rootCatId: [{}]", rootCategoryId);
 
         if (rootCategoryId == null) {
             return JSONResult.errorMap(ResultEnum.CATEGORY_IS_NOT_EXIST.getMessage());
