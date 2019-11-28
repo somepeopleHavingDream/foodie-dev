@@ -4,6 +4,7 @@ import org.yangxin.pojo.Items;
 import org.yangxin.pojo.ItemsImg;
 import org.yangxin.pojo.ItemsParam;
 import org.yangxin.pojo.ItemsSpec;
+import org.yangxin.pojo.vo.CommentLevelCountVO;
 
 import java.util.List;
 
@@ -45,4 +46,12 @@ public interface ItemService {
      * @return 商品参数
      */
     ItemsParam queryItemParam(String itemId);
+
+    /**
+     * 根据商品Id查询商品评价
+     *
+     * @param itemId 商品Id
+     * @return 商品评价
+     */
+    CommentLevelCountVO queryCommentCount(String itemId);
 }

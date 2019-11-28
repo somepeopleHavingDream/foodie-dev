@@ -20,7 +20,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
 /**
- * 通行证Controller
+ * 通行证
  *
  * @author yangxin
  * 2019/11/13 21:38

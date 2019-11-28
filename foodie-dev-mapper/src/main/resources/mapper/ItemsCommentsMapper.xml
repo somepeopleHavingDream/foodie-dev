@@ -23,6 +23,12 @@
     from items_comments
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  <select id="countByItemIdLevel" parameterType="Map" resultType="int">
+    select count(*)
+    from items_comments
+    where item_id = #{itemId}
+    and comment_level = #{level}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from items_comments
     where id = #{id,jdbcType=VARCHAR}

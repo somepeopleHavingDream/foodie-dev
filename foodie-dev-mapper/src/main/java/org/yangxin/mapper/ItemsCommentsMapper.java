@@ -14,4 +14,13 @@ public interface ItemsCommentsMapper {
     int updateByPrimaryKeySelective(ItemsComments record);
 
     int updateByPrimaryKey(ItemsComments record);
+
+    /**
+     * 查询评价数量
+     *
+     * @param itemId 商品Id
+     * @param level 评价等级
+     * @return 评价数
+     */
+    int countByItemIdLevel(String itemId, int level);
 }

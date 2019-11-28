@@ -6,10 +6,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.yangxin.pojo.Items;
 import org.yangxin.pojo.ItemsImg;
 import org.yangxin.pojo.ItemsParam;
@@ -65,5 +62,22 @@ public class ItemsController {
                 .build();
 
         return JSONResult.ok(itemInfoVO);
+    }
+
+    /**
+     * 商品评价等级
+     */
+    @ApiOperation(value = "查询商品评价等级", notes = "查询商品评价等级", httpMethod = "GET")
+    @GetMapping("/commentLevel")
+    public JSONResult commentLevel(
+            @ApiParam(name = "itemId", value = "商品Id", required = true)
+            @RequestParam String itemId) {
+        log.info("itemId: [{}]", itemId);
+
+        if (StringUtils.isEmpty(itemId)) {
+            return JSONResult.errorMsg(null);
+        }
+
+        return JSONResult.ok(itemService.queryCommentCount(itemId));
     }
 }
