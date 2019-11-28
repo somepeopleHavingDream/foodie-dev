@@ -1,6 +1,10 @@
 package org.yangxin.mapper;
 
 import org.yangxin.pojo.ItemsComments;
+import org.yangxin.pojo.vo.ItemCommentVO;
+
+import java.util.List;
+import java.util.Map;
 
 public interface ItemsCommentsMapper {
     int deleteByPrimaryKey(String id);
@@ -23,4 +27,9 @@ public interface ItemsCommentsMapper {
      * @return 评价数
      */
     int countByItemIdLevel(String itemId, int level);
+
+    /**
+     * 查询商品评价
+     */
+    List<ItemCommentVO> selectItemComment(Map<String, Object> map);
 }

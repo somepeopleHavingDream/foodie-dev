@@ -8,9 +8,12 @@ import org.yangxin.enums.CommentLevelEnum;
 import org.yangxin.mapper.*;
 import org.yangxin.pojo.*;
 import org.yangxin.pojo.vo.CommentLevelCountVO;
+import org.yangxin.pojo.vo.ItemCommentVO;
 import org.yangxin.service.ItemService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 商品
@@ -72,6 +75,16 @@ public class ItemServiceImpl implements ItemService {
                 .normalCounts(normalCount)
                 .badCounts(badCount)
                 .build();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public List<ItemCommentVO> queryPagingComment(String itemId, int level) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("itemId", itemId);
+        map.put("level", level);
+        
+        return itemsCommentsMapper.selectItemComment(map);
     }
 
     /**
