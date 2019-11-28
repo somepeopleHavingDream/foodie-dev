@@ -17,7 +17,7 @@ import org.yangxin.pojo.vo.CategoryVO;
 import org.yangxin.pojo.vo.NewItemsVO;
 import org.yangxin.service.CarouselService;
 import org.yangxin.service.CategoryService;
-import org.yangxin.utils.JSONResult;
+import org.yangxin.result.JSONResult;
 
 import java.util.List;
 

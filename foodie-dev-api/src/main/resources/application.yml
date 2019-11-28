@@ -27,3 +27,8 @@ server:
   tomcat:
     uri-encoding: UTF-8
   max-http-header-size: 80KB
+
+# 分页插件配置
+pagehelper:
+  helper-dialect: mysql
+  support-methods-arguments: true

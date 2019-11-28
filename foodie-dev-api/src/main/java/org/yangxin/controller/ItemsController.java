@@ -12,8 +12,9 @@ import org.yangxin.pojo.ItemsImg;
 import org.yangxin.pojo.ItemsParam;
 import org.yangxin.pojo.ItemsSpec;
 import org.yangxin.pojo.vo.ItemInfoVO;
+import org.yangxin.result.JSONResult;
+import org.yangxin.result.PagingGridResult;
 import org.yangxin.service.ItemService;
-import org.yangxin.utils.JSONResult;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ import java.util.List;
  */
 @Api(value = "商品接口", tags = {"商品信息展示的相关接口"})
 @RestController
-@RequestMapping("items")
+@RequestMapping("/items")
 @Slf4j
 public class ItemsController {
     private final ItemService itemService;
@@ -79,5 +80,30 @@ public class ItemsController {
         }
 
         return JSONResult.ok(itemService.queryCommentCount(itemId));
+    }
+
+    /**
+     * 商品评论
+     */
+    @ApiOperation(value = "查询商品评论", notes = "查询商品评论", httpMethod = "GET")
+    @GetMapping("/comments")
+    public JSONResult comments(
+            @ApiParam(name = "itemId", value = "商品Id", required = true)
+            @RequestParam String itemId,
+            @ApiParam(name = "level", value = "评价等级")
+            @RequestParam Integer level,
+            @ApiParam(name = "page", value = "查询第几页")
+            @RequestParam(defaultValue = "1") Integer page,
+            @ApiParam(name = "pageSize", value = "分页的每一页显示的条数")
+            @RequestParam(defaultValue = "10") Integer pageSize) {
+        log.info("itemId: [{}], level: [{}]", itemId, level);
+        log.info("page: [{}], pageSize: [{}]", page, pageSize);
+
+        if (StringUtils.isEmpty(itemId)) {
+            return JSONResult.errorMsg(null);
+        }
+
+        PagingGridResult pagingGridResult = itemService.queryPagingComment(itemId, level, page, pageSize);
+        return JSONResult.ok(pagingGridResult);
     }
 }

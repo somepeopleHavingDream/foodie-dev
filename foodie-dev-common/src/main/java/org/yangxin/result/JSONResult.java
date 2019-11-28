@@ -1,4 +1,4 @@
-package org.yangxin.utils;
+package org.yangxin.result;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;

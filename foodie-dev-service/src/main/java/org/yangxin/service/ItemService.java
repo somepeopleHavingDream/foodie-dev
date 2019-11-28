@@ -5,7 +5,7 @@ import org.yangxin.pojo.ItemsImg;
 import org.yangxin.pojo.ItemsParam;
 import org.yangxin.pojo.ItemsSpec;
 import org.yangxin.pojo.vo.CommentLevelCountVO;
-import org.yangxin.pojo.vo.ItemCommentVO;
+import org.yangxin.result.PagingGridResult;
 
 import java.util.List;
 
@@ -58,10 +58,6 @@ public interface ItemService {
 
     /**
      * 根据商品Id查询商品的评价（分页）
-     *
-     * @param itemId 商品Id
-     * @param level 等级
-     * @return 商品评价
      */
-    List<ItemCommentVO> queryPagingComment(String itemId, int level);
+    PagingGridResult queryPagingComment(String itemId, Integer level, Integer page, Integer pageSize);
 }

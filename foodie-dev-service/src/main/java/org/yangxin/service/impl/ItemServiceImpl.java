@@ -1,14 +1,18 @@
 package org.yangxin.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.yangxin.converter.PageInfo2PagingGridResultConverter;
 import org.yangxin.enums.CommentLevelEnum;
 import org.yangxin.mapper.*;
 import org.yangxin.pojo.*;
 import org.yangxin.pojo.vo.CommentLevelCountVO;
 import org.yangxin.pojo.vo.ItemCommentVO;
+import org.yangxin.result.PagingGridResult;
 import org.yangxin.service.ItemService;
 
 import java.util.HashMap;
@@ -22,6 +26,7 @@ import java.util.Map;
  * 2019/11/27 21:58
  */
 @Service
+@Slf4j
 public class ItemServiceImpl implements ItemService {
     private final ItemsMapper itemsMapper;
     private final ItemsImgMapper itemsImgMapper;
@@ -79,12 +84,16 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public List<ItemCommentVO> queryPagingComment(String itemId, int level) {
+    public PagingGridResult queryPagingComment(String itemId, Integer level, Integer page, Integer pageSize) {
         Map<String, Object> map = new HashMap<>();
         map.put("itemId", itemId);
         map.put("level", level);
-        
-        return itemsCommentsMapper.selectItemComment(map);
+
+        // page：第几页；pageSize：每页显示条数
+        PageHelper.startPage(page, pageSize);
+        List<ItemCommentVO> itemCommentVOList = itemsCommentsMapper.selectItemComment(map);
+
+        return PageInfo2PagingGridResultConverter.convert(itemCommentVOList, page);
     }
 
     /**

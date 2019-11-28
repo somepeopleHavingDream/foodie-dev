@@ -40,7 +40,9 @@
         left join users u
         on ic.user_id = u.id
         where ic.item_id = #{itemId}
-        and ic.comment_level = #{level};
+        <if test="level != null">
+            and ic.comment_level = #{level};
+        </if>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete from items_comments
