@@ -14,6 +14,7 @@ import org.yangxin.pojo.vo.CommentLevelCountVO;
 import org.yangxin.pojo.vo.ItemCommentVO;
 import org.yangxin.pojo.vo.PagingGridVO;
 import org.yangxin.service.ItemService;
+import org.yangxin.utils.DesensitizationUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -92,6 +93,11 @@ public class ItemServiceImpl implements ItemService {
         // page：第几页；pageSize：每页显示条数
         PageHelper.startPage(page, pageSize);
         List<ItemCommentVO> itemCommentVOList = itemsCommentsMapper.selectItemComment(map);
+
+        // 昵称脱敏
+        for (ItemCommentVO itemCommentVO : itemCommentVOList) {
+            itemCommentVO.setNickname(DesensitizationUtil.commonDisplay(itemCommentVO.getNickname()));
+        }
 
         return PageInfo2PagingGridResultConverter.convert(itemCommentVOList, page);
     }

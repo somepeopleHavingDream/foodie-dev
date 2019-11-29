@@ -6,7 +6,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * md5工具类
+ * md5
  *
  * @author yangxin
  * 2019/11/18 20:57

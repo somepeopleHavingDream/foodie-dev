@@ -8,7 +8,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 /**
- * Cookie工具类
+ * Cookie
  *
  * @author yangxin
  * 2019/11/21 20:57

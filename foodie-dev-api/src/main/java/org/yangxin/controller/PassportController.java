@@ -108,7 +108,7 @@ public class PassportController {
         BeanUtils.copyProperties(users, userVO);
 
         // 设置cookie，cookie值必须被编码，因为cookie值很有可能有违法字符
-        CookieUtil.setCookie(request, response, "user", GsonUtil.obj2String(userVO), true);
+        CookieUtil.setCookie(request, response, "user", GSONUtil.obj2String(userVO), true);
 
         return JSONVO.ok();
     }
@@ -142,7 +142,7 @@ public class PassportController {
         BeanUtils.copyProperties(users, userVO);
 
         // 设置cookie，cookie值必须被编码，因为cookie值很有可能有违法字符
-        CookieUtil.setCookie(request, response, "user", GsonUtil.obj2String(userVO), true);
+        CookieUtil.setCookie(request, response, "user", GSONUtil.obj2String(userVO), true);
 
         // 响应
         return JSONVO.ok(userVO);
