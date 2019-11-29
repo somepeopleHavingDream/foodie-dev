@@ -1,7 +1,7 @@
 package org.yangxin.mapper;
 
 import org.yangxin.pojo.ItemsComments;
-import org.yangxin.pojo.vo.ItemCommentVO;
+import org.yangxin.pojo.vo.comment.ItemCommentVO;
 
 import java.util.List;
 import java.util.Map;

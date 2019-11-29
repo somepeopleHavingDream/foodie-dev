@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.yangxin.enums.ResultEnum;
 import org.yangxin.pojo.Users;
 import org.yangxin.pojo.query.UserQuery;
-import org.yangxin.pojo.vo.UserVO;
-import org.yangxin.pojo.vo.JSONVO;
+import org.yangxin.pojo.vo.user.UserVO;
+import org.yangxin.pojo.vo.common.JSONVO;
 import org.yangxin.service.UserService;
 import org.yangxin.utils.*;
 

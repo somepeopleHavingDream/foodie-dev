@@ -7,8 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.yangxin.enums.CategoryTypeEnum;
 import org.yangxin.mapper.CategoryMapper;
 import org.yangxin.pojo.Category;
-import org.yangxin.pojo.vo.CategoryVO;
-import org.yangxin.pojo.vo.NewItemsVO;
+import org.yangxin.pojo.vo.category.CategoryVO;
+import org.yangxin.pojo.vo.item.NewItemsVO;
 import org.yangxin.service.CategoryService;
 
 import java.util.HashMap;

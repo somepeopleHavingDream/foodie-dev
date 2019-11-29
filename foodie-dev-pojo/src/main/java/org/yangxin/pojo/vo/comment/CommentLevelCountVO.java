@@ -1,4 +1,4 @@
-package org.yangxin.pojo.vo;
+package org.yangxin.pojo.vo.comment;
 
 import lombok.Builder;
 import lombok.Data;

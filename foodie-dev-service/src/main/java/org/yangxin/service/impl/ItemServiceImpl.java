@@ -10,9 +10,9 @@ import org.yangxin.service.converter.PageInfo2PagingGridResultConverter;
 import org.yangxin.enums.CommentLevelEnum;
 import org.yangxin.mapper.*;
 import org.yangxin.pojo.*;
-import org.yangxin.pojo.vo.CommentLevelCountVO;
-import org.yangxin.pojo.vo.ItemCommentVO;
-import org.yangxin.pojo.vo.PagingGridVO;
+import org.yangxin.pojo.vo.comment.CommentLevelCountVO;
+import org.yangxin.pojo.vo.comment.ItemCommentVO;
+import org.yangxin.pojo.vo.common.PagingGridVO;
 import org.yangxin.service.ItemService;
 import org.yangxin.utils.DesensitizationUtil;
 

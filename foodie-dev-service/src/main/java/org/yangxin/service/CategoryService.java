@@ -1,8 +1,8 @@
 package org.yangxin.service;
 
 import org.yangxin.pojo.Category;
-import org.yangxin.pojo.vo.CategoryVO;
-import org.yangxin.pojo.vo.NewItemsVO;
+import org.yangxin.pojo.vo.category.CategoryVO;
+import org.yangxin.pojo.vo.item.NewItemsVO;
 
 import java.util.List;
 

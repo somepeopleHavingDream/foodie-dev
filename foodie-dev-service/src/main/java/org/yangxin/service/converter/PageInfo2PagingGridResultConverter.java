@@ -1,7 +1,7 @@
 package org.yangxin.service.converter;
 
 import com.github.pagehelper.PageInfo;
-import org.yangxin.pojo.vo.PagingGridVO;
+import org.yangxin.pojo.vo.common.PagingGridVO;
 
 import java.util.List;
 

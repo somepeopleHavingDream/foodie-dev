@@ -1,4 +1,4 @@
-package org.yangxin.pojo.vo;
+package org.yangxin.pojo.vo.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;

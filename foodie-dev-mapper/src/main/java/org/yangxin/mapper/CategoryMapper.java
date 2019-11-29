@@ -2,8 +2,8 @@ package org.yangxin.mapper;
 
 import org.apache.ibatis.annotations.Param;
 import org.yangxin.pojo.Category;
-import org.yangxin.pojo.vo.CategoryVO;
-import org.yangxin.pojo.vo.NewItemsVO;
+import org.yangxin.pojo.vo.category.CategoryVO;
+import org.yangxin.pojo.vo.item.NewItemsVO;
 
 import java.util.List;
 import java.util.Map;

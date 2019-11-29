@@ -29,7 +29,7 @@
         where item_id = #{itemId}
         and comment_level = #{level}
     </select>
-    <select id="selectItemComment" parameterType="Map" resultType="org.yangxin.pojo.vo.ItemCommentVO">
+    <select id="selectItemComment" parameterType="Map" resultType="org.yangxin.pojo.vo.comment.ItemCommentVO">
         select ic.comment_level as commentLevel,
         ic.content as content,
         ic.sepc_name as specName,

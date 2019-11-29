@@ -4,8 +4,8 @@ import org.yangxin.pojo.Items;
 import org.yangxin.pojo.ItemsImg;
 import org.yangxin.pojo.ItemsParam;
 import org.yangxin.pojo.ItemsSpec;
-import org.yangxin.pojo.vo.CommentLevelCountVO;
-import org.yangxin.pojo.vo.PagingGridVO;
+import org.yangxin.pojo.vo.comment.CommentLevelCountVO;
+import org.yangxin.pojo.vo.common.PagingGridVO;
 
 import java.util.List;
 

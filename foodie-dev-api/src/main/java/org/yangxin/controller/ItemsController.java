@@ -11,9 +11,9 @@ import org.yangxin.pojo.Items;
 import org.yangxin.pojo.ItemsImg;
 import org.yangxin.pojo.ItemsParam;
 import org.yangxin.pojo.ItemsSpec;
-import org.yangxin.pojo.vo.ItemInfoVO;
-import org.yangxin.pojo.vo.JSONVO;
-import org.yangxin.pojo.vo.PagingGridVO;
+import org.yangxin.pojo.vo.item.ItemInfoVO;
+import org.yangxin.pojo.vo.common.JSONVO;
+import org.yangxin.pojo.vo.common.PagingGridVO;
 import org.yangxin.service.ItemService;
 
 import java.util.List;

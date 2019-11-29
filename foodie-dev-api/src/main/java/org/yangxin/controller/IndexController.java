@@ -13,11 +13,11 @@ import org.yangxin.enums.ResultEnum;
 import org.yangxin.enums.YesNoEnum;
 import org.yangxin.pojo.Carousel;
 import org.yangxin.pojo.Category;
-import org.yangxin.pojo.vo.CategoryVO;
-import org.yangxin.pojo.vo.NewItemsVO;
+import org.yangxin.pojo.vo.category.CategoryVO;
+import org.yangxin.pojo.vo.item.NewItemsVO;
 import org.yangxin.service.CarouselService;
 import org.yangxin.service.CategoryService;
-import org.yangxin.pojo.vo.JSONVO;
+import org.yangxin.pojo.vo.common.JSONVO;
 
 import java.util.List;
 
