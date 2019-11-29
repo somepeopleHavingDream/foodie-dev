@@ -1,11 +1,20 @@
-select ic.comment_level as commentLevel,
-    ic.content as content,
-    ic.sepc_name as specName,
-    ic.created_time as createdTime,
-    u.face as userFace,
-    u.nickname as nickname
-from items_comments ic
-left join users u
-on ic.user_id = u.id
-where ic.item_id = 'cake-1001'
-and ic.comment_level = 1;
+select i.id                    as itemId,
+       i.item_name             as itemName,
+       i.sell_counts           as sellCounts,
+       ii.url                  as imgUrl,
+       tempSpec.price_discount as price
+from items i
+         left join items_img ii
+                   on i.id = ii.item_id
+         left join
+     (
+         select item_id, min(price_discount) as price_discount
+         from items_spec
+         group by item_id
+     ) tempSpec
+     on i.id = tempSpec.item_id
+where ii.is_main = 1;
+
+select item_id, min(price_discount) as price_discount
+from items_spec
+group by item_id;
