@@ -1,4 +1,4 @@
-package org.yangxin.result;
+package org.yangxin.pojo.vo;
 
 import lombok.Builder;
 import lombok.Data;
@@ -13,21 +13,21 @@ import java.util.List;
  */
 @Data
 @Builder
-public class PagingGridResult {
+public class PagingGridVO {
     /**
      * 当前页号
      */
-    private int page;
+    private Integer page;
 
     /**
      * 总页数
      */
-    private int total;
+    private Integer total;
 
     /**
      * 总记录数
      */
-    private long record;
+    private Long records;
 
     /**
      * 每行显示的内容

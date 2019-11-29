@@ -12,8 +12,8 @@ import org.yangxin.pojo.ItemsImg;
 import org.yangxin.pojo.ItemsParam;
 import org.yangxin.pojo.ItemsSpec;
 import org.yangxin.pojo.vo.ItemInfoVO;
-import org.yangxin.result.JSONResult;
-import org.yangxin.result.PagingGridResult;
+import org.yangxin.pojo.vo.JSONVO;
+import org.yangxin.pojo.vo.PagingGridVO;
 import org.yangxin.service.ItemService;
 
 import java.util.List;
@@ -41,13 +41,13 @@ public class ItemsController {
      */
     @ApiOperation(value = "查询商品详情", notes = "查询商品详情", httpMethod = "GET")
     @GetMapping("/info/{itemId}")
-    public JSONResult info(
+    public JSONVO info(
             @ApiParam(name = "itemId", value = "商品Id", required = true)
             @PathVariable String itemId) {
         log.info("itemId: [{}]", itemId);
 
         if (StringUtils.isEmpty(itemId)) {
-            return JSONResult.errorMsg(null);
+            return JSONVO.errorMsg(null);
         }
 
         Items items = itemService.queryItemById(itemId);
@@ -62,7 +62,7 @@ public class ItemsController {
                 .itemParams(itemsParam)
                 .build();
 
-        return JSONResult.ok(itemInfoVO);
+        return JSONVO.ok(itemInfoVO);
     }
 
     /**
@@ -70,16 +70,16 @@ public class ItemsController {
      */
     @ApiOperation(value = "查询商品评价等级", notes = "查询商品评价等级", httpMethod = "GET")
     @GetMapping("/commentLevel")
-    public JSONResult commentLevel(
+    public JSONVO commentLevel(
             @ApiParam(name = "itemId", value = "商品Id", required = true)
             @RequestParam String itemId) {
         log.info("itemId: [{}]", itemId);
 
         if (StringUtils.isEmpty(itemId)) {
-            return JSONResult.errorMsg(null);
+            return JSONVO.errorMsg(null);
         }
 
-        return JSONResult.ok(itemService.queryCommentCount(itemId));
+        return JSONVO.ok(itemService.queryCommentCount(itemId));
     }
 
     /**
@@ -87,7 +87,7 @@ public class ItemsController {
      */
     @ApiOperation(value = "查询商品评论", notes = "查询商品评论", httpMethod = "GET")
     @GetMapping("/comments")
-    public JSONResult comments(
+    public JSONVO comment(
             @ApiParam(name = "itemId", value = "商品Id", required = true)
             @RequestParam String itemId,
             @ApiParam(name = "level", value = "评价等级")
@@ -100,10 +100,10 @@ public class ItemsController {
         log.info("page: [{}], pageSize: [{}]", page, pageSize);
 
         if (StringUtils.isEmpty(itemId)) {
-            return JSONResult.errorMsg(null);
+            return JSONVO.errorMsg(null);
         }
 
-        PagingGridResult pagingGridResult = itemService.queryPagingComment(itemId, level, page, pageSize);
-        return JSONResult.ok(pagingGridResult);
+        PagingGridVO pagingGridVO = itemService.queryPagingComment(itemId, level, page, pageSize);
+        return JSONVO.ok(pagingGridVO);
     }
 }

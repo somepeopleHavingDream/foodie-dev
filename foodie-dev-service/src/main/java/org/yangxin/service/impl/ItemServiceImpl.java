@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.yangxin.converter.PageInfo2PagingGridResultConverter;
+import org.yangxin.service.converter.PageInfo2PagingGridResultConverter;
 import org.yangxin.enums.CommentLevelEnum;
 import org.yangxin.mapper.*;
 import org.yangxin.pojo.*;
 import org.yangxin.pojo.vo.CommentLevelCountVO;
 import org.yangxin.pojo.vo.ItemCommentVO;
-import org.yangxin.result.PagingGridResult;
+import org.yangxin.pojo.vo.PagingGridVO;
 import org.yangxin.service.ItemService;
 
 import java.util.HashMap;
@@ -84,7 +84,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public PagingGridResult queryPagingComment(String itemId, Integer level, Integer page, Integer pageSize) {
+    public PagingGridVO queryPagingComment(String itemId, Integer level, Integer page, Integer pageSize) {
         Map<String, Object> map = new HashMap<>();
         map.put("itemId", itemId);
         map.put("level", level);

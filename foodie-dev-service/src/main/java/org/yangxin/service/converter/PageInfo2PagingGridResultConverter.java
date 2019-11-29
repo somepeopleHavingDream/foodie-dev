@@ -1,7 +1,7 @@
-package org.yangxin.converter;
+package org.yangxin.service.converter;
 
 import com.github.pagehelper.PageInfo;
-import org.yangxin.result.PagingGridResult;
+import org.yangxin.pojo.vo.PagingGridVO;
 
 import java.util.List;
 
@@ -15,14 +15,14 @@ public class PageInfo2PagingGridResultConverter {
     /**
      * 转换
      */
-    public static PagingGridResult convert(List<?> list, int page) {
+    public static PagingGridVO convert(List<?> list, Integer page) {
         PageInfo<?> pageInfo = new PageInfo<>(list);
 
-        return PagingGridResult.builder()
+        return PagingGridVO.builder()
                 .page(page)
                 .rows(list)
                 .total(pageInfo.getPages())
-                .record(pageInfo.getTotal())
+                .records(pageInfo.getTotal())
                 .build();
     }
 }
