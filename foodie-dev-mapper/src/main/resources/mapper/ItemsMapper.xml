@@ -1,159 +1,197 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.yangxin.mapper.ItemsMapper">
-  <resultMap id="BaseResultMap" type="org.yangxin.pojo.Items">
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="item_name" jdbcType="VARCHAR" property="itemName" />
-    <result column="cat_id" jdbcType="INTEGER" property="catId" />
-    <result column="root_cat_id" jdbcType="INTEGER" property="rootCatId" />
-    <result column="sell_counts" jdbcType="INTEGER" property="sellCounts" />
-    <result column="on_off_status" jdbcType="INTEGER" property="onOffStatus" />
-    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
-    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="org.yangxin.pojo.Items">
-    <result column="content" jdbcType="LONGVARCHAR" property="content" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, item_name, cat_id, root_cat_id, sell_counts, on_off_status, created_time, updated_time
-  </sql>
-  <sql id="Blob_Column_List">
-    content
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from items
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from items
-    where id = #{id,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="org.yangxin.pojo.Items">
-    insert into items (id, item_name, cat_id, 
-      root_cat_id, sell_counts, on_off_status, 
-      created_time, updated_time, content
-      )
-    values (#{id,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}, #{catId,jdbcType=INTEGER}, 
-      #{rootCatId,jdbcType=INTEGER}, #{sellCounts,jdbcType=INTEGER}, #{onOffStatus,jdbcType=INTEGER}, 
-      #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="org.yangxin.pojo.Items">
-    insert into items
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="itemName != null">
-        item_name,
-      </if>
-      <if test="catId != null">
-        cat_id,
-      </if>
-      <if test="rootCatId != null">
-        root_cat_id,
-      </if>
-      <if test="sellCounts != null">
-        sell_counts,
-      </if>
-      <if test="onOffStatus != null">
-        on_off_status,
-      </if>
-      <if test="createdTime != null">
-        created_time,
-      </if>
-      <if test="updatedTime != null">
-        updated_time,
-      </if>
-      <if test="content != null">
-        content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="itemName != null">
-        #{itemName,jdbcType=VARCHAR},
-      </if>
-      <if test="catId != null">
-        #{catId,jdbcType=INTEGER},
-      </if>
-      <if test="rootCatId != null">
-        #{rootCatId,jdbcType=INTEGER},
-      </if>
-      <if test="sellCounts != null">
-        #{sellCounts,jdbcType=INTEGER},
-      </if>
-      <if test="onOffStatus != null">
-        #{onOffStatus,jdbcType=INTEGER},
-      </if>
-      <if test="createdTime != null">
-        #{createdTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updatedTime != null">
-        #{updatedTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.Items">
-    update items
-    <set>
-      <if test="itemName != null">
-        item_name = #{itemName,jdbcType=VARCHAR},
-      </if>
-      <if test="catId != null">
+    <resultMap id="BaseResultMap" type="org.yangxin.pojo.Items">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
+        <result column="cat_id" jdbcType="INTEGER" property="catId"/>
+        <result column="root_cat_id" jdbcType="INTEGER" property="rootCatId"/>
+        <result column="sell_counts" jdbcType="INTEGER" property="sellCounts"/>
+        <result column="on_off_status" jdbcType="INTEGER" property="onOffStatus"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="org.yangxin.pojo.Items">
+        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, item_name, cat_id, root_cat_id, sell_counts, on_off_status, created_time, updated_time
+    </sql>
+    <sql id="Blob_Column_List">
+        content
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from items
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="selectItem" parameterType="Map" resultType="org.yangxin.pojo.vo.item.SearchItemsVO">
+        SELECT
+        i.id as itemId,
+        i.item_name as itemName,
+        i.sell_counts as sellCounts,
+        ii.url as imgUrl,
+        tempSpec.price_discount as price
+        FROM
+        items i
+        LEFT JOIN
+        items_img ii
+        on
+        i.id = ii.item_id
+        LEFT JOIN
+        (SELECT item_id,MIN(price_discount) as price_discount from items_spec GROUP BY item_id) tempSpec
+        on
+        i.id = tempSpec.item_id
+        WHERE
+        ii.is_main = 1
+        <if test=" paramsMap.keyword != null and paramsMap.keyword != '' ">
+            AND i.item_name like '%${paramsMap.keyword}%'
+        </if>
+        order by
+        <choose>
+            <when test=" paramsMap.sort == &quot;c&quot; ">
+                i.sell_counts desc
+            </when>
+            <when test=" paramsMap.sort == &quot;p&quot; ">
+                tempSpec.price_discount asc
+            </when>
+            <otherwise>
+                i.item_name asc
+            </otherwise>
+        </choose>
+    </select>
+    <!-- k: 默认，代表默认排序，根据name-->
+    <!-- c: 根据销量排序-->
+    <!-- p: 根据价格排序-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from items
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="org.yangxin.pojo.Items">
+        insert into items (id, item_name, cat_id,
+        root_cat_id, sell_counts, on_off_status,
+        created_time, updated_time, content
+        )
+        values (#{id,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}, #{catId,jdbcType=INTEGER},
+        #{rootCatId,jdbcType=INTEGER}, #{sellCounts,jdbcType=INTEGER}, #{onOffStatus,jdbcType=INTEGER},
+        #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="org.yangxin.pojo.Items">
+        insert into items
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="itemName != null">
+                item_name,
+            </if>
+            <if test="catId != null">
+                cat_id,
+            </if>
+            <if test="rootCatId != null">
+                root_cat_id,
+            </if>
+            <if test="sellCounts != null">
+                sell_counts,
+            </if>
+            <if test="onOffStatus != null">
+                on_off_status,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="itemName != null">
+                #{itemName,jdbcType=VARCHAR},
+            </if>
+            <if test="catId != null">
+                #{catId,jdbcType=INTEGER},
+            </if>
+            <if test="rootCatId != null">
+                #{rootCatId,jdbcType=INTEGER},
+            </if>
+            <if test="sellCounts != null">
+                #{sellCounts,jdbcType=INTEGER},
+            </if>
+            <if test="onOffStatus != null">
+                #{onOffStatus,jdbcType=INTEGER},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.Items">
+        update items
+        <set>
+            <if test="itemName != null">
+                item_name = #{itemName,jdbcType=VARCHAR},
+            </if>
+            <if test="catId != null">
+                cat_id = #{catId,jdbcType=INTEGER},
+            </if>
+            <if test="rootCatId != null">
+                root_cat_id = #{rootCatId,jdbcType=INTEGER},
+            </if>
+            <if test="sellCounts != null">
+                sell_counts = #{sellCounts,jdbcType=INTEGER},
+            </if>
+            <if test="onOffStatus != null">
+                on_off_status = #{onOffStatus,jdbcType=INTEGER},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.yangxin.pojo.Items">
+        update items
+        set item_name = #{itemName,jdbcType=VARCHAR},
         cat_id = #{catId,jdbcType=INTEGER},
-      </if>
-      <if test="rootCatId != null">
         root_cat_id = #{rootCatId,jdbcType=INTEGER},
-      </if>
-      <if test="sellCounts != null">
         sell_counts = #{sellCounts,jdbcType=INTEGER},
-      </if>
-      <if test="onOffStatus != null">
         on_off_status = #{onOffStatus,jdbcType=INTEGER},
-      </if>
-      <if test="createdTime != null">
         created_time = #{createdTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updatedTime != null">
         updated_time = #{updatedTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="content != null">
-        content = #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.yangxin.pojo.Items">
-    update items
-    set item_name = #{itemName,jdbcType=VARCHAR},
-      cat_id = #{catId,jdbcType=INTEGER},
-      root_cat_id = #{rootCatId,jdbcType=INTEGER},
-      sell_counts = #{sellCounts,jdbcType=INTEGER},
-      on_off_status = #{onOffStatus,jdbcType=INTEGER},
-      created_time = #{createdTime,jdbcType=TIMESTAMP},
-      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
-      content = #{content,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.Items">
-    update items
-    set item_name = #{itemName,jdbcType=VARCHAR},
-      cat_id = #{catId,jdbcType=INTEGER},
-      root_cat_id = #{rootCatId,jdbcType=INTEGER},
-      sell_counts = #{sellCounts,jdbcType=INTEGER},
-      on_off_status = #{onOffStatus,jdbcType=INTEGER},
-      created_time = #{createdTime,jdbcType=TIMESTAMP},
-      updated_time = #{updatedTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
+        content = #{content,jdbcType=LONGVARCHAR}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.Items">
+        update items
+        set item_name = #{itemName,jdbcType=VARCHAR},
+        cat_id = #{catId,jdbcType=INTEGER},
+        root_cat_id = #{rootCatId,jdbcType=INTEGER},
+        sell_counts = #{sellCounts,jdbcType=INTEGER},
+        on_off_status = #{onOffStatus,jdbcType=INTEGER},
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
 </mapper>

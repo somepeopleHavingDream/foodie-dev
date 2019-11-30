@@ -60,4 +60,14 @@ public interface ItemService {
      * 根据商品Id查询商品的评价（分页）
      */
     PagingGridVO queryPagingComment(String itemId, Integer level, Integer page, Integer pageSize);
+
+    /**
+     * 搜索商品列表
+     *
+     * @param keyword 关键字
+     * @param sort 排序字段
+     * @param page 当前页
+     * @param pageSize 每页显示的记录数
+     */
+    PagingGridVO queryItem(String keyword, String sort, Integer page, Integer pageSize);
 }

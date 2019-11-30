@@ -106,4 +106,28 @@ public class ItemsController {
         PagingGridVO pagingGridVO = itemService.queryPagingComment(itemId, level, page, pageSize);
         return JSONVO.ok(pagingGridVO);
     }
+
+    /**
+     * 商品列表
+     */
+    @ApiOperation(value = "查询商品列表", notes = "查询商品列表", httpMethod = "GET")
+    @GetMapping("/search")
+    public JSONVO search(
+            @ApiParam(name = "keywords", value = "关键字", required = true)
+            @RequestParam(name = "keywords") String keyword,
+            @ApiParam(name = "sort", value = "排序")
+            @RequestParam String sort,
+            @ApiParam(name = "page", value = "查询第几页")
+            @RequestParam(defaultValue = "1") Integer page,
+            @ApiParam(name = "pageSize", value = "分页的每一页显示的条数")
+            @RequestParam(defaultValue = "20") Integer pageSize) {
+        log.info("keyword: [{}], sort: [{}]", keyword, sort);
+        log.info("page: [{}], pageSize: [{}]", page, pageSize);
+
+        if (StringUtils.isEmpty(keyword)) {
+            return JSONVO.errorMsg(null);
+        }
+
+        return JSONVO.ok(itemService.queryItem(keyword, sort, page, pageSize));
+    }
 }

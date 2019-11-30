@@ -6,14 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.yangxin.service.converter.PageInfo2PagingGridResultConverter;
 import org.yangxin.enums.CommentLevelEnum;
 import org.yangxin.mapper.*;
-import org.yangxin.pojo.*;
+import org.yangxin.pojo.Items;
+import org.yangxin.pojo.ItemsImg;
+import org.yangxin.pojo.ItemsParam;
+import org.yangxin.pojo.ItemsSpec;
 import org.yangxin.pojo.vo.comment.CommentLevelCountVO;
 import org.yangxin.pojo.vo.comment.ItemCommentVO;
 import org.yangxin.pojo.vo.common.PagingGridVO;
 import org.yangxin.service.ItemService;
+import org.yangxin.service.converter.PageInfo2PagingGridResultConverter;
 import org.yangxin.utils.DesensitizationUtil;
 
 import java.util.HashMap;
@@ -100,6 +103,16 @@ public class ItemServiceImpl implements ItemService {
         }
 
         return PageInfo2PagingGridResultConverter.convert(itemCommentVOList, page);
+    }
+
+    @Override
+    public PagingGridVO queryItem(String keyword, String sort, Integer page, Integer pageSize) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("keyword", keyword);
+        map.put("sort", sort);
+
+        PageHelper.startPage(page, pageSize);
+        return PageInfo2PagingGridResultConverter.convert(itemsMapper.selectItem(map), page);
     }
 
     /**
