@@ -66,6 +66,39 @@
     <!-- k: 默认，代表默认排序，根据name-->
     <!-- c: 根据销量排序-->
     <!-- p: 根据价格排序-->
+    <select id="selectItemByThirdCategory" parameterType="Map" resultType="org.yangxin.pojo.vo.item.SearchItemsVO">
+        SELECT
+        i.id as itemId,
+        i.item_name as itemName,
+        i.sell_counts as sellCounts,
+        ii.url as imgUrl,
+        tempSpec.price_discount as price
+        FROM
+        items i
+        LEFT JOIN
+        items_img ii
+        on
+        i.id = ii.item_id
+        LEFT JOIN
+        (SELECT item_id,MIN(price_discount) as price_discount from items_spec GROUP BY item_id) tempSpec
+        on
+        i.id = tempSpec.item_id
+        WHERE
+        ii.is_main = 1
+        and i.cat_id = #{paramsMap.categoryId}
+        order by
+        <choose>
+            <when test=" paramsMap.sort == &quot;c&quot; ">
+                i.sell_counts desc
+            </when>
+            <when test=" paramsMap.sort == &quot;p&quot; ">
+                tempSpec.price_discount asc
+            </when>
+            <otherwise>
+                i.item_name asc
+            </otherwise>
+        </choose>
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete from items
         where id = #{id,jdbcType=VARCHAR}

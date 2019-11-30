@@ -106,6 +106,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
     public PagingGridVO queryItem(String keyword, String sort, Integer page, Integer pageSize) {
         Map<String, Object> map = new HashMap<>();
         map.put("keyword", keyword);
@@ -113,6 +114,17 @@ public class ItemServiceImpl implements ItemService {
 
         PageHelper.startPage(page, pageSize);
         return PageInfo2PagingGridResultConverter.convert(itemsMapper.selectItem(map), page);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public PagingGridVO queryItem(Integer categoryId, String sort, Integer page, Integer pageSize) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("categoryId", categoryId);
+        map.put("sort", sort);
+
+        PageHelper.startPage(page, pageSize);
+        return PageInfo2PagingGridResultConverter.convert(itemsMapper.selectItemByThirdCategory(map), page);
     }
 
     /**
