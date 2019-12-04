@@ -20,7 +20,10 @@ public enum ResultEnum {
     USERNAME_OR_PASSWORD_ERROR(5, "用户名或密码输入错误"),
 
     // 分类
-    CATEGORY_IS_NOT_EXIST(6, "分类不存在");
+    CATEGORY_IS_NOT_EXIST(6, "分类不存在"),
+
+    // 参数
+    PARAMETER_CANT_EMPTY(7, "参数不能为空");
 
     /**
      * 状态码
