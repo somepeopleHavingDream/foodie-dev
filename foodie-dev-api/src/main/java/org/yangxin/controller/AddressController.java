@@ -1,7 +1,16 @@
 package org.yangxin.controller;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.yangxin.pojo.vo.common.JSONVO;
+import org.yangxin.service.AddressService;
 
 /**
  * 地址
@@ -11,7 +20,16 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(value = "地址相关", tags = {"地址相关的api接口"})
 @RestController
+@RequestMapping("/address")
+@Slf4j
 public class AddressController {
+    private final AddressService addressService;
+
+    @Autowired
+    public AddressController(AddressService addressService) {
+        this.addressService = addressService;
+    }
+
     /**
      * 用户在确认订单页面，可以针对收货地址做如下操作：
      * 1. 查询用户的所有收货地址列表
@@ -20,4 +38,16 @@ public class AddressController {
      * 4. 修改收货地址
      * 5. 设置默认地址
      */
+
+    @ApiOperation(value = "根据用户id查询收货地址列表", notes = "根据用户id查询收货地址列表", httpMethod = "POST")
+    @PostMapping("/list")
+    public JSONVO list(@RequestParam String userId) {
+        log.info("userId: [{}]", userId);
+
+        if (StringUtils.isEmpty(userId)) {
+            return JSONVO.errorMsg("");
+        }
+
+        return JSONVO.ok(addressService.queryAll(userId));
+    }
 }
