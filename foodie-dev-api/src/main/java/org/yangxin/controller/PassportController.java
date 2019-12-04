@@ -144,6 +144,9 @@ public class PassportController {
         // 设置cookie，cookie值必须被编码，因为cookie值很有可能有违法字符
         CookieUtil.setCookie(request, response, "user", GSONUtil.obj2String(userVO), true);
 
+        // todo 生成用户token，存入redis会话
+        // todo 同步购物车数据
+
         // 响应
         return JSONVO.ok(userVO);
     }
