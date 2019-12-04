@@ -1,6 +1,7 @@
 package org.yangxin.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,12 @@ import org.yangxin.pojo.ItemsSpec;
 import org.yangxin.pojo.vo.comment.CommentLevelCountVO;
 import org.yangxin.pojo.vo.comment.ItemCommentVO;
 import org.yangxin.pojo.vo.common.PagingGridVO;
+import org.yangxin.pojo.vo.shopcart.ShopCartVO;
 import org.yangxin.service.ItemService;
 import org.yangxin.service.converter.PageInfo2PagingGridResultConverter;
 import org.yangxin.utils.DesensitizationUtil;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 商品
@@ -125,6 +125,14 @@ public class ItemServiceImpl implements ItemService {
 
         PageHelper.startPage(page, pageSize);
         return PageInfo2PagingGridResultConverter.convert(itemsMapper.selectItemByThirdCategory(map), page);
+    }
+
+    @Override
+    public List<ShopCartVO> queryItemsBySpecIds(String specIds) {
+        String[] idArr = specIds.split(",");
+        List<String> specIdList = Lists.newArrayList(idArr);
+
+        return itemsMapper.selectItemBySpecIdList(specIdList);
     }
 
     /**

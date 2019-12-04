@@ -148,7 +148,23 @@ public class ItemsController {
         log.info("categoryId: [{}], sort: [{}]", categoryId, sort);
         log.info("page: [{}], pageSize: [{}]", page, pageSize);
 
-
         return JSONVO.ok(itemService.queryItem(categoryId, sort, page, pageSize));
+    }
+
+    /**
+     * 刷新购物车
+     */
+    @ApiOperation(value = "根据商品规格Ids查找最新的商品数据", notes = "根据商品规格Ids查找最新的商品数据", httpMethod = "GET")
+    @GetMapping("/refresh")
+    public JSONVO refresh(
+            @ApiParam(name = "itemSpecIds", value = "拼接的规格ids", required = true, example = "1001,1003,1005")
+            @RequestParam String itemSpecIds) {
+        log.info("itemSpecIds: [{}]", itemSpecIds);
+
+        if (StringUtils.isEmpty(itemSpecIds)) {
+            return JSONVO.ok();
+        }
+
+        return JSONVO.ok(itemService.queryItemsBySpecIds(itemSpecIds));
     }
 }

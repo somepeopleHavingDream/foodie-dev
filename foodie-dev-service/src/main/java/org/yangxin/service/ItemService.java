@@ -6,6 +6,7 @@ import org.yangxin.pojo.ItemsParam;
 import org.yangxin.pojo.ItemsSpec;
 import org.yangxin.pojo.vo.comment.CommentLevelCountVO;
 import org.yangxin.pojo.vo.common.PagingGridVO;
+import org.yangxin.pojo.vo.shopcart.ShopCartVO;
 
 import java.util.List;
 
@@ -75,4 +76,9 @@ public interface ItemService {
      * 搜索商品列表
      */
     PagingGridVO queryItem(Integer categoryId, String sort, Integer page, Integer pageSize);
+
+    /**
+     * 根据规格ids查询最新的购物车中的商品数据（用于刷新渲染购物车中的商品数据）
+     */
+    List<ShopCartVO> queryItemsBySpecIds(String specIds);
 }
