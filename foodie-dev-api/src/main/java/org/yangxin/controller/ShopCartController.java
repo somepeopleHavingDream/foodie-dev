@@ -43,9 +43,7 @@ public class ShopCartController {
     @ApiOperation(value = "从购物车中删除商品", notes = "从购物车中删除商品", httpMethod = "POST")
     @PostMapping("/del")
     public JSONVO delete(@RequestParam String userId,
-                      @RequestParam String itemSpecId,
-                      HttpServletRequest httpServletRequest,
-                      HttpServletResponse httpServletResponse) {
+                         @RequestParam String itemSpecId) {
         log.info("userId: [{}], itemSpecId: [{}]", userId, itemSpecId);
 
         if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(itemSpecId)) {
