@@ -1,6 +1,7 @@
 package org.yangxin.service;
 
 import org.yangxin.pojo.UserAddress;
+import org.yangxin.pojo.query.AddressQuery;
 
 import java.util.List;
 
@@ -18,4 +19,9 @@ public interface AddressService {
      * @return 收货地址列表
      */
     List<UserAddress> queryAll(String userId);
+
+    /**
+     * 用户新增地址
+     */
+    void addNewUserAddress(AddressQuery addressQuery);
 }

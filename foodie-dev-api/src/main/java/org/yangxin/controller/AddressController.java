@@ -5,12 +5,15 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
+import org.yangxin.enums.ResultEnum;
+import org.yangxin.pojo.query.AddressQuery;
 import org.yangxin.pojo.vo.common.JSONVO;
 import org.yangxin.service.AddressService;
+
+import javax.validation.Valid;
 
 /**
  * 地址
@@ -30,15 +33,18 @@ public class AddressController {
         this.addressService = addressService;
     }
 
-    /**
-     * 用户在确认订单页面，可以针对收货地址做如下操作：
-     * 1. 查询用户的所有收货地址列表
-     * 2. 新增收货地址
-     * 3. 删除收货地址
-     * 4. 修改收货地址
-     * 5. 设置默认地址
+    /*
+      用户在确认订单页面，可以针对收货地址做如下操作：
+      1. 查询用户的所有收货地址列表
+      2. 新增收货地址
+      3. 删除收货地址
+      4. 修改收货地址
+      5. 设置默认地址
      */
 
+    /**
+     * 查询用户的所有收货地址列表
+     */
     @ApiOperation(value = "根据用户id查询收货地址列表", notes = "根据用户id查询收货地址列表", httpMethod = "POST")
     @PostMapping("/list")
     public JSONVO list(@RequestParam String userId) {
@@ -49,5 +55,24 @@ public class AddressController {
         }
 
         return JSONVO.ok(addressService.queryAll(userId));
+    }
+
+    /**
+     * 新增收货地址
+     */
+    @ApiOperation(value = "用户新增地址", notes = "用户新增地址", httpMethod = "POST")
+    @PostMapping("/add")
+    public JSONVO add(@RequestBody @Valid AddressQuery addressQuery, BindingResult bindingResult) {
+        log.info("addressQuery: [{}]", addressQuery);
+
+        if (bindingResult.hasErrors()) {
+            log.error(ResultEnum.PARAMETER_ERROR.getMessage());
+
+            FieldError fieldError = bindingResult.getFieldError();
+            return JSONVO.errorMsg(fieldError == null ? "" : fieldError.getDefaultMessage());
+        }
+
+        addressService.addNewUserAddress(addressQuery);
+        return JSONVO.ok();
     }
 }

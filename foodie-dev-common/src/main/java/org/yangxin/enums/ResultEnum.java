@@ -23,7 +23,8 @@ public enum ResultEnum {
     CATEGORY_IS_NOT_EXIST(6, "分类不存在"),
 
     // 参数
-    PARAMETER_CANT_EMPTY(7, "参数不能为空");
+    PARAMETER_CANT_EMPTY(7, "参数不能为空"),
+    PARAMETER_ERROR(8, "参数错误");
 
     /**
      * 状态码
