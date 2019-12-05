@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.yangxin.enums.YesNoEnum;
 import org.yangxin.mapper.UserAddressMapper;
 import org.yangxin.pojo.UserAddress;
 import org.yangxin.pojo.query.AddressQuery;
@@ -76,7 +77,31 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public void deleteUserAddress(String addressId) {
         userAddressMapper.deleteByPrimaryKey(addressId);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void updateUserAddressAsDefault(String userId, String addressId) {
+        // 查找默认地址，设置为不默认
+//        UserAddress userAddress = UserAddress.builder()
+//                .userId(userId)
+//                .isDefault(YesNoEnum.YES.getType())
+//                .build();
+        List<UserAddress> userAddressList = userAddressMapper.selectByUserId(userId);
+        for (UserAddress userAddress : userAddressList) {
+            userAddress.setIsDefault(YesNoEnum.NO.getType());
+            userAddressMapper.updateByPrimaryKeySelective(userAddress);
+        }
+
+        // 根据地址Id，修改其记录为默认的地址
+        UserAddress userAddress = UserAddress.builder()
+                .id(addressId)
+                .userId(userId)
+                .isDefault(YesNoEnum.YES.getType())
+                .build();
+        userAddressMapper.updateByPrimaryKeySelective(userAddress);
     }
 }

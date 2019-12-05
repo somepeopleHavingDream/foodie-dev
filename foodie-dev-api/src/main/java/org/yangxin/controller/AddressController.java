@@ -114,4 +114,20 @@ public class AddressController {
         addressService.deleteUserAddress(addressId);
         return JSONVO.ok();
     }
+
+    /**
+     * 设置默认收货地址
+     */
+    @ApiOperation(value = "用户设置默认地址", notes = "用户设置默认地址", httpMethod = "POST")
+    @PostMapping("/setDefalut")
+    public JSONVO setDefault(@RequestParam String userId, @RequestParam String addressId) {
+        log.info("userId: [{}], addressId: [{}]", userId, addressId);
+
+        if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(addressId)) {
+            return JSONVO.errorMsg("");
+        }
+
+        addressService.updateUserAddressAsDefault(userId, addressId);
+        return JSONVO.ok();
+    }
 }
