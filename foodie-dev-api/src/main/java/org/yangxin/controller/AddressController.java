@@ -98,4 +98,20 @@ public class AddressController {
         addressService.updateUserAddress(addressQuery);
         return JSONVO.ok();
     }
+
+    /**
+     * 删除收货地址
+     */
+    @ApiOperation(value = "用户删除地址", notes = "用户删除地址", httpMethod = "POST")
+    @PostMapping("/delete")
+    public JSONVO delete(@RequestParam String userId, @RequestParam String addressId) {
+        log.info("userId: [{}], addressId: [{}]", userId, addressId);
+
+        if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(addressId)) {
+            return JSONVO.errorMsg("");
+        }
+
+        addressService.deleteUserAddress(addressId);
+        return JSONVO.ok();
+    }
 }

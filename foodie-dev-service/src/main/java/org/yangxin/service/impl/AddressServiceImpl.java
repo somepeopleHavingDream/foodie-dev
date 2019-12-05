@@ -49,7 +49,8 @@ public class AddressServiceImpl implements AddressService {
         }
 
         // 保存地址到数据库
-        UserAddress userAddress = new UserAddress();
+        UserAddress userAddress = UserAddress.builder().build();
+//        UserAddress userAddress = new UserAddress();
         BeanUtils.copyProperties(addressQuery, userAddress);
 
         userAddress.setId(sid.nextShort());
@@ -64,12 +65,18 @@ public class AddressServiceImpl implements AddressService {
     public void updateUserAddress(AddressQuery addressQuery) {
         String addressId = addressQuery.getAddressId();
 
-        UserAddress userAddress = new UserAddress();
+        UserAddress userAddress = UserAddress.builder().build();
+//        UserAddress userAddress = new UserAddress();
         BeanUtils.copyProperties(addressQuery, userAddress);
 
         userAddress.setId(addressId);
         userAddress.setUpdatedTime(new Date());
 
         userAddressMapper.updateByPrimaryKeySelective(userAddress);
+    }
+
+    @Override
+    public void deleteUserAddress(String addressId) {
+        userAddressMapper.deleteByPrimaryKey(addressId);
     }
 }

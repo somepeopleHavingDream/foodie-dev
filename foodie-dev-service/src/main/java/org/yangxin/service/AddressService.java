@@ -29,4 +29,11 @@ public interface AddressService {
      * 用户修改地址
      */
     void updateUserAddress(AddressQuery addressQuery);
+
+    /**
+     * 根据用户Id和地址Id，删除对应的用户地址信息
+     *
+     * @param addressId 地址Id
+     */
+    void deleteUserAddress(String addressId);
 }
