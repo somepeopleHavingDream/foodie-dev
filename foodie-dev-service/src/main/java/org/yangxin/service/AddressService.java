@@ -24,4 +24,9 @@ public interface AddressService {
      * 用户新增地址
      */
     void addNewUserAddress(AddressQuery addressQuery);
+
+    /**
+     * 用户修改地址
+     */
+    void updateUserAddress(AddressQuery addressQuery);
 }

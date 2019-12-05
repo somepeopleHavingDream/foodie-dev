@@ -75,4 +75,27 @@ public class AddressController {
         addressService.addNewUserAddress(addressQuery);
         return JSONVO.ok();
     }
+
+    /**
+     * 修改收货地址
+     */
+    @ApiOperation(value = "用户修改地址", notes = "用户修改地址", httpMethod = "POST")
+    @PostMapping("/update")
+    public JSONVO update(@RequestBody @Valid AddressQuery addressQuery, BindingResult bindingResult) {
+        log.info("addressQuery: [{}]", addressQuery);
+
+        if (StringUtils.isEmpty(addressQuery.getAddressId())) {
+            return JSONVO.errorMsg(ResultEnum.PARAMETER_ERROR.getMessage());
+        }
+
+        if (bindingResult.hasErrors()) {
+            log.error(ResultEnum.PARAMETER_ERROR.getMessage());
+
+            FieldError fieldError = bindingResult.getFieldError();
+            return JSONVO.errorMsg(fieldError == null ? "" : fieldError.getDefaultMessage());
+        }
+
+        addressService.updateUserAddress(addressQuery);
+        return JSONVO.ok();
+    }
 }
