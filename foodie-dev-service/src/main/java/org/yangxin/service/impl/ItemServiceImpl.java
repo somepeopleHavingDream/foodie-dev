@@ -128,11 +128,23 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
     public List<ShopCartVO> queryItemsBySpecIds(String specIds) {
         String[] idArr = specIds.split(",");
         List<String> specIdList = Lists.newArrayList(idArr);
 
         return itemsMapper.selectItemBySpecIdList(specIdList);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public ItemsSpec queryItemSpecById(String specId) {
+        return itemsSpecMapper.selectByPrimaryKey(specId);
+    }
+
+    @Override
+    public ItemsImg queryItemMainImageById(String itemId) {
+        return itemsImgMapper.selectByItemIdIsMain(itemId);
     }
 
     /**

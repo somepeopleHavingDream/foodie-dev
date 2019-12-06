@@ -24,4 +24,12 @@ public interface ItemsImgMapper {
      * @return 商品图片
      */
     List<ItemsImg> selectByItemId(String itemId);
+
+    /**
+     * 根据商品Id，获得商品图片主图url
+     *
+     * @param itemId 商品Id
+     * @return 商品图片主图url
+     */
+    ItemsImg selectByItemIdIsMain(String itemId);
 }

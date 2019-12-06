@@ -25,6 +25,13 @@
     from items_img
     where item_id = #{itemId}
   </select>
+  <select id="selectByItemIdIsMain" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from items_img
+    where item_id = #{itemId}
+    and is_main = 1
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from items_img
     where id = #{id,jdbcType=VARCHAR}

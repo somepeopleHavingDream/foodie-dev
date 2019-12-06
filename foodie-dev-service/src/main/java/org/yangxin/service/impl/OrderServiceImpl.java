@@ -6,11 +6,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.yangxin.enums.YesNoEnum;
+import org.yangxin.mapper.OrderItemsMapper;
 import org.yangxin.mapper.OrdersMapper;
-import org.yangxin.pojo.Orders;
-import org.yangxin.pojo.UserAddress;
+import org.yangxin.pojo.*;
 import org.yangxin.pojo.query.SubmitOrderQuery;
 import org.yangxin.service.AddressService;
+import org.yangxin.service.ItemService;
 import org.yangxin.service.OrderService;
 
 import java.util.Date;
@@ -24,13 +25,17 @@ import java.util.Date;
 @Service
 public class OrderServiceImpl implements OrderService {
     private final AddressService addressService;
+    private final ItemService itemService;
     private final OrdersMapper ordersMapper;
+    private final OrderItemsMapper orderItemsMapper;
     private final Sid sid;
 
     @Autowired
-    public OrderServiceImpl(AddressService addressService, OrdersMapper ordersMapper, Sid sid) {
+    public OrderServiceImpl(AddressService addressService, ItemService itemService, OrdersMapper ordersMapper, OrderItemsMapper orderItemsMapper, Sid sid) {
         this.addressService = addressService;
+        this.itemService = itemService;
         this.ordersMapper = ordersMapper;
+        this.orderItemsMapper = orderItemsMapper;
         this.sid = sid;
     }
 
@@ -43,7 +48,7 @@ public class OrderServiceImpl implements OrderService {
         Integer payMethod = submitOrderQuery.getPayMethod();
         String leftMsg = submitOrderQuery.getLeftMsg();
         // 包邮费用设置为0
-        Integer postAmount = 0;
+        int postAmount = 0;
 
         // 用户订单上的地址
         UserAddress userAddress = addressService.queryUserAddress(userId, addressId);
@@ -66,7 +71,45 @@ public class OrderServiceImpl implements OrderService {
                 .createdTime(new Date())
                 .updatedTime(new Date())
                 .build();
+
         // 循环根据itemSpecIds保存订单商品信息表
+        // 商品原价累积
+        int totalAmount = 0;
+        // 优惠后的实际支付价格累计
+        int realPayAmount = 0;
+        for (String itemSpecId : itemSpecIds.split(",")) {
+            // todo 整合redis后，商品购买的数量重新从redis的购物车中获取
+            int buyCount = 1;
+
+            // 根据规格id，查询规格的具体信息，主要获取价格
+            ItemsSpec itemsSpec = itemService.queryItemSpecById(itemSpecId);
+            totalAmount += itemsSpec.getPriceNormal() * buyCount;
+            realPayAmount += itemsSpec.getPriceDiscount() * buyCount;
+
+            // 根据商品Id，获取商品信息以及商品图片
+            String itemId = itemsSpec.getItemId();
+            Items items = itemService.queryItemById(itemId);
+            ItemsImg itemsImg = itemService.queryItemMainImageById(itemId);
+
+            // 循环保存子订单数据到数据库
+            OrderItems orderItems = OrderItems.builder()
+                    .id(sid.nextShort())
+                    .orderId(orders.getId())
+                    .itemId(itemId)
+                    .itemName(items.getItemName())
+                    .itemImg(itemsImg == null ? "" : itemsImg.getUrl())
+                    .buyCounts(buyCount)
+                    .itemSpecId(itemSpecId)
+                    .itemSpecName(itemsSpec.getName())
+                    .price(itemsSpec.getPriceDiscount())
+                    .build();
+            orderItemsMapper.insert(orderItems);
+        }
+
+        orders.setTotalAmount(totalAmount);
+        orders.setRealPayAmount(realPayAmount);
+        ordersMapper.insert(orders);
+
         // 保存订单状态表
     }
 }
