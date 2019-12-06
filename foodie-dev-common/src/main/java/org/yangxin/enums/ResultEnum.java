@@ -24,7 +24,10 @@ public enum ResultEnum {
 
     // 参数
     PARAMETER_CANT_EMPTY(7, "参数不能为空"),
-    PARAMETER_ERROR(8, "参数错误");
+    PARAMETER_ERROR(8, "参数错误"),
+
+    // 支付方式
+    PAY_METHOD_NOT_SUPPORTED(9, "支付方式不支持");
 
     /**
      * 状态码

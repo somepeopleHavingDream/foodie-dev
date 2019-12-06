@@ -40,6 +40,12 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public UserAddress queryUserAddress(String userId, String addressId) {
+        return userAddressMapper.selectByPrimaryKey(addressId);
+    }
+
+    @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public void addNewUserAddress(AddressQuery addressQuery) {
         // 判断当前用户是否存在地址，如果没有，则新增为“默认地址”
@@ -51,7 +57,6 @@ public class AddressServiceImpl implements AddressService {
 
         // 保存地址到数据库
         UserAddress userAddress = UserAddress.builder().build();
-//        UserAddress userAddress = new UserAddress();
         BeanUtils.copyProperties(addressQuery, userAddress);
 
         userAddress.setId(sid.nextShort());
@@ -67,7 +72,6 @@ public class AddressServiceImpl implements AddressService {
         String addressId = addressQuery.getAddressId();
 
         UserAddress userAddress = UserAddress.builder().build();
-//        UserAddress userAddress = new UserAddress();
         BeanUtils.copyProperties(addressQuery, userAddress);
 
         userAddress.setId(addressId);
@@ -86,10 +90,6 @@ public class AddressServiceImpl implements AddressService {
     @Transactional(propagation = Propagation.REQUIRED)
     public void updateUserAddressAsDefault(String userId, String addressId) {
         // 查找默认地址，设置为不默认
-//        UserAddress userAddress = UserAddress.builder()
-//                .userId(userId)
-//                .isDefault(YesNoEnum.YES.getType())
-//                .build();
         List<UserAddress> userAddressList = userAddressMapper.selectByUserId(userId);
         for (UserAddress userAddress : userAddressList) {
             userAddress.setIsDefault(YesNoEnum.NO.getType());

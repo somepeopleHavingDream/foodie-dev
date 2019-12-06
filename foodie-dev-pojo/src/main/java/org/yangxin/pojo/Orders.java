@@ -1,7 +1,10 @@
 package org.yangxin.pojo;
 
+import lombok.Builder;
+
 import java.util.Date;
 
+@Builder
 public class Orders {
     private String id;
 
