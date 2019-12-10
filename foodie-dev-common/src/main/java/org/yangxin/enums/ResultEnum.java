@@ -27,7 +27,10 @@ public enum ResultEnum {
     PARAMETER_ERROR(8, "参数错误"),
 
     // 支付方式
-    PAY_METHOD_NOT_SUPPORTED(9, "支付方式不支持");
+    PAY_METHOD_NOT_SUPPORTED(9, "支付方式不支持"),
+
+    // 库存
+    DECREASE_STOCK_FAIL(10, "减库存失败");
 
     /**
      * 状态码

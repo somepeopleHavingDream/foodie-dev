@@ -97,4 +97,12 @@ public interface ItemService {
      * @return 商品图片主图url
      */
     ItemsImg queryItemMainImageById(String itemId);
+
+    /**
+     * 减少库存
+     *
+     * @param specId 商品规格Id
+     * @param buyCount 购买数量
+     */
+    void decreaseItemSpecStock(String specId, Integer buyCount);
 }

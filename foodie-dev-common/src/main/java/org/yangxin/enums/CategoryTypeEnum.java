@@ -13,6 +13,7 @@ import lombok.Getter;
 @Getter
 public enum CategoryTypeEnum {
     _1_CATEGORY(1, "一级分类");
+
     /**
      * 类别
      */

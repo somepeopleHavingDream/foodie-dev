@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.yangxin.enums.CommentLevelEnum;
+import org.yangxin.enums.ResultEnum;
+import org.yangxin.exception.FoodieException;
 import org.yangxin.mapper.*;
 import org.yangxin.pojo.Items;
 import org.yangxin.pojo.ItemsImg;
@@ -143,8 +145,26 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
     public ItemsImg queryItemMainImageById(String itemId) {
         return itemsImgMapper.selectByItemIdIsMain(itemId);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void decreaseItemSpecStock(String specId, Integer buyCount) {
+        // 库存作为一种共享资源，需要控制
+        // synchronized 不推荐使用，集群下无用，性能低下
+        // 锁数据库：不推荐，导致数据库性能低下
+        // 分布式锁zookeeper redis
+
+        // lockUtil.getLock(); -- 加锁
+        // lockUtil.unLock(); -- 解锁
+
+        int result = itemsMapper.decreaseItemSpecStock(specId, buyCount);
+        if (result != 1) {
+            throw new FoodieException(ResultEnum.DECREASE_STOCK_FAIL);
+        }
     }
 
     /**

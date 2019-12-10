@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.yangxin.enums.OrderStatusEnum;
 import org.yangxin.enums.YesNoEnum;
 import org.yangxin.mapper.OrderItemsMapper;
+import org.yangxin.mapper.OrderStatusMapper;
 import org.yangxin.mapper.OrdersMapper;
 import org.yangxin.pojo.*;
 import org.yangxin.pojo.query.SubmitOrderQuery;
@@ -28,14 +30,16 @@ public class OrderServiceImpl implements OrderService {
     private final ItemService itemService;
     private final OrdersMapper ordersMapper;
     private final OrderItemsMapper orderItemsMapper;
+    private final OrderStatusMapper orderStatusMapper;
     private final Sid sid;
 
     @Autowired
-    public OrderServiceImpl(AddressService addressService, ItemService itemService, OrdersMapper ordersMapper, OrderItemsMapper orderItemsMapper, Sid sid) {
+    public OrderServiceImpl(AddressService addressService, ItemService itemService, OrdersMapper ordersMapper, OrderItemsMapper orderItemsMapper, OrderStatusMapper orderStatusMapper, Sid sid) {
         this.addressService = addressService;
         this.itemService = itemService;
         this.ordersMapper = ordersMapper;
         this.orderItemsMapper = orderItemsMapper;
+        this.orderStatusMapper = orderStatusMapper;
         this.sid = sid;
     }
 
@@ -104,6 +108,9 @@ public class OrderServiceImpl implements OrderService {
                     .price(itemsSpec.getPriceDiscount())
                     .build();
             orderItemsMapper.insert(orderItems);
+
+            // 在用户提交订单以后，规格表中需要扣除库存
+            itemService.decreaseItemSpecStock(itemSpecId, buyCount);
         }
 
         orders.setTotalAmount(totalAmount);
@@ -111,5 +118,11 @@ public class OrderServiceImpl implements OrderService {
         ordersMapper.insert(orders);
 
         // 保存订单状态表
+        OrderStatus orderStatus = OrderStatus.builder()
+                .orderId(orders.getId())
+                .orderStatus(OrderStatusEnum.WAIT_PAY.getType())
+                .createdTime(new Date())
+                .build();
+        orderStatusMapper.insert(orderStatus);
     }
 }

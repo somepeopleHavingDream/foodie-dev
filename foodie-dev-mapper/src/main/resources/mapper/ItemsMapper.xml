@@ -247,4 +247,10 @@
         updated_time = #{updatedTime,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=VARCHAR}
     </update>
+    <update id="decreaseItemSpecStock" parameterType="Map">
+        update items_spec
+        set stock = stock - #{pendingCount}
+        where id = #{specId}
+        and stock >=  #{pendingCount}
+    </update>
 </mapper>

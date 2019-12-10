@@ -24,6 +24,11 @@ public interface ItemsMapper {
     int updateByPrimaryKey(Items record);
 
     /**
+     * 减库存
+     */
+    int decreaseItemSpecStock(String specId, Integer pendingCount);
+
+    /**
      * 查询商品列表
      */
     List<SearchItemsVO> selectItem(@Param("paramsMap") Map<String, Object> map);
