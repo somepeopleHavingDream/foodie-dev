@@ -12,5 +12,5 @@ public interface OrderService {
     /**
      * 创建订单相关信息
      */
-    void createOrder(SubmitOrderQuery submitOrderQuery);
+    String createOrder(SubmitOrderQuery submitOrderQuery);
 }

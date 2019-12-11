@@ -13,7 +13,10 @@ import org.yangxin.enums.ResultEnum;
 import org.yangxin.pojo.query.SubmitOrderQuery;
 import org.yangxin.pojo.vo.common.JSONVO;
 import org.yangxin.service.OrderService;
+import org.yangxin.utils.CookieUtil;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
 /**
@@ -29,6 +32,8 @@ import java.util.Objects;
 public class OrderController {
     private final OrderService orderService;
 
+    private static final String FOODIE_SHOP_CART = "shopcart";
+
     @Autowired
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
@@ -36,7 +41,9 @@ public class OrderController {
 
     @ApiOperation(value = "用户下单", notes = "用户下单", httpMethod = "POST")
     @PostMapping("/create")
-    public JSONVO create(@RequestBody SubmitOrderQuery submitOrderQuery) {
+    public JSONVO create(@RequestBody SubmitOrderQuery submitOrderQuery,
+                         HttpServletRequest httpServletRequest,
+                         HttpServletResponse httpServletResponse) {
         log.info("submitOrderQuery: [{}]", submitOrderQuery);
 
         // 判断支付方式
@@ -47,11 +54,20 @@ public class OrderController {
         }
 
         // 创建订单
-        orderService.createOrder(submitOrderQuery);
+        String orderId = orderService.createOrder(submitOrderQuery);
 
         // 创建订单以后，移除购物车中已结算（已提交）的商品
+        /*
+          1001
+          2002 -> 用户购买
+          3003 -> 用户购买
+          4004
+         */
+        // todo 整合redis之后，完善购物车中的已结算商品清除，并且同步到前端的cookie
+//        CookieUtil.setCookie(httpServletRequest, httpServletResponse, FOODIE_SHOP_CART, "", true);
+
         // 向支付中心发送当前订单，用于保存支付中心的订单数据
 
-        return JSONVO.ok();
+        return JSONVO.ok(orderId);
     }
 }

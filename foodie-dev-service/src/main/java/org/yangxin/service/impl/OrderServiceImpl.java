@@ -45,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public void createOrder(SubmitOrderQuery submitOrderQuery) {
+    public String createOrder(SubmitOrderQuery submitOrderQuery) {
         String userId = submitOrderQuery.getUserId();
         String addressId = submitOrderQuery.getAddressId();
         String itemSpecIds = submitOrderQuery.getItemSpecIds();
@@ -124,5 +124,7 @@ public class OrderServiceImpl implements OrderService {
                 .createdTime(new Date())
                 .build();
         orderStatusMapper.insert(orderStatus);
+
+        return orders.getId();
     }
 }
