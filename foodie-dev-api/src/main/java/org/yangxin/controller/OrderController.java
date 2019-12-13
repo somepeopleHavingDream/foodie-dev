@@ -4,10 +4,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.yangxin.enums.OrderStatusEnum;
 import org.yangxin.enums.PayMethodEnum;
 import org.yangxin.enums.ResultEnum;
 import org.yangxin.pojo.query.SubmitOrderQuery;
@@ -69,5 +71,16 @@ public class OrderController {
         // 向支付中心发送当前订单，用于保存支付中心的订单数据
 
         return JSONVO.ok(orderId);
+    }
+
+    /**
+     * 通知订单支付（未支付）
+     */
+    @PostMapping("/notifyMerchantOrderPaid")
+    public Integer notifyMerchantOrderPaid(String merchantOrderId) {
+        log.info("merchantOrderId: [{}]", merchantOrderId);
+
+        orderService.updateOrderStatus(merchantOrderId, OrderStatusEnum.WAIT_PAY.getType());
+        return HttpStatus.OK.value();
     }
 }

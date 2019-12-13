@@ -13,4 +13,12 @@ public interface OrderService {
      * 创建订单相关信息
      */
     String createOrder(SubmitOrderQuery submitOrderQuery);
+
+    /**
+     * 修改订单状态
+     *
+     * @param orderId 订单Id
+     * @param orderStatus 订单状态
+     */
+    void updateOrderStatus(String orderId, Integer orderStatus);
 }

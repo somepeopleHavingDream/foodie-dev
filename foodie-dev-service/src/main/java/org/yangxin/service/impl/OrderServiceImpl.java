@@ -127,4 +127,15 @@ public class OrderServiceImpl implements OrderService {
 
         return orders.getId();
     }
+
+    @Override
+    public void updateOrderStatus(String orderId, Integer orderStatus) {
+        OrderStatus paidStatus = OrderStatus.builder()
+                .orderId(orderId)
+                .orderStatus(orderStatus)
+                .payTime(new Date())
+                .build();
+
+        orderStatusMapper.updateByPrimaryKeySelective(paidStatus);
+    }
 }
