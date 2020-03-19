@@ -1,6 +1,7 @@
 package org.yangxin.service;
 
 import org.yangxin.pojo.query.SubmitOrderQuery;
+import org.yangxin.pojo.vo.order.OrderVO;
 
 /**
  * 订单
@@ -12,7 +13,7 @@ public interface OrderService {
     /**
      * 创建订单相关信息
      */
-    String createOrder(SubmitOrderQuery submitOrderQuery);
+    OrderVO createOrder(SubmitOrderQuery submitOrderQuery);
 
     /**
      * 修改订单状态

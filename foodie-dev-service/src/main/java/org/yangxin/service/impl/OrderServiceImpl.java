@@ -12,6 +12,8 @@ import org.yangxin.mapper.OrderStatusMapper;
 import org.yangxin.mapper.OrdersMapper;
 import org.yangxin.pojo.*;
 import org.yangxin.pojo.query.SubmitOrderQuery;
+import org.yangxin.pojo.vo.order.MerchantOrdersVO;
+import org.yangxin.pojo.vo.order.OrderVO;
 import org.yangxin.service.AddressService;
 import org.yangxin.service.ItemService;
 import org.yangxin.service.OrderService;
@@ -45,7 +47,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public String createOrder(SubmitOrderQuery submitOrderQuery) {
+    public OrderVO createOrder(SubmitOrderQuery submitOrderQuery) {
         String userId = submitOrderQuery.getUserId();
         String addressId = submitOrderQuery.getAddressId();
         String itemSpecIds = submitOrderQuery.getItemSpecIds();
@@ -54,12 +56,15 @@ public class OrderServiceImpl implements OrderService {
         // 包邮费用设置为0
         int postAmount = 0;
 
+        // 订单id
+        String orderId = sid.nextShort();
+
         // 用户订单上的地址
         UserAddress userAddress = addressService.queryUserAddress(userId, addressId);
 
         // 新订单数据保存
         Orders orders = Orders.builder()
-                .id(sid.nextShort())
+                .id(orderId)
                 .userId(userId)
                 .receiverName(userAddress.getReceiver())
                 .receiverMobile(userAddress.getMobile())
@@ -97,7 +102,7 @@ public class OrderServiceImpl implements OrderService {
 
             // 循环保存子订单数据到数据库
             OrderItems orderItems = OrderItems.builder()
-                    .id(sid.nextShort())
+                    .id(orderId)
                     .orderId(orders.getId())
                     .itemId(itemId)
                     .itemName(items.getItemName())
@@ -125,7 +130,19 @@ public class OrderServiceImpl implements OrderService {
                 .build();
         orderStatusMapper.insert(orderStatus);
 
-        return orders.getId();
+        // 构建商户订单，用于传给支付中心
+        MerchantOrdersVO merchantOrdersVO = MerchantOrdersVO.builder()
+                .merchantOrderId(orderId)
+                .merchantUserId(userId)
+                .amount(realPayAmount + postAmount)
+                .payMethod(payMethod)
+                .build();
+
+        // 构建自定义订单vo
+        return OrderVO.builder()
+                .orderId(orderId)
+                .merchantOrdersVO(merchantOrdersVO)
+                .build();
     }
 
     @Override

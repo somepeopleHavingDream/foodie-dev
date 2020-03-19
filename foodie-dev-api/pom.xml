@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>foodie-dev</artifactId>
-        <groupId>org.yangxin</groupId>
+        <groupId>org.yangxin.foodie</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -16,7 +16,7 @@
             api -> service -> mapper -> pojo -> common
         -->
         <dependency>
-            <groupId>org.yangxin</groupId>
+            <groupId>org.yangxin.foodie</groupId>
             <artifactId>foodie-dev-service</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

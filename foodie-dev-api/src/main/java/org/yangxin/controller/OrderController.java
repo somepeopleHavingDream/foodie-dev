@@ -14,12 +14,15 @@ import org.yangxin.enums.PayMethodEnum;
 import org.yangxin.enums.ResultEnum;
 import org.yangxin.pojo.query.SubmitOrderQuery;
 import org.yangxin.pojo.vo.common.JSONVO;
+import org.yangxin.pojo.vo.order.MerchantOrdersVO;
+import org.yangxin.pojo.vo.order.OrderVO;
 import org.yangxin.service.OrderService;
-import org.yangxin.utils.CookieUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
+
+import static org.yangxin.controller.BaseController.payReturnUrl;
 
 /**
  * 订单
@@ -33,8 +36,6 @@ import java.util.Objects;
 @Slf4j
 public class OrderController {
     private final OrderService orderService;
-
-    private static final String FOODIE_SHOP_CART = "shopcart";
 
     @Autowired
     public OrderController(OrderService orderService) {
@@ -56,7 +57,10 @@ public class OrderController {
         }
 
         // 创建订单
-        String orderId = orderService.createOrder(submitOrderQuery);
+        OrderVO orderVO = orderService.createOrder(submitOrderQuery);
+        String orderId = orderVO.getOrderId();
+        MerchantOrdersVO merchantOrdersVO = orderVO.getMerchantOrdersVO();
+        merchantOrdersVO.setReturnUrl(payReturnUrl);
 
         // 创建订单以后，移除购物车中已结算（已提交）的商品
         /*
