@@ -4,11 +4,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.yangxin.enums.OrderStatusEnum;
 import org.yangxin.enums.PayMethodEnum;
 import org.yangxin.enums.ResultEnum;
@@ -22,7 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
-import static org.yangxin.controller.BaseController.payReturnUrl;
+import static org.yangxin.controller.BaseController.payReturnURL;
+import static org.yangxin.controller.BaseController.paymentURL;
 
 /**
  * 订单
@@ -36,10 +38,12 @@ import static org.yangxin.controller.BaseController.payReturnUrl;
 @Slf4j
 public class OrderController {
     private final OrderService orderService;
+    private final RestTemplate restTemplate;
 
     @Autowired
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, RestTemplate restTemplate) {
         this.orderService = orderService;
+        this.restTemplate = restTemplate;
     }
 
     @ApiOperation(value = "用户下单", notes = "用户下单", httpMethod = "POST")
@@ -59,8 +63,6 @@ public class OrderController {
         // 创建订单
         OrderVO orderVO = orderService.createOrder(submitOrderQuery);
         String orderId = orderVO.getOrderId();
-        MerchantOrdersVO merchantOrdersVO = orderVO.getMerchantOrdersVO();
-        merchantOrdersVO.setReturnUrl(payReturnUrl);
 
         // 创建订单以后，移除购物车中已结算（已提交）的商品
         /*
@@ -73,6 +75,22 @@ public class OrderController {
 //        CookieUtil.setCookie(httpServletRequest, httpServletResponse, FOODIE_SHOP_CART, "", true);
 
         // 向支付中心发送当前订单，用于保存支付中心的订单数据
+        MerchantOrdersVO merchantOrdersVO = orderVO.getMerchantOrdersVO();
+        merchantOrdersVO.setReturnUrl(payReturnURL);
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.add("imoocUserId", "imooc");
+        httpHeaders.add("password", "imooc");
+
+        HttpEntity<MerchantOrdersVO> merchantOrdersVOHttpEntity = new HttpEntity<>(merchantOrdersVO, httpHeaders);
+
+        ResponseEntity<JSONVO> responseEntity = restTemplate.postForEntity(paymentURL,
+                merchantOrdersVOHttpEntity,
+                JSONVO.class);
+        if (responseEntity.getStatusCode() != HttpStatus.OK) {
+            return JSONVO.errorMsg(ResultEnum.PAYMENT_CREATE_ORDER_FAIL.getMessage());
+        }
 
         return JSONVO.ok(orderId);
     }
