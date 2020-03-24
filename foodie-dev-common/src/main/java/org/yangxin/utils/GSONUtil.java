@@ -9,6 +9,7 @@ import com.google.gson.Gson;
  * 2019/11/21 21:01
  */
 public final class GSONUtil {
+
     private static final Gson gson = new Gson();
 
     /**
