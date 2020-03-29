@@ -102,7 +102,7 @@ public class OrderServiceImpl implements OrderService {
 
             // 循环保存子订单数据到数据库
             OrderItems orderItems = OrderItems.builder()
-                    .id(orderId)
+                    .id(sid.nextShort())
                     .orderId(orders.getId())
                     .itemId(itemId)
                     .itemName(items.getItemName())

@@ -77,11 +77,14 @@ public class OrderController {
         // 向支付中心发送当前订单，用于保存支付中心的订单数据
         MerchantOrdersVO merchantOrdersVO = orderVO.getMerchantOrdersVO();
         merchantOrdersVO.setReturnUrl(payReturnURL);
+        // 为了方便测试购买，所有的支付金额都统一改为1分钱
+        merchantOrdersVO.setAmount(1);
+        log.info("merchantOrdersVO: [{}]", merchantOrdersVO);
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        httpHeaders.add("imoocUserId", "imooc");
-        httpHeaders.add("password", "imooc");
+        httpHeaders.add("imoocUserId", "2518513-1393003255");
+        httpHeaders.add("password", "poiw-03or-0rop-fp2l");
 
         HttpEntity<MerchantOrdersVO> merchantOrdersVOHttpEntity = new HttpEntity<>(merchantOrdersVO, httpHeaders);
 
@@ -91,6 +94,7 @@ public class OrderController {
         if (responseEntity.getStatusCode() != HttpStatus.OK) {
             return JSONVO.errorMsg(ResultEnum.PAYMENT_CREATE_ORDER_FAIL.getMessage());
         }
+        log.info("responseEntity: [{}]", responseEntity);
 
         return JSONVO.ok(orderId);
     }

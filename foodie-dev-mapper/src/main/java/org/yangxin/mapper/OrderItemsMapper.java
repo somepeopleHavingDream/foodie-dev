@@ -3,6 +3,7 @@ package org.yangxin.mapper;
 import org.yangxin.pojo.OrderItems;
 
 public interface OrderItemsMapper {
+
     int deleteByPrimaryKey(String id);
 
     int insert(OrderItems record);

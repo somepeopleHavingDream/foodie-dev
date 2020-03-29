@@ -1,7 +1,7 @@
 package org.yangxin.pojo.vo.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.ToString;
 
 /**
  * 本类可提供给H5/ios/安卓/公众号/小程序使用
@@ -14,9 +14,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * 555：异常抛出信息
  * 556：用户qq校验异常
  */
+@ToString
 public final class JSONVO {
+
     // 定义jackson对象
-    private static final ObjectMapper MAPPER = new ObjectMapper();
+//    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     // 响应业务状态
     private Integer status;
