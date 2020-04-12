@@ -16,6 +16,7 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 @NoArgsConstructor
 public class CORSConfig {
+
     /**
      * 跨域配置
      */
