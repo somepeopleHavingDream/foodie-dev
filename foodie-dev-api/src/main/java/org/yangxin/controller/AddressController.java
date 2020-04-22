@@ -26,6 +26,7 @@ import javax.validation.Valid;
 @RequestMapping("/address")
 @Slf4j
 public class AddressController {
+
     private final AddressService addressService;
 
     @Autowired

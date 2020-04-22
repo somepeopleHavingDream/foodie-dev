@@ -5,6 +5,7 @@ import org.yangxin.pojo.UserAddress;
 import java.util.List;
 
 public interface UserAddressMapper {
+
     int deleteByPrimaryKey(String id);
 
     int insert(UserAddress record);
