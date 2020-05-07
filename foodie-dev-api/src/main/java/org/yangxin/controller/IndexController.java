@@ -32,6 +32,7 @@ import java.util.List;
 @RequestMapping("/index")
 @Slf4j
 public class IndexController {
+
     private final CarouselService carouselService;
     private final CategoryService categoryService;
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class BaseController {
+
     public static final String FOODIE_SHOP_CART = "shopcart";
 
     /**

@@ -31,6 +31,7 @@ import java.util.Objects;
 @RequestMapping("/passport")
 @Slf4j
 public class PassportController {
+
     private final UserService userService;
 
     @Autowired

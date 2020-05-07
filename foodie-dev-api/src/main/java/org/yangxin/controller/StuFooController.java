@@ -14,6 +14,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @ApiIgnore
 @RestController
 public class StuFooController {
+
     private final StuService stuService;
 
     @Autowired
