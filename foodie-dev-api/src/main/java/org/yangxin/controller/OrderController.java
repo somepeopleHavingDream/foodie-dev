@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import org.yangxin.enums.OrderStatusEnum;
 import org.yangxin.enums.PayMethodEnum;
 import org.yangxin.enums.ResultEnum;
+import org.yangxin.pojo.OrderStatus;
 import org.yangxin.pojo.query.SubmitOrderQuery;
 import org.yangxin.pojo.vo.common.JSONVO;
 import org.yangxin.pojo.vo.order.MerchantOrdersVO;
@@ -109,5 +110,16 @@ public class OrderController {
 
         orderService.updateOrderStatus(merchantOrderId, OrderStatusEnum.WAIT_PAY.getType());
         return HttpStatus.OK.value();
+    }
+
+    /**
+     * 获得支付状态
+     *
+     * @param orderId　订单编号
+     */
+    @PostMapping("getPaidOrderInfo")
+    public JSONVO getPaidOrderInfo(String orderId) {
+        OrderStatus orderStatus = orderService.queryOrderStatusInfo(orderId);
+        return JSONVO.ok(orderStatus);
     }
 }
