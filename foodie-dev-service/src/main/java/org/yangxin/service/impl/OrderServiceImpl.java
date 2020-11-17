@@ -26,6 +26,7 @@ import java.util.Date;
  */
 @Service
 public class OrderServiceImpl implements OrderService {
+
     private final AddressService addressService;
     private final ItemService itemService;
     private final OrdersMapper ordersMapper;
@@ -137,5 +138,10 @@ public class OrderServiceImpl implements OrderService {
                 .build();
 
         orderStatusMapper.updateByPrimaryKeySelective(paidStatus);
+    }
+
+    @Override
+    public OrderStatus queryOrderStatusInfo(String orderId) {
+        return orderStatusMapper.selectByPrimaryKey(orderId);
     }
 }
