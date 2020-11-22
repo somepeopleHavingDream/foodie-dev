@@ -450,6 +450,7 @@ public final class DateUtil {
 
     public static boolean isValidDate(String strDate, String formatter) {
         SimpleDateFormat sdf;
+
         ParsePosition pos = new ParsePosition(0);
 
         if (StringUtils.isBlank(strDate) || StringUtils.isBlank(formatter)) {
