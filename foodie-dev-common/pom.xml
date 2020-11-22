@@ -10,7 +10,4 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>foodie-dev-common</artifactId>
-
-    <!-- 默认打包方式为jar -->
-    <!--<packaging>jar</packaging>-->
 </project>

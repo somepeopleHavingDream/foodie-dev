@@ -1,7 +1,9 @@
 package org.yangxin.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.yangxin.service.OrderService;
 import org.yangxin.utils.DateUtil;
 
 /**
@@ -13,8 +15,20 @@ import org.yangxin.utils.DateUtil;
 @Component
 public class OrderJob {
 
-    @Scheduled(cron = "0/3 * * * * ?")
+    private final OrderService orderService;
+
+    @Autowired
+    public OrderJob(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
+    /**
+     * 定时关闭未支付订单
+     */
+    @Scheduled(cron = "0 0 0/1 * * ?")
     public void autoCloseOrder() {
-        System.out.println("执行定时任务，当前时间为：" + DateUtil.getCurrentDateString(DateUtil.DATETIME_PATTERN));
+        orderService.closeOrder();
+
+        //        System.out.println("执行定时任务，当前时间为：" + DateUtil.getCurrentDateString(DateUtil.DATETIME_PATTERN));
     }
 }

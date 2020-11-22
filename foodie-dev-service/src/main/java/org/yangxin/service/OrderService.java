@@ -26,10 +26,15 @@ public interface OrderService {
     void updateOrderStatus(String orderId, Integer orderStatus);
 
     /**
-     * 查询订单
+     * 查询订单状态
      *
      * @param orderId　订单号
      * @return 订单状态
      */
     OrderStatus queryOrderStatusInfo(String orderId);
+
+    /**
+     * 关闭超时未支付订单
+     */
+    void closeOrder();
 }

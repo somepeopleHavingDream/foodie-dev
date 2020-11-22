@@ -2,6 +2,8 @@ package org.yangxin.mapper;
 
 import org.yangxin.pojo.OrderStatus;
 
+import java.util.List;
+
 public interface OrderStatusMapper {
 
     int deleteByPrimaryKey(String orderId);
@@ -15,4 +17,6 @@ public interface OrderStatusMapper {
     int updateByPrimaryKeySelective(OrderStatus record);
 
     int updateByPrimaryKey(OrderStatus record);
+
+    List<OrderStatus> select(OrderStatus orderStatus);
 }

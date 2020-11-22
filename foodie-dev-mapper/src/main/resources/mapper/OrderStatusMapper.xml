@@ -21,16 +21,22 @@
     from order_status
     where order_id = #{orderId,jdbcType=VARCHAR}
   </select>
+  <select id="select" parameterType="org.yangxin.pojo.OrderStatus" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from order_status
+    where order_id = #{orderStatus,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from order_status
     where order_id = #{orderId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="org.yangxin.pojo.OrderStatus">
-    insert into order_status (order_id, order_status, created_time, 
-      pay_time, deliver_time, success_time, 
+    insert into order_status (order_id, order_status, created_time,
+      pay_time, deliver_time, success_time,
       close_time, comment_time)
-    values (#{orderId,jdbcType=VARCHAR}, #{orderStatus,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, 
-      #{payTime,jdbcType=TIMESTAMP}, #{deliverTime,jdbcType=TIMESTAMP}, #{successTime,jdbcType=TIMESTAMP}, 
+    values (#{orderId,jdbcType=VARCHAR}, #{orderStatus,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP},
+      #{payTime,jdbcType=TIMESTAMP}, #{deliverTime,jdbcType=TIMESTAMP}, #{successTime,jdbcType=TIMESTAMP},
       #{closeTime,jdbcType=TIMESTAMP}, #{commentTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="org.yangxin.pojo.OrderStatus">

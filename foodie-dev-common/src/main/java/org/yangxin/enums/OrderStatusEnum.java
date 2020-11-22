@@ -12,6 +12,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum OrderStatusEnum {
+
     /**
      * 待付款
      */

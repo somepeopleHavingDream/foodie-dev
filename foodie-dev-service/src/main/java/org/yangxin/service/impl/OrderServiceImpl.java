@@ -17,8 +17,10 @@ import org.yangxin.pojo.vo.order.OrderVO;
 import org.yangxin.service.AddressService;
 import org.yangxin.service.ItemService;
 import org.yangxin.service.OrderService;
+import org.yangxin.utils.DateUtil;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 订单
@@ -26,6 +28,7 @@ import java.util.Date;
  * @author yangxin
  * 2019/12/06 10:44
  */
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Service
 public class OrderServiceImpl implements OrderService {
 
@@ -147,6 +150,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public void updateOrderStatus(String orderId, Integer orderStatus) {
         OrderStatus paidStatus = OrderStatus.builder()
                 .orderId(orderId)
@@ -158,7 +162,42 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
     public OrderStatus queryOrderStatusInfo(String orderId) {
         return orderStatusMapper.selectByPrimaryKey(orderId);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void closeOrder() {
+        // 查询所有未付款订单，判断时间是否超过（1天），超过则关闭交易
+//        OrderStatus queryOrder = new OrderStatus();
+//        OrderStatus queryOrder = OrderStatus.builder().build();
+//        queryOrder.setOrderStatus(OrderStatusEnum.WAIT_PAY.getType());
+        OrderStatus queryOrder = OrderStatus.builder()
+                .orderStatus(OrderStatusEnum.WAIT_PAY.getType())
+                .build();
+        List<OrderStatus> orderStatusList = orderStatusMapper.select(queryOrder);
+
+        for (OrderStatus orderStatus : orderStatusList) {
+            // 获得订单创建时间
+            Date createdTime = orderStatus.getCreatedTime();
+            // 和当前时间进行对比
+            int days = DateUtil.daysBetween(createdTime, new Date());
+            if (days >= 1) {
+                // 超过1天，关闭订单
+                doCloseOrder(orderStatus.getOrderId());
+            }
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    void doCloseOrder(String orderId) {
+        OrderStatus orderStatus = OrderStatus.builder()
+                .orderId(orderId)
+                .orderStatus(OrderStatusEnum.CLOSE.getType())
+                .closeTime(new Date())
+                .build();
+        orderStatusMapper.updateByPrimaryKeySelective(orderStatus);
     }
 }
