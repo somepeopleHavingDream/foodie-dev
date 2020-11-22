@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public final class DateUtil {
+
     /**
      * Base ISO 8601 Date format yyyyMMdd i.e., 20021225 for the 25th day of December in the year 2002
      */
@@ -28,26 +29,23 @@ public final class DateUtil {
     /**
      * 则个
      */
-    private static boolean LENIENT_DATE = false;
+    private static final boolean LENIENT_DATE = false;
 
 
-    private static Random random = new Random();
+    private static final Random random = new Random();
     private static final int ID_BYTES = 10;
 
     public synchronized static String generateId() {
-        StringBuffer result = new StringBuffer();
-        result = result.append(System.currentTimeMillis());
+        StringBuilder result = new StringBuilder();
+        result.append(System.currentTimeMillis());
         for (int i = 0; i < ID_BYTES; i++) {
-            result = result.append(random.nextInt(10));
+            result.append(random.nextInt(10));
         }
         return result.toString();
     }
 
-    protected static final float normalizedJulian(float JD) {
-
-        float f = Math.round(JD + 0.5f) - 0.5f;
-
-        return f;
+    protected static float normalizedJulian(float JD) {
+        return Math.round(JD + 0.5f) - 0.5f;
     }
 
     /**
@@ -58,7 +56,7 @@ public final class DateUtil {
      * @param JD the Julian date
      * @return the Gregorian date
      */
-    public static final Date toDate(float JD) {
+    public static Date toDate(float JD) {
 
         /* To convert a Julian Day Number to a Gregorian date, assume that it is for 0 hours, Greenwich time (so
          * that it ends in 0.5). Do the following calculations, again dropping the fractional part of all
@@ -105,8 +103,7 @@ public final class DateUtil {
      * @param late  the "second date"
      * @return the days between the two dates
      */
-    public static final int daysBetween(Date early, Date late) {
-
+    public static int daysBetween(Date early, Date late) {
         Calendar c1 = Calendar.getInstance();
         Calendar c2 = Calendar.getInstance();
         c1.setTime(early);
@@ -119,13 +116,8 @@ public final class DateUtil {
      * Returns the days between two dates. Positive values indicate that
      * the second date is after the first, and negative values indicate, well,
      * the opposite.
-     *
-     * @param early
-     * @param late
-     * @return the days between two dates.
      */
-    public static final int daysBetween(Calendar early, Calendar late) {
-
+    public static int daysBetween(Calendar early, Calendar late) {
         return (int) (toJulian(late) - toJulian(early));
     }
 
@@ -138,8 +130,7 @@ public final class DateUtil {
      * @param c a calendar instance
      * @return the julian day number
      */
-    public static final float toJulian(Calendar c) {
-
+    public static float toJulian(Calendar c) {
         int Y = c.get(Calendar.YEAR);
         int M = c.get(Calendar.MONTH);
         int D = c.get(Calendar.DATE);
@@ -148,9 +139,8 @@ public final class DateUtil {
         int C = 2 - A + B;
         float E = (int) (365.25f * (Y + 4716));
         float F = (int) (30.6001f * (M + 1));
-        float JD = C + D + E + F - 1524.5f;
 
-        return JD;
+        return C + D + E + F - 1524.5f;
     }
 
     /**
@@ -158,28 +148,16 @@ public final class DateUtil {
      * based from calculations found at
      * <a href="http://quasar.as.utexas.edu/BillInfo/JulianDatesG.html">Julian Day Calculations
      * (Gregorian Calendar)</a>, provided by Bill Jeffrys.
-     *
-     * @param date
-     * @return the julian day number
      */
-    public static final float toJulian(Date date) {
-
+    public static float toJulian(Date date) {
         Calendar c = Calendar.getInstance();
         c.setTime(date);
 
         return toJulian(c);
     }
 
-    /**
-     * @param isoString
-     * @param fmt
-     * @param field     Calendar.YEAR/Calendar.MONTH/Calendar.DATE
-     * @param amount
-     * @return
-     */
-    public static final String dateIncrease(String isoString, String fmt,
-                                            int field, int amount) {
-
+    public static String dateIncrease(String isoString, String fmt,
+                                      int field, int amount) {
         try {
             Calendar cal = GregorianCalendar.getInstance(TimeZone.getTimeZone(
                     "GMT"));
@@ -187,7 +165,6 @@ public final class DateUtil {
             cal.add(field, amount);
 
             return dateToString(cal.getTime(), fmt);
-
         } catch (Exception ex) {
             return null;
         }
@@ -196,14 +173,9 @@ public final class DateUtil {
     /**
      * Time Field Rolling function.
      * Rolls (up/down) a single unit of time on the given time field.
-     *
-     * @param isoString
-     * @param field     the time field.
-     * @param up        Indicates if rolling up or rolling down the field value.
      */
-    public static final String roll(String isoString, String fmt, int field,
-                                    boolean up) throws ParseException {
-
+    public static String roll(String isoString, String fmt, int field,
+                              boolean up) {
         Calendar cal = GregorianCalendar.getInstance(TimeZone.getTimeZone(
                 "GMT"));
         cal.setTime(stringToDate(isoString, fmt));
@@ -215,21 +187,13 @@ public final class DateUtil {
     /**
      * Time Field Rolling function.
      * Rolls (up/down) a single unit of time on the given time field.
-     *
-     * @param isoString
-     * @param field     the time field.
-     * @param up        Indicates if rolling up or rolling down the field value.
-     * @throws ParseException if an unknown field value is given.
      */
-    public static final String roll(String isoString, int field, boolean up) throws
-            ParseException {
-
+    public static String roll(String isoString, int field, boolean up) {
         return roll(isoString, DATETIME_PATTERN, field, up);
     }
 
     private static Date stringToDate(String dateText, String format,
                                      boolean lenient) {
-
         if (dateText == null) {
             return null;
         }
@@ -260,7 +224,6 @@ public final class DateUtil {
     }
 
     public static Date stringToDate(String dateString, String format) {
-
         return stringToDate(dateString, format, LENIENT_DATE);
     }
 
@@ -268,91 +231,59 @@ public final class DateUtil {
         return stringToDate(dateString, ISO_EXPANDED_DATE_FORMAT, LENIENT_DATE);
     }
 
-    /**
-     * @param pattern
-     * @param date
-     * @return
-     */
     public static String dateToString(Date date, String pattern) {
-
         if (date == null) {
-
             return null;
         }
 
         try {
-
             SimpleDateFormat sfDate = new SimpleDateFormat(pattern);
             sfDate.setLenient(false);
 
             return sfDate.format(date);
         } catch (Exception e) {
-
             return null;
         }
     }
 
     /**
      * yyyy-MM-dd
-     *
-     * @param date
-     * @return
      */
     public static String dateToString(Date date) {
         return dateToString(date, ISO_EXPANDED_DATE_FORMAT);
     }
 
-    /**
-     * @return
-     */
     public static Date getCurrentDateTime() {
         Calendar calNow = Calendar.getInstance();
-        Date dtNow = calNow.getTime();
 
-        return dtNow;
+        return calNow.getTime();
     }
 
-    /**
-     * @param pattern
-     * @return
-     */
     public static String getCurrentDateString(String pattern) {
         return dateToString(getCurrentDateTime(), pattern);
     }
 
     /**
      * yyyy-MM-dd
-     *
-     * @return
      */
     public static String getCurrentDateString() {
         return dateToString(getCurrentDateTime(), ISO_EXPANDED_DATE_FORMAT);
     }
 
     public static String dateToStringWithTime() {
-
         return dateToString(new Date(), DATETIME_PATTERN);
     }
 
 
     /**
      * yyyy-MM-dd hh:mm:ss
-     *
-     * @param date
-     * @return
      */
     public static String dateToStringWithTime(Date date) {
 
         return dateToString(date, DATETIME_PATTERN);
     }
 
-    /**
-     * @param date
-     * @param days
-     * @return java.util.Date
-     */
     public static Date dateIncreaseByDay(Date date, int days) {
-
         Calendar cal = GregorianCalendar.getInstance(TimeZone.getTimeZone(
                 "GMT"));
         cal.setTime(date);
@@ -362,7 +293,6 @@ public final class DateUtil {
     }
 
     public static Date dateIncreaseByMonth(Date date, int mnt) {
-
         Calendar cal = GregorianCalendar.getInstance(TimeZone.getTimeZone(
                 "GMT"));
         cal.setTime(date);
@@ -371,13 +301,7 @@ public final class DateUtil {
         return cal.getTime();
     }
 
-    /**
-     * @param date
-     * @param mnt
-     * @return java.util.Date
-     */
     public static Date dateIncreaseByYear(Date date, int mnt) {
-
         Calendar cal = GregorianCalendar.getInstance(TimeZone.getTimeZone(
                 "GMT"));
         cal.setTime(date);
@@ -386,85 +310,48 @@ public final class DateUtil {
         return cal.getTime();
     }
 
-    /**
-     * @param date yyyy-MM-dd
-     * @param days
-     * @return yyyy-MM-dd
-     */
     public static String dateIncreaseByDay(String date, int days) {
         return dateIncreaseByDay(date, ISO_DATE_FORMAT, days);
     }
 
-    /**
-     * @param date
-     * @param fmt
-     * @param days
-     * @return
-     */
     public static String dateIncreaseByDay(String date, String fmt, int days) {
         return dateIncrease(date, fmt, Calendar.DATE, days);
     }
 
-    /**
-     * @param src
-     * @param srcfmt
-     * @param desfmt
-     * @return
-     */
     public static String stringToString(String src, String srcfmt,
                                         String desfmt) {
         return dateToString(stringToDate(src, srcfmt), desfmt);
     }
 
-    /**
-     * @param date
-     * @return string
-     */
     public static String getYear(Date date) {
-        SimpleDateFormat formater = new SimpleDateFormat(
+        SimpleDateFormat formatter = new SimpleDateFormat(
                 "yyyy");
-        String cur_year = formater.format(date);
-        return cur_year;
+        return formatter.format(date);
     }
 
-    /**
-     * @param date
-     * @return string
-     */
     public static String getMonth(Date date) {
-        SimpleDateFormat formater = new SimpleDateFormat(
+        SimpleDateFormat formatter = new SimpleDateFormat(
                 "MM");
-        String cur_month = formater.format(date);
-        return cur_month;
+        return formatter.format(date);
     }
 
-    /**
-     * @param date
-     * @return string
-     */
     public static String getDay(Date date) {
-        SimpleDateFormat formater = new SimpleDateFormat(
+        SimpleDateFormat formatter = new SimpleDateFormat(
                 "dd");
-        String cur_day = formater.format(date);
-        return cur_day;
+        return formatter.format(date);
     }
 
     public static int getDayInt(Date date) {
-        SimpleDateFormat formater = new SimpleDateFormat(
+        SimpleDateFormat formatter = new SimpleDateFormat(
                 "dd");
-        String cur_day = formater.format(date);
-        return Integer.valueOf(cur_day);
+        String cur_day = formatter.format(date);
+        return Integer.parseInt(cur_day);
     }
 
-    /**
-     * @param date
-     * @return string
-     */
     public static String getHour(Date date) {
-        SimpleDateFormat formater = new SimpleDateFormat(
+        SimpleDateFormat formatter = new SimpleDateFormat(
                 "HH");
-        String cur_day = formater.format(date);
-        return cur_day;
+        return formatter.format(date);
     }
 
     public static int getMinsFromDate(Date dt) {
@@ -485,7 +372,7 @@ public final class DateUtil {
      */
     public static Date convertToDate(String str, boolean isExpiry) {
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Date dt = null;
+        Date dt;
         try {
             dt = fmt.parse(str);
         } catch (ParseException ex) {
@@ -505,7 +392,7 @@ public final class DateUtil {
 
     public static Date convertToDate(String str) {
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-        Date dt = null;
+        Date dt;
         try {
             dt = fmt.parse(str);
         } catch (ParseException ex) {
@@ -514,24 +401,24 @@ public final class DateUtil {
         return dt;
     }
 
-    public static String dateFromat(Date date, int minute) {
-        String dateFormat = null;
+    public static String dateFormat(Date date, int minute) {
+        String dateFormat;
         int year = Integer.parseInt(getYear(date));
         int month = Integer.parseInt(getMonth(date));
         int day = Integer.parseInt(getDay(date));
         int hour = minute / 60;
         int min = minute % 60;
-        dateFormat = String.valueOf(year)
+        dateFormat = year
                 +
                 (month > 9 ? String.valueOf(month) :
-                        "0" + String.valueOf(month))
+                        "0" + month)
                 +
-                (day > 9 ? String.valueOf(day) : "0" + String.valueOf(day))
+                (day > 9 ? String.valueOf(day) : "0" + day)
                 + " "
                 +
-                (hour > 9 ? String.valueOf(hour) : "0" + String.valueOf(hour))
+                (hour > 9 ? String.valueOf(hour) : "0" + hour)
                 +
-                (min > 9 ? String.valueOf(min) : "0" + String.valueOf(min))
+                (min > 9 ? String.valueOf(min) : "0" + min)
                 + "00";
         return dateFormat;
     }
@@ -540,31 +427,17 @@ public final class DateUtil {
         return new SimpleDateFormat(DATE_PATTERN).format(Calendar.getInstance().getTime());
     }
 
-    /**
-     * @return
-     * @Description: 获得本月的第一天日期
-     * @author leechenxiang
-     * @date 2017年5月31日 下午1:37:34
-     */
     public static String getFirstDateOfThisMonth() {
-
         SimpleDateFormat format = new SimpleDateFormat(ISO_EXPANDED_DATE_FORMAT);
 
-        Calendar calendarFirst = Calendar.getInstance();
+        Calendar calendarFirst;
         calendarFirst = Calendar.getInstance();
         calendarFirst.add(Calendar.MONTH, 0);
         calendarFirst.set(Calendar.DAY_OF_MONTH, 1);
-        String firstDate = format.format(calendarFirst.getTime());
 
-        return firstDate;
+        return format.format(calendarFirst.getTime());
     }
 
-    /**
-     * @return
-     * @Description: 获得本月的最后一天日期
-     * @author leechenxiang
-     * @date 2017年5月31日 下午1:37:50
-     */
     public static String getLastDateOfThisMonth() {
         SimpleDateFormat format = new SimpleDateFormat(ISO_EXPANDED_DATE_FORMAT);
 
@@ -572,15 +445,11 @@ public final class DateUtil {
         calendarLast.setTime(new Date());
         calendarLast.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-        String lastDate = format.format(calendarLast.getTime());
-        return lastDate;
+        return format.format(calendarLast.getTime());
     }
 
-    /**
-     * @Description: 判断字符串日期是否匹配指定的格式化日期
-     */
     public static boolean isValidDate(String strDate, String formatter) {
-        SimpleDateFormat sdf = null;
+        SimpleDateFormat sdf;
         ParsePosition pos = new ParsePosition(0);
 
         if (StringUtils.isBlank(strDate) || StringUtils.isBlank(formatter)) {
@@ -593,10 +462,7 @@ public final class DateUtil {
             if (date == null) {
                 return false;
             } else {
-                if (pos.getIndex() > sdf.format(date).length()) {
-                    return false;
-                }
-                return true;
+                return pos.getIndex() <= sdf.format(date).length();
             }
         } catch (Exception e) {
             e.printStackTrace();
