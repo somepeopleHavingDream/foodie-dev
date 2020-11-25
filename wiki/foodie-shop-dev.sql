@@ -1830,10 +1830,10 @@ INSERT INTO `user_address` VALUES ('190825CG4ZCSSWM8', '1908189H7TNWDTXP', 'abc'
 COMMIT;
 
 -- ----------------------------
--- Table structure for users
+-- Table structure for user
 -- ----------------------------
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
   `id` varchar(64) NOT NULL COMMENT '主键id 用户id',
   `username` varchar(32) NOT NULL COMMENT '用户名 用户名',
   `password` varchar(64) NOT NULL COMMENT '密码 密码',
@@ -1850,15 +1850,15 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表 ';
 
 -- ----------------------------
--- Records of users
+-- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `users` VALUES ('1908017YR51G1XWH', 'imooc', 'Qpf0SxOVUjUkWySXOZ16kw==', 'imooc', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-14 23:44:30', '2019-08-14 23:44:30');
-INSERT INTO `users` VALUES ('190815GTKCBSS7MW', 'test', 'Qpf0SxOVUjUkWySXOZ16kw==', 'test', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-15 22:11:58', '2019-08-15 22:11:58');
-INSERT INTO `users` VALUES ('190816HH9RDPD6Y8', 'abc', 'Qpf0SxOVUjUkWySXOZ16kw==', 'abc', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-16 23:14:12', '2019-08-16 23:14:12');
-INSERT INTO `users` VALUES ('1908189H7TNWDTXP', 'imooc123', 'Qpf0SxOVUjUkWySXOZ16kw==', 'imooc123', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-18 13:25:30', '2019-08-18 13:25:30');
-INSERT INTO `users` VALUES ('190818A4HC2BPDP0', 'test123', 'Qpf0SxOVUjUkWySXOZ16kw==', 'test123', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-18 14:14:28', '2019-08-18 14:14:28');
-INSERT INTO `users` VALUES ('190818AWZ22872FW', '1imooc', 'Qpf0SxOVUjUkWySXOZ16kw==', '1imooc', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-18 15:15:39', '2019-08-18 15:15:39');
+INSERT INTO `user` VALUES ('1908017YR51G1XWH', 'imooc', 'Qpf0SxOVUjUkWySXOZ16kw==', 'imooc', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-14 23:44:30', '2019-08-14 23:44:30');
+INSERT INTO `user` VALUES ('190815GTKCBSS7MW', 'test', 'Qpf0SxOVUjUkWySXOZ16kw==', 'test', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-15 22:11:58', '2019-08-15 22:11:58');
+INSERT INTO `user` VALUES ('190816HH9RDPD6Y8', 'abc', 'Qpf0SxOVUjUkWySXOZ16kw==', 'abc', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-16 23:14:12', '2019-08-16 23:14:12');
+INSERT INTO `user` VALUES ('1908189H7TNWDTXP', 'imooc123', 'Qpf0SxOVUjUkWySXOZ16kw==', 'imooc123', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-18 13:25:30', '2019-08-18 13:25:30');
+INSERT INTO `user` VALUES ('190818A4HC2BPDP0', 'test123', 'Qpf0SxOVUjUkWySXOZ16kw==', 'test123', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-18 14:14:28', '2019-08-18 14:14:28');
+INSERT INTO `user` VALUES ('190818AWZ22872FW', '1imooc', 'Qpf0SxOVUjUkWySXOZ16kw==', '1imooc', NULL, 'http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png', NULL, NULL, 2, '1900-01-01', '2019-08-18 15:15:39', '2019-08-18 15:15:39');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -37,7 +37,7 @@
         u.face as userFace,
         u.nickname as nickname
         from items_comments ic
-        left join users u
+        left join user u
         on ic.user_id = u.id
         where ic.item_id = #{itemId}
         <if test="level != null">

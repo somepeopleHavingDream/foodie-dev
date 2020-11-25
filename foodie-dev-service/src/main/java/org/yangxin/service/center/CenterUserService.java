@@ -1,7 +1,6 @@
 package org.yangxin.service.center;
 
-import org.yangxin.pojo.Users;
-import org.yangxin.pojo.query.UserQuery;
+import org.yangxin.pojo.User;
 
 /**
  * 个人中心用户
@@ -17,5 +16,5 @@ public interface CenterUserService {
      * @param userId 用户Id
      * @return 用户信息
      */
-    Users queryUserInfo(String userId);
+    User queryUserInfo(String userId);
 }

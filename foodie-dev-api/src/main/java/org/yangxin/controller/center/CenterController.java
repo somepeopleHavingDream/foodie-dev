@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.yangxin.pojo.Users;
+import org.yangxin.pojo.User;
 import org.yangxin.pojo.vo.common.JSONVO;
 import org.yangxin.service.center.CenterUserService;
 
@@ -34,7 +34,7 @@ public class CenterController {
     @GetMapping("/userInfo")
     public JSONVO userInfo(@ApiParam(name = "userId", value = "用户id", required = true)
                            @RequestParam String userId) {
-        Users user = centerUserService.queryUserInfo(userId);
+        User user = centerUserService.queryUserInfo(userId);
         return JSONVO.ok(user);
     }
 }

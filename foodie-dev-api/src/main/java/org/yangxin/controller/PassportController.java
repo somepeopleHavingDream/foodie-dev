@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.yangxin.enums.ResultEnum;
-import org.yangxin.pojo.Users;
+import org.yangxin.pojo.User;
 import org.yangxin.pojo.query.UserQuery;
 import org.yangxin.pojo.vo.user.UserVO;
 import org.yangxin.pojo.vo.common.JSONVO;
@@ -102,11 +102,11 @@ public class PassportController {
         }
 
         // 实现注册
-        Users users = userService.createUser(userQuery);
+        User user = userService.createUser(userQuery);
 
         // 封装用户视图对象
         UserVO userVO = new UserVO();
-        BeanUtils.copyProperties(users, userVO);
+        BeanUtils.copyProperties(user, userVO);
 
         // 设置cookie，cookie值必须被编码，因为cookie值很有可能有违法字符
         CookieUtil.setCookie(request, response, "user", GSONUtil.obj2String(userVO), true);
@@ -133,14 +133,14 @@ public class PassportController {
         }
 
         // 实现登录
-        Users users = userService.queryUserForLogin(username, MD5Util.getMD5Str(password));
-        if (users == null) {
+        User user = userService.queryUserForLogin(username, MD5Util.getMD5Str(password));
+        if (user == null) {
             return JSONVO.errorMsg(ResultEnum.USERNAME_OR_PASSWORD_ERROR.getMessage());
         }
 
         // 封装用户视图对象
         UserVO userVO = new UserVO();
-        BeanUtils.copyProperties(users, userVO);
+        BeanUtils.copyProperties(user, userVO);
 
         // 设置cookie，cookie值必须被编码，因为cookie值很有可能有违法字符
         CookieUtil.setCookie(request, response, "user", GSONUtil.obj2String(userVO), true);

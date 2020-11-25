@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.yangxin.enums.SexEnum;
 import org.yangxin.mapper.UsersMapper;
-import org.yangxin.pojo.Users;
+import org.yangxin.pojo.User;
 import org.yangxin.pojo.query.UserQuery;
 import org.yangxin.service.UserService;
 import org.yangxin.utils.DateUtil;
@@ -20,6 +20,7 @@ import java.util.Date;
  * @author yangxin
  * 2019/11/13 21:35
  */
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Service
 public class UserServiceImpl implements UserService {
     private final UsersMapper usersMapper;
@@ -45,9 +46,9 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public Users createUser(UserQuery userQuery) {
+    public User createUser(UserQuery userQuery) {
         try {
-            Users users = Users.builder()
+            User user = User.builder()
                     // id
                     .id(sid.nextShort())
                     // 用户名
@@ -68,8 +69,8 @@ public class UserServiceImpl implements UserService {
                     .updatedTime(new Date())
                     .build();
 
-            usersMapper.insert(users);
-            return users;
+            usersMapper.insert(user);
+            return user;
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -79,7 +80,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
-    public Users queryUserForLogin(String username, String password) {
+    public User queryUserForLogin(String username, String password) {
         return usersMapper.selectByUsernamePassword(username, password);
     }
 }

@@ -8,7 +8,7 @@ import java.util.Date;
  * 这里的类命名推荐为单数
  */
 @Builder
-public class Users {
+public class User {
 
     private String id;
 

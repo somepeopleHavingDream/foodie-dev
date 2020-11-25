@@ -1,20 +1,20 @@
 package org.yangxin.mapper;
 
-import org.yangxin.pojo.Users;
+import org.yangxin.pojo.User;
 
 public interface UsersMapper {
 
     int deleteByPrimaryKey(String id);
 
-    int insert(Users record);
+    int insert(User record);
 
-    int insertSelective(Users record);
+    int insertSelective(User record);
 
-    Users selectByPrimaryKey(String id);
+    User selectByPrimaryKey(String id);
 
-    int updateByPrimaryKeySelective(Users record);
+    int updateByPrimaryKeySelective(User record);
 
-    int updateByPrimaryKey(Users record);
+    int updateByPrimaryKey(User record);
 
     /**
      * 判断是否已经有该用户名
@@ -31,5 +31,5 @@ public interface UsersMapper {
      * @param password 密码
      * @return 用户记录
      */
-    Users selectByUsernamePassword(String username, String password);
+    User selectByUsernamePassword(String username, String password);
 }
