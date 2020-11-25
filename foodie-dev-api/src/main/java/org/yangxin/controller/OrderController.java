@@ -24,8 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
-import static org.yangxin.controller.BaseController.payReturnURL;
-import static org.yangxin.controller.BaseController.paymentURL;
+import static org.yangxin.controller.BaseController.PAY_RETURN_URL;
+import static org.yangxin.controller.BaseController.PAYMENT_URL;
 
 /**
  * 订单
@@ -78,7 +78,7 @@ public class OrderController {
 
         // 向支付中心发送当前订单，用于保存支付中心的订单数据
         MerchantOrdersVO merchantOrdersVO = orderVO.getMerchantOrdersVO();
-        merchantOrdersVO.setReturnUrl(payReturnURL);
+        merchantOrdersVO.setReturnUrl(PAY_RETURN_URL);
         // 为了方便测试购买，所有的支付金额都统一改为1分钱
         merchantOrdersVO.setAmount(1);
         log.info("merchantOrdersVO: [{}]", merchantOrdersVO);
@@ -90,7 +90,7 @@ public class OrderController {
 
         HttpEntity<MerchantOrdersVO> merchantOrdersVOHttpEntity = new HttpEntity<>(merchantOrdersVO, httpHeaders);
 
-        ResponseEntity<JSONVO> responseEntity = restTemplate.postForEntity(paymentURL,
+        ResponseEntity<JSONVO> responseEntity = restTemplate.postForEntity(PAYMENT_URL,
                 merchantOrdersVOHttpEntity,
                 JSONVO.class);
         if (responseEntity.getStatusCode() != HttpStatus.OK) {

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.yangxin.pojo.User;
 import org.yangxin.pojo.query.center.CenterUserBO;
 import org.yangxin.pojo.vo.common.JSONVO;
@@ -19,8 +20,11 @@ import org.yangxin.utils.JSONUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.yangxin.controller.BaseController.IMAGE_USER_FACE_LOCATION;
 
 /**
  * @author yangxin
@@ -38,10 +42,32 @@ public class CenterUserController {
         this.centerUserService = centerUserService;
     }
 
-    @ApiOperation(value = "修改用户信息", notes = "修改用户信息", httpMethod = "GET")
+    @ApiOperation(value = "用户头像修改", notes = "用户头像修改", httpMethod = "POST")
     @PostMapping("/update")
     public JSONVO update(@ApiParam(name = "userId", value = "用户id", required = true)
-                           @RequestParam String userId,
+                         @RequestParam String userId,
+                         @ApiParam(name = "file", value = "用户头像", required = true)
+                                 MultipartFile file,
+                         HttpServletRequest request,
+                         HttpServletResponse response) {
+        // 定义头像保存的地址
+        String fileSpace = IMAGE_USER_FACE_LOCATION;
+        // 在路径上为每一个用户增加一个userId，用于区分不同用户上传
+        String uploadPathPrefix = File.separator + userId;
+
+        // 开始文件上传
+        if (file != null) {
+
+        } else {
+            return JSONVO.errorMsg("文件不能为空！");
+        }
+        return JSONVO.ok();
+    }
+
+    @ApiOperation(value = "修改用户信息", notes = "修改用户信息", httpMethod = "POST")
+    @PostMapping("/update")
+    public JSONVO update(@ApiParam(name = "userId", value = "用户id", required = true)
+                         @RequestParam String userId,
                          @RequestBody @Valid CenterUserBO centerUserBO,
                          HttpServletRequest request,
                          HttpServletResponse response,

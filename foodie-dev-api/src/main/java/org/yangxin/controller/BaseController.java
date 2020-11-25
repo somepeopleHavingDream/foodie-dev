@@ -2,6 +2,8 @@ package org.yangxin.controller;
 
 import org.springframework.stereotype.Controller;
 
+import java.io.File;
+
 /**
  * Controller父类
  */
@@ -18,11 +20,19 @@ public class BaseController {
     /**
      * 支付中心的调用地址
      */
-    public static final String paymentURL = "http://payment.t.mukewang.com/foodie-payment/payment/createMerchantOrder";
+    public static final String PAYMENT_URL = "http://payment.t.mukewang.com/foodie-payment/payment/createMerchantOrder";
 
     /**
-     *微信支付成功 -> 支付中心 -> 天天吃货平台
-     *                     |-> 回调通知的url
+     * 微信支付成功 -> 支付中心 -> 天天吃货平台
+     * |-> 回调通知的url
      */
-    public static final String payReturnURL = "http://localhost:8088/foodie-dev-api/orders/notifyMerchantOrderPaid";
+    public static final String PAY_RETURN_URL = "http://localhost:8088/foodie-dev-api/orders/notifyMerchantOrderPaid";
+
+    /**
+     * 用户上传头像的位置
+     */
+    public static final String IMAGE_USER_FACE_LOCATION = File.separator + "home" +
+            File.separator + "yangxin" +
+            File.separator + "Projects" +
+            File.separator + "foodie-store";
 }
