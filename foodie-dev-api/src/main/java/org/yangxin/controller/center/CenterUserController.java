@@ -16,6 +16,7 @@ import org.yangxin.pojo.User;
 import org.yangxin.pojo.query.center.CenterUserBO;
 import org.yangxin.pojo.vo.common.JSONVO;
 import org.yangxin.pojo.vo.user.UserVO;
+import org.yangxin.resource.FileUploadResource;
 import org.yangxin.service.center.CenterUserService;
 import org.yangxin.utils.CookieUtil;
 import org.yangxin.utils.JSONUtil;
@@ -24,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -45,19 +45,20 @@ public class CenterUserController {
 
     private final CenterUserService centerUserService;
 
+    private final FileUploadResource fileUploadResource;
+
     @Autowired
-    public CenterUserController(CenterUserService centerUserService) {
+    public CenterUserController(CenterUserService centerUserService, FileUploadResource fileUploadResource) {
         this.centerUserService = centerUserService;
+        this.fileUploadResource = fileUploadResource;
     }
 
     @ApiOperation(value = "用户头像修改", notes = "用户头像修改", httpMethod = "POST")
     @PostMapping("/updateFace")
     public JSONVO updateFace(@ApiParam(name = "userId", value = "用户id", required = true)
-                         @RequestParam String userId,
-                         @ApiParam(name = "file", value = "用户头像", required = true)
-                                 MultipartFile file,
-                         HttpServletRequest request,
-                         HttpServletResponse response) {
+                                 @RequestParam String userId,
+                             @ApiParam(name = "file", value = "用户头像", required = true)
+                                         MultipartFile file) {
         // 在路径上为每一个用户增加一个userId，用于区分不同用户上传
         String uploadPathPrefix = File.separator + userId;
 
@@ -77,7 +78,8 @@ public class CenterUserController {
                 String newFileName = "face-" + userId + "." + suffix;
 
                 // 上传的头像最终保存的位置
-                String finalFacePath = IMAGE_USER_FACE_LOCATION + uploadPathPrefix + File.separator + newFileName;
+                String finalFacePath = fileUploadResource.getImageUserFaceLocation() + uploadPathPrefix + File.separator + newFileName;
+//                String finalFacePath = IMAGE_USER_FACE_LOCATION + uploadPathPrefix + File.separator + newFileName;
 
                 File outFile = new File(finalFacePath);
                 if (outFile.getParentFile() != null) {
