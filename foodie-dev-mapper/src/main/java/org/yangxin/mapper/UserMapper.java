@@ -2,7 +2,7 @@ package org.yangxin.mapper;
 
 import org.yangxin.pojo.User;
 
-public interface UsersMapper {
+public interface UserMapper {
 
     int deleteByPrimaryKey(String id);
 

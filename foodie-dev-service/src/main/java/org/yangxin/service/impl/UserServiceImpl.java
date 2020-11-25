@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.yangxin.enums.SexEnum;
-import org.yangxin.mapper.UsersMapper;
+import org.yangxin.mapper.UserMapper;
 import org.yangxin.pojo.User;
 import org.yangxin.pojo.query.UserBO;
 import org.yangxin.service.UserService;
@@ -23,7 +23,7 @@ import java.util.Date;
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Service
 public class UserServiceImpl implements UserService {
-    private final UsersMapper usersMapper;
+    private final UserMapper userMapper;
 
     private final Sid sid;
 
@@ -33,15 +33,15 @@ public class UserServiceImpl implements UserService {
     private static final String USER_FACE = "http://122.152.205.72:88/group1/M00/00/05/CpoxxFw_8_qAIlFXAAAcIhVPdSg994.png";
 
     @Autowired
-    public UserServiceImpl(UsersMapper usersMapper, Sid sid) {
-        this.usersMapper = usersMapper;
+    public UserServiceImpl(UserMapper userMapper, Sid sid) {
+        this.userMapper = userMapper;
         this.sid = sid;
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public boolean queryUsernameIsExist(String username) {
-        return usersMapper.selectByUsername(username) > 0;
+        return userMapper.selectByUsername(username) > 0;
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
                     .updatedTime(new Date())
                     .build();
 
-            usersMapper.insert(user);
+            userMapper.insert(user);
             return user;
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -81,6 +81,6 @@ public class UserServiceImpl implements UserService {
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public User queryUserForLogin(String username, String password) {
-        return usersMapper.selectByUsernamePassword(username, password);
+        return userMapper.selectByUsernamePassword(username, password);
     }
 }

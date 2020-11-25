@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.yangxin.mapper.UsersMapper;
+import org.yangxin.mapper.UserMapper;
 import org.yangxin.pojo.User;
 import org.yangxin.pojo.query.center.CenterUserBO;
 import org.yangxin.service.center.CenterUserService;
@@ -20,17 +20,17 @@ import java.util.Date;
 @Service
 public class CenterUserServiceImpl implements CenterUserService {
 
-    private final UsersMapper usersMapper;
+    private final UserMapper userMapper;
 
     @Autowired
-    public CenterUserServiceImpl(UsersMapper usersMapper) {
-        this.usersMapper = usersMapper;
+    public CenterUserServiceImpl(UserMapper userMapper) {
+        this.userMapper = userMapper;
     }
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
     public User queryUserInfo(String userId) {
-        User user = usersMapper.selectByPrimaryKey(userId);
+        User user = userMapper.selectByPrimaryKey(userId);
         user.setPassword(null);
 
         return user;
@@ -44,7 +44,7 @@ public class CenterUserServiceImpl implements CenterUserService {
         updateUser.setId(userId);
         updateUser.setUpdatedTime(new Date());
 
-        usersMapper.updateByPrimaryKeySelective(updateUser);
+        userMapper.updateByPrimaryKeySelective(updateUser);
 
         return queryUserInfo(userId);
     }
