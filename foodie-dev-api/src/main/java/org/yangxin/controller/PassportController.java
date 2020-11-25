@@ -9,7 +9,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.yangxin.enums.ResultEnum;
 import org.yangxin.pojo.User;
-import org.yangxin.pojo.query.UserQuery;
+import org.yangxin.pojo.query.UserBO;
 import org.yangxin.pojo.vo.user.UserVO;
 import org.yangxin.pojo.vo.common.JSONVO;
 import org.yangxin.service.UserService;
@@ -70,14 +70,14 @@ public class PassportController {
     @ApiOperation(value = "用户注册", notes = "用户注册", httpMethod = "POST")
     // 前端源码里，访问的url地址是register
     @PostMapping("/register")
-    public JSONVO register(@RequestBody UserQuery userQuery,
+    public JSONVO register(@RequestBody UserBO userBO,
                            HttpServletRequest request,
                            HttpServletResponse response) {
-        log.info("userQuery: [{}]", userQuery);
+        log.info("userQuery: [{}]", userBO);
 
-        String username = userQuery.getUsername();
-        String password = userQuery.getPassword();
-        String confirmPassword = userQuery.getConfirmPassword();
+        String username = userBO.getUsername();
+        String password = userBO.getPassword();
+        String confirmPassword = userBO.getConfirmPassword();
 
         // 判断用户名和密码必须不为空
         if (StringUtils.isEmpty(username)
@@ -102,7 +102,7 @@ public class PassportController {
         }
 
         // 实现注册
-        User user = userService.createUser(userQuery);
+        User user = userService.createUser(userBO);
 
         // 封装用户视图对象
         UserVO userVO = new UserVO();
@@ -119,16 +119,16 @@ public class PassportController {
      */
     @ApiOperation(value = "用户登录", notes = "用户登录", httpMethod = "POST")
     @PostMapping("/login")
-    public JSONVO login(@RequestBody UserQuery userQuery,
+    public JSONVO login(@RequestBody UserBO userBO,
                         HttpServletRequest request,
                         HttpServletResponse response) throws NoSuchAlgorithmException {
-        log.info("userQuery: [{}]", userQuery);
+        log.info("userQuery: [{}]", userBO);
 
-        String username = userQuery.getUsername();
-        String password = userQuery.getPassword();
+        String username = userBO.getUsername();
+        String password = userBO.getPassword();
 
         // 判断用户名和密码必须不为空
-        if (StringUtils.isEmpty(userQuery) || StringUtils.isEmpty(password)) {
+        if (StringUtils.isEmpty(userBO) || StringUtils.isEmpty(password)) {
             return JSONVO.errorMsg(ResultEnum.USERNAME_OR_PASSWORD_CANT_EMPTY.getMessage());
         }
 

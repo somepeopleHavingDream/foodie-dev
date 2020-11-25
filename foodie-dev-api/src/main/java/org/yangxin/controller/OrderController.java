@@ -14,7 +14,7 @@ import org.yangxin.enums.OrderStatusEnum;
 import org.yangxin.enums.PayMethodEnum;
 import org.yangxin.enums.ResultEnum;
 import org.yangxin.pojo.OrderStatus;
-import org.yangxin.pojo.query.SubmitOrderQuery;
+import org.yangxin.pojo.query.SubmitOrderBO;
 import org.yangxin.pojo.vo.common.JSONVO;
 import org.yangxin.pojo.vo.order.MerchantOrdersVO;
 import org.yangxin.pojo.vo.order.OrderVO;
@@ -50,20 +50,20 @@ public class OrderController {
 
     @ApiOperation(value = "用户下单", notes = "用户下单", httpMethod = "POST")
     @PostMapping("/create")
-    public JSONVO create(@RequestBody SubmitOrderQuery submitOrderQuery,
+    public JSONVO create(@RequestBody SubmitOrderBO submitOrderBO,
                          HttpServletRequest httpServletRequest,
                          HttpServletResponse httpServletResponse) {
-        log.info("submitOrderQuery: [{}]", submitOrderQuery);
+        log.info("submitOrderQuery: [{}]", submitOrderBO);
 
         // 判断支付方式
-        Integer payMethod = submitOrderQuery.getPayMethod();
+        Integer payMethod = submitOrderBO.getPayMethod();
         if (Objects.equals(payMethod, PayMethodEnum.WEIXIN.getType())
                 && Objects.equals(payMethod, PayMethodEnum.ALIPAY.getType())) {
             return JSONVO.errorMsg(ResultEnum.PAY_METHOD_NOT_SUPPORTED.getMessage());
         }
 
         // 创建订单
-        OrderVO orderVO = orderService.createOrder(submitOrderQuery);
+        OrderVO orderVO = orderService.createOrder(submitOrderBO);
         String orderId = orderVO.getOrderId();
 
         // 创建订单以后，移除购物车中已结算（已提交）的商品

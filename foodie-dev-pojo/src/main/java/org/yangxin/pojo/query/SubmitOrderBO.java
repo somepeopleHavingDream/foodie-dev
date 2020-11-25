@@ -9,7 +9,8 @@ import lombok.Data;
  * 2019/12/06 10:26
  */
 @Data
-public class SubmitOrderQuery {
+public class SubmitOrderBO {
+
     /**
      * 用户Id
      */

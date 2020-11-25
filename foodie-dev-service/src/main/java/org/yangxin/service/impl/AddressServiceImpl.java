@@ -10,7 +10,7 @@ import org.springframework.util.CollectionUtils;
 import org.yangxin.enums.YesNoEnum;
 import org.yangxin.mapper.UserAddressMapper;
 import org.yangxin.pojo.UserAddress;
-import org.yangxin.pojo.query.AddressQuery;
+import org.yangxin.pojo.query.AddressBO;
 import org.yangxin.service.AddressService;
 
 import java.util.Date;
@@ -49,17 +49,17 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public void addNewUserAddress(AddressQuery addressQuery) {
+    public void addNewUserAddress(AddressBO addressBO) {
         // 判断当前用户是否存在地址，如果没有，则新增为“默认地址”
         int isDefault = 0;
-        List<UserAddress> userAddressList = queryAll(addressQuery.getUserId());
+        List<UserAddress> userAddressList = queryAll(addressBO.getUserId());
         if (CollectionUtils.isEmpty(userAddressList)) {
             isDefault = 1;
         }
 
         // 保存地址到数据库
         UserAddress userAddress = UserAddress.builder().build();
-        BeanUtils.copyProperties(addressQuery, userAddress);
+        BeanUtils.copyProperties(addressBO, userAddress);
 
         userAddress.setId(sid.nextShort());
         userAddress.setIsDefault(isDefault);
@@ -70,11 +70,11 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public void updateUserAddress(AddressQuery addressQuery) {
-        String addressId = addressQuery.getAddressId();
+    public void updateUserAddress(AddressBO addressBO) {
+        String addressId = addressBO.getAddressId();
 
         UserAddress userAddress = UserAddress.builder().build();
-        BeanUtils.copyProperties(addressQuery, userAddress);
+        BeanUtils.copyProperties(addressBO, userAddress);
 
         userAddress.setId(addressId);
         userAddress.setUpdatedTime(new Date());

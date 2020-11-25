@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.yangxin.enums.ResultEnum;
-import org.yangxin.pojo.query.ShopCartQuery;
+import org.yangxin.pojo.query.ShopCartBO;
 import org.yangxin.pojo.vo.common.JSONVO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,14 +27,14 @@ public class ShopCartController {
     @ApiOperation(value = "添加商品到购物车", notes = "添加商品到购物车", httpMethod = "POST")
     @PostMapping("/add")
     public JSONVO add(@RequestParam String userId,
-                      @RequestBody ShopCartQuery shopCartQuery,
+                      @RequestBody ShopCartBO shopCartBO,
                       HttpServletRequest httpServletRequest,
                       HttpServletResponse httpServletResponse) {
         if (StringUtils.isEmpty(userId)) {
             return JSONVO.errorMsg("");
         }
 
-        log.info("shopCartQuery: [{}]", shopCartQuery);
+        log.info("shopCartQuery: [{}]", shopCartBO);
 
         // todo 前端用户在登录的情况下，添加商品到购物车，会同时在后端同步购物车到redis缓存
 

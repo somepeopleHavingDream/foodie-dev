@@ -9,7 +9,8 @@ import lombok.Data;
  * 2019/12/04 10:34
  */
 @Data
-public class ShopCartQuery {
+public class ShopCartBO {
+
     /**
      * 商品Id
      */

@@ -11,7 +11,7 @@ import org.yangxin.mapper.OrderItemsMapper;
 import org.yangxin.mapper.OrderStatusMapper;
 import org.yangxin.mapper.OrdersMapper;
 import org.yangxin.pojo.*;
-import org.yangxin.pojo.query.SubmitOrderQuery;
+import org.yangxin.pojo.query.SubmitOrderBO;
 import org.yangxin.pojo.vo.order.MerchantOrdersVO;
 import org.yangxin.pojo.vo.order.OrderVO;
 import org.yangxin.service.AddressService;
@@ -51,12 +51,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public OrderVO createOrder(SubmitOrderQuery submitOrderQuery) {
-        String userId = submitOrderQuery.getUserId();
-        String addressId = submitOrderQuery.getAddressId();
-        String itemSpecIds = submitOrderQuery.getItemSpecIds();
-        Integer payMethod = submitOrderQuery.getPayMethod();
-        String leftMsg = submitOrderQuery.getLeftMsg();
+    public OrderVO createOrder(SubmitOrderBO submitOrderBO) {
+        String userId = submitOrderBO.getUserId();
+        String addressId = submitOrderBO.getAddressId();
+        String itemSpecIds = submitOrderBO.getItemSpecIds();
+        Integer payMethod = submitOrderBO.getPayMethod();
+        String leftMsg = submitOrderBO.getLeftMsg();
         // 包邮费用设置为0
         int postAmount = 0;
 

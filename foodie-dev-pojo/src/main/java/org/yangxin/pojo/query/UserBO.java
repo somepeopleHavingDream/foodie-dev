@@ -10,7 +10,7 @@ import lombok.Data;
  */
 @ApiModel(value = "用户业务对象", description = "从客户端由用户传入的数据封装在此entity中")
 @Data
-public class UserQuery {
+public class UserBO {
 
     /**
      * 用户名

@@ -13,7 +13,7 @@ import java.util.Date;
  * 2020/11/25 15:12
  */
 @ApiModel(value = "用户对象", description = "从客户端，由用户传入的数据封装在此entity中")
-public class CenterUserQuery {
+public class CenterUserBO {
 
     @ApiModelProperty(value = "用户名", name = "username", example = "json")
     private String username;

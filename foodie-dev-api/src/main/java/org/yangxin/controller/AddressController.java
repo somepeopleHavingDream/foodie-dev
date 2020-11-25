@@ -9,7 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.yangxin.enums.ResultEnum;
-import org.yangxin.pojo.query.AddressQuery;
+import org.yangxin.pojo.query.AddressBO;
 import org.yangxin.pojo.vo.common.JSONVO;
 import org.yangxin.service.AddressService;
 
@@ -63,8 +63,8 @@ public class AddressController {
      */
     @ApiOperation(value = "用户新增地址", notes = "用户新增地址", httpMethod = "POST")
     @PostMapping("/add")
-    public JSONVO add(@RequestBody @Valid AddressQuery addressQuery, BindingResult bindingResult) {
-        log.info("addressQuery: [{}]", addressQuery);
+    public JSONVO add(@RequestBody @Valid AddressBO addressBO, BindingResult bindingResult) {
+        log.info("addressQuery: [{}]", addressBO);
 
         if (bindingResult.hasErrors()) {
             log.error(ResultEnum.PARAMETER_ERROR.getMessage());
@@ -73,7 +73,7 @@ public class AddressController {
             return JSONVO.errorMsg(fieldError == null ? "" : fieldError.getDefaultMessage());
         }
 
-        addressService.addNewUserAddress(addressQuery);
+        addressService.addNewUserAddress(addressBO);
         return JSONVO.ok();
     }
 
@@ -82,10 +82,10 @@ public class AddressController {
      */
     @ApiOperation(value = "用户修改地址", notes = "用户修改地址", httpMethod = "POST")
     @PostMapping("/update")
-    public JSONVO update(@RequestBody @Valid AddressQuery addressQuery, BindingResult bindingResult) {
-        log.info("addressQuery: [{}]", addressQuery);
+    public JSONVO update(@RequestBody @Valid AddressBO addressBO, BindingResult bindingResult) {
+        log.info("addressQuery: [{}]", addressBO);
 
-        if (StringUtils.isEmpty(addressQuery.getAddressId())) {
+        if (StringUtils.isEmpty(addressBO.getAddressId())) {
             return JSONVO.errorMsg(ResultEnum.PARAMETER_ERROR.getMessage());
         }
 
@@ -96,7 +96,7 @@ public class AddressController {
             return JSONVO.errorMsg(fieldError == null ? "" : fieldError.getDefaultMessage());
         }
 
-        addressService.updateUserAddress(addressQuery);
+        addressService.updateUserAddress(addressBO);
         return JSONVO.ok();
     }
 

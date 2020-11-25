@@ -1,7 +1,7 @@
 package org.yangxin.service;
 
 import org.yangxin.pojo.UserAddress;
-import org.yangxin.pojo.query.AddressQuery;
+import org.yangxin.pojo.query.AddressBO;
 
 import java.util.List;
 
@@ -32,12 +32,12 @@ public interface AddressService {
     /**
      * 用户新增地址
      */
-    void addNewUserAddress(AddressQuery addressQuery);
+    void addNewUserAddress(AddressBO addressBO);
 
     /**
      * 用户修改地址
      */
-    void updateUserAddress(AddressQuery addressQuery);
+    void updateUserAddress(AddressBO addressBO);
 
     /**
      * 修改默认地址

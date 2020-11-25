@@ -13,7 +13,8 @@ import javax.validation.constraints.NotBlank;
  * 2019/12/05 10:31
  */
 @Data
-public class AddressQuery {
+public class AddressBO {
+
     /**
      * 地址Id
      */

@@ -1,7 +1,7 @@
 package org.yangxin.service.center;
 
 import org.yangxin.pojo.User;
-import org.yangxin.pojo.query.center.CenterUserQuery;
+import org.yangxin.pojo.query.center.CenterUserBO;
 
 /**
  * 个人中心用户
@@ -22,5 +22,5 @@ public interface CenterUserService {
     /**
      * 修改用户信息
      */
-    User updateUserInfo(String userId, CenterUserQuery centerUserQuery);
+    User updateUserInfo(String userId, CenterUserBO centerUserBO);
 }
