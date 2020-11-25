@@ -19,6 +19,7 @@ import org.yangxin.pojo.vo.user.UserVO;
 import org.yangxin.resource.FileUploadResource;
 import org.yangxin.service.center.CenterUserService;
 import org.yangxin.utils.CookieUtil;
+import org.yangxin.utils.DateUtil;
 import org.yangxin.utils.JSONUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,9 +57,11 @@ public class CenterUserController {
     @ApiOperation(value = "用户头像修改", notes = "用户头像修改", httpMethod = "POST")
     @PostMapping("/updateFace")
     public JSONVO updateFace(@ApiParam(name = "userId", value = "用户id", required = true)
-                                 @RequestParam String userId,
+                             @RequestParam String userId,
                              @ApiParam(name = "file", value = "用户头像", required = true)
-                                         MultipartFile file) {
+                                     MultipartFile file,
+                             HttpServletRequest request,
+                             HttpServletResponse response) {
         // 在路径上为每一个用户增加一个userId，用于区分不同用户上传
         String uploadPathPrefix = File.separator + userId;
 
@@ -80,6 +83,8 @@ public class CenterUserController {
                 // 上传的头像最终保存的位置
                 String finalFacePath = fileUploadResource.getImageUserFaceLocation() + uploadPathPrefix + File.separator + newFileName;
 //                String finalFacePath = IMAGE_USER_FACE_LOCATION + uploadPathPrefix + File.separator + newFileName;
+                // 用于提供给web服务访问的地址
+                uploadPathPrefix += ("/" + newFileName);
 
                 File outFile = new File(finalFacePath);
                 if (outFile.getParentFile() != null) {
@@ -88,7 +93,7 @@ public class CenterUserController {
                 }
 
                 // 文件输出保存到目录
-                try(FileOutputStream fileOutputStream = new FileOutputStream(outFile)) {
+                try (FileOutputStream fileOutputStream = new FileOutputStream(outFile)) {
                     IOUtils.copy(file.getInputStream(), fileOutputStream);
                 } catch (IOException e) {
                     log.error("文件保存失败！", e);
@@ -97,6 +102,23 @@ public class CenterUserController {
         } else {
             return JSONVO.errorMsg("文件不能为空！");
         }
+
+        // 获取图片服务地址
+        String imageServerUrl = fileUploadResource.getImageServerUrl();
+        // 由于浏览器可能存在缓存的情况，所以在这里，我们需要加上时间戳来保证更新后的图片可以及时显示
+        String finalUserFaceUrl = imageServerUrl
+                + uploadPathPrefix
+                + "?t="
+                + DateUtil.getCurrentDateString(DateUtil.DATE_PATTERN);
+
+        // 更新用户头像到数据库
+        User user = centerUserService.updateUserFace(userId, finalUserFaceUrl);
+        UserVO userVO = new UserVO();
+        BeanUtils.copyProperties(user, userVO);
+
+        CookieUtil.setCookie(request, response, "user", JSONUtil.obj2String(userVO), true);
+
+        // todo 后续要改，增加令牌token，会整合进redis，分布式会话
         return JSONVO.ok();
     }
 
