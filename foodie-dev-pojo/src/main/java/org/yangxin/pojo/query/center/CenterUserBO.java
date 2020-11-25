@@ -22,7 +22,6 @@ public class CenterUserBO {
     @ApiModelProperty(value = "确认密码", name = "confirmPassword", example = "123456")
     private String confirmPassword;
 
-
     @NotBlank(message = "用户昵称不能为空")
     @Length(max = 12, message = "用户昵称不能超过12位")
     @ApiModelProperty(value = "用户昵称", name = "nickname", example = "杰森")
