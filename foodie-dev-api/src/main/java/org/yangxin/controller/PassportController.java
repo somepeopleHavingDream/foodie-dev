@@ -109,7 +109,7 @@ public class PassportController {
         BeanUtils.copyProperties(user, userVO);
 
         // 设置cookie，cookie值必须被编码，因为cookie值很有可能有违法字符
-        CookieUtil.setCookie(request, response, "user", GSONUtil.obj2String(userVO), true);
+        CookieUtil.setCookie(request, response, "user", JSONUtil.obj2String(userVO), true);
 
         return JSONVO.ok();
     }
@@ -143,7 +143,7 @@ public class PassportController {
         BeanUtils.copyProperties(user, userVO);
 
         // 设置cookie，cookie值必须被编码，因为cookie值很有可能有违法字符
-        CookieUtil.setCookie(request, response, "user", GSONUtil.obj2String(userVO), true);
+        CookieUtil.setCookie(request, response, "user", JSONUtil.obj2String(userVO), true);
 
         // todo 生成用户token，存入redis会话
         // todo 同步购物车数据

@@ -12,7 +12,7 @@ import org.yangxin.pojo.vo.common.JSONVO;
 import org.yangxin.pojo.vo.user.UserVO;
 import org.yangxin.service.center.CenterUserService;
 import org.yangxin.utils.CookieUtil;
-import org.yangxin.utils.GSONUtil;
+import org.yangxin.utils.JSONUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,7 +45,7 @@ public class CenterUserController {
         UserVO userVO = new UserVO();
         BeanUtils.copyProperties(user, userVO);
 
-        CookieUtil.setCookie(request, response, "user", GSONUtil.obj2String(userVO), true);
+        CookieUtil.setCookie(request, response, "user", JSONUtil.obj2String(userVO), true);
 
         // todo 后续要改，增加令牌token，会整合进redis，分布式会话
 
