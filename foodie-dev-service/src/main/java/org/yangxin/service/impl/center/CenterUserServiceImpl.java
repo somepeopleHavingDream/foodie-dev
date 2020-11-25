@@ -1,12 +1,16 @@
 package org.yangxin.service.impl.center;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.yangxin.mapper.UsersMapper;
 import org.yangxin.pojo.User;
+import org.yangxin.pojo.query.center.CenterUserQuery;
 import org.yangxin.service.center.CenterUserService;
+
+import java.util.Date;
 
 /**
  * @author yangxin
@@ -30,5 +34,18 @@ public class CenterUserServiceImpl implements CenterUserService {
         user.setPassword(null);
 
         return user;
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public User updateUserInfo(String userId, CenterUserQuery centerUserQuery) {
+        User updateUser = new User();
+        BeanUtils.copyProperties(centerUserQuery, updateUser);
+        updateUser.setId(userId);
+        updateUser.setUpdatedTime(new Date());
+
+        usersMapper.updateByPrimaryKeySelective(updateUser);
+
+        return queryUserInfo(userId);
     }
 }

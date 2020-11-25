@@ -1,6 +1,8 @@
 package org.yangxin.pojo;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -8,6 +10,8 @@ import java.util.Date;
  * 这里的类命名推荐为单数
  */
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     private String id;
