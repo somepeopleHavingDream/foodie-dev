@@ -31,6 +31,7 @@ import java.util.*;
  * @author yangxin
  * 2019/11/27 21:58
  */
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Service
 @Slf4j
 public class ItemServiceImpl implements ItemService {

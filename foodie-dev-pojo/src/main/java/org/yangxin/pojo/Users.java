@@ -4,8 +4,12 @@ import lombok.Builder;
 
 import java.util.Date;
 
+/**
+ * 这里的类命名推荐为单数
+ */
 @Builder
 public class Users {
+
     private String id;
 
     private String username;

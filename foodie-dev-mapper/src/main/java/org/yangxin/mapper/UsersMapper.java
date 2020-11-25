@@ -3,6 +3,7 @@ package org.yangxin.mapper;
 import org.yangxin.pojo.Users;
 
 public interface UsersMapper {
+
     int deleteByPrimaryKey(String id);
 
     int insert(Users record);

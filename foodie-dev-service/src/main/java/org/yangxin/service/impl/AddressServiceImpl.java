@@ -22,8 +22,10 @@ import java.util.List;
  * @author yangxin
  * 2019/12/04 20:54
  */
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Service
 public class AddressServiceImpl implements AddressService {
+
     private final UserAddressMapper userAddressMapper;
     private final Sid sid;
 
