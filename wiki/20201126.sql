@@ -30,3 +30,15 @@ from orders
 where user_id = ''
 and id = ''
 and is_delete = 0;
+
+update order_status
+set order_status = 40,
+    success_time = ''
+where order_id = ''
+and order_status = 30;
+
+update orders
+set is_delete = 1,
+    updated_time = ''
+where id = ''
+  and user_id = '';

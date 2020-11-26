@@ -21,4 +21,6 @@ public interface OrderStatusMapper {
     List<OrderStatus> select(OrderStatus orderStatus);
 
     void updateDeliverOrderStatus(OrderStatus orderStatus);
+
+    int updateReceiveOrderStatus(OrderStatus orderStatus);
 }

@@ -271,4 +271,11 @@
         updated_time = #{updatedTime,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=VARCHAR}
     </update>
+    <update id="deleteOrder" parameterType="org.yangxin.pojo.Orders">
+        update orders
+        set is_delete = #{isDelete},
+            updated_time = #{updateTime}
+        where id = #{id}
+        and user_id = #{userId}
+    </update>
 </mapper>

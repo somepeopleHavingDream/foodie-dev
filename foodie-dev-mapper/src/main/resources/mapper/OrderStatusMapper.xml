@@ -139,4 +139,11 @@
         where order_id = #{orderId}
         and order_status = 20
     </update>
+    <update id="updateReceiveOrderStatus" parameterType="org.yangxin.pojo.OrderStatus">
+        update order_status
+        set order_status = #{orderStatus},
+            success_time = #{successTime}
+        where order_id = #{orderId}
+        and order_status = 30
+    </update>
 </mapper>

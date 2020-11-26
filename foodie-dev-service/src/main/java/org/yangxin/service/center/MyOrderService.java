@@ -29,4 +29,21 @@ public interface MyOrderService {
      * @return 我的订单
      */
     Orders queryMyOrder(String userId, String orderId);
+
+    /**
+     * 更新订单状态->确认收货
+     *
+     * @param orderId 订单Id
+     * @return 是否更新成功
+     */
+    boolean updateReceiveOrderStatus(String orderId);
+
+    /**
+     * 删除订单（逻辑删除）
+     *
+     * @param userId 用户Id
+     * @param orderId 订单Id
+     * @return 是否删除
+     */
+    boolean deleteOrder(String userId, String orderId);
 }

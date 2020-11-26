@@ -86,4 +86,28 @@ public class MyOrderServiceImpl implements MyOrderService {
                 .build();
         return ordersMapper.selectOne(orders);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public boolean updateReceiveOrderStatus(String orderId) {
+        OrderStatus orderStatus = OrderStatus.builder()
+                .orderStatus(OrderStatusEnum.SUCCESS.getType())
+                .successTime(new Date())
+                .orderId(orderId)
+                .build();
+
+        return orderStatusMapper.updateReceiveOrderStatus(orderStatus) == 1;
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public boolean deleteOrder(String userId, String orderId) {
+        Orders orders = Orders.builder()
+                .isDelete(YesNoEnum.YES.getType())
+                .updatedTime(new Date())
+                .userId(userId)
+                .id(orderId)
+                .build();
+        return ordersMapper.deleteOrder(orders) == 1;
+    }
 }

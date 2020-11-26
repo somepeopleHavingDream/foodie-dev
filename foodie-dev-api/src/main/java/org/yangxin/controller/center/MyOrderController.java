@@ -76,6 +76,11 @@ public class MyOrderController {
             return checkResult;
         }
 
+        boolean result = myOrderService.updateReceiveOrderStatus(orderId);
+        if (!result) {
+            return JSONVO.errorMsg("订单确认收货失败！");
+        }
+
         return JSONVO.ok();
     }
 
@@ -91,6 +96,11 @@ public class MyOrderController {
         JSONVO checkResult = checkUserOrder(userId, orderId);
         if (checkResult.getStatus() != HttpStatus.OK.value()) {
             return checkResult;
+        }
+
+        boolean result = myOrderService.deleteOrder(userId, orderId);
+        if (!result) {
+            return JSONVO.errorMsg("订单删除失败！");
         }
 
         return JSONVO.ok();

@@ -24,4 +24,6 @@ public interface OrdersMapper {
     List<MyOrderVO> queryMyOrder(@Param("paramMap") Map<String, Object> map);
 
     Orders selectOne(Orders orders);
+
+    int deleteOrder(Orders orders);
 }
