@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.yangxin.mapper.UserMapper;
 import org.yangxin.pojo.User;
-import org.yangxin.pojo.query.center.CenterUserBO;
+import org.yangxin.pojo.bo.center.CenterUserBO;
 import org.yangxin.service.center.CenterUserService;
 
 import java.util.Date;

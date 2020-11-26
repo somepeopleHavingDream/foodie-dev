@@ -9,7 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.yangxin.enums.ResultEnum;
-import org.yangxin.pojo.query.AddressBO;
+import org.yangxin.pojo.bo.AddressBO;
 import org.yangxin.pojo.vo.common.JSONVO;
 import org.yangxin.service.AddressService;
 

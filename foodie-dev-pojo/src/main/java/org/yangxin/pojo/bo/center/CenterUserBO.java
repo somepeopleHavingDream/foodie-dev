@@ -1,8 +1,7 @@
-package org.yangxin.pojo.query.center;
+package org.yangxin.pojo.bo.center;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.*;

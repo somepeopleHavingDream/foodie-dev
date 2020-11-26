@@ -9,7 +9,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.yangxin.enums.ResultEnum;
 import org.yangxin.pojo.User;
-import org.yangxin.pojo.query.UserBO;
+import org.yangxin.pojo.bo.UserBO;
 import org.yangxin.pojo.vo.user.UserVO;
 import org.yangxin.pojo.vo.common.JSONVO;
 import org.yangxin.service.UserService;

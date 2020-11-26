@@ -14,7 +14,7 @@ import org.yangxin.enums.OrderStatusEnum;
 import org.yangxin.enums.PayMethodEnum;
 import org.yangxin.enums.ResultEnum;
 import org.yangxin.pojo.OrderStatus;
-import org.yangxin.pojo.query.SubmitOrderBO;
+import org.yangxin.pojo.bo.SubmitOrderBO;
 import org.yangxin.pojo.vo.common.JSONVO;
 import org.yangxin.pojo.vo.order.MerchantOrdersVO;
 import org.yangxin.pojo.vo.order.OrderVO;

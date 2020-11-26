@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.yangxin.enums.ResultEnum;
-import org.yangxin.pojo.query.ShopCartBO;
+import org.yangxin.pojo.bo.ShopCartBO;
 import org.yangxin.pojo.vo.common.JSONVO;
 
 import javax.servlet.http.HttpServletRequest;

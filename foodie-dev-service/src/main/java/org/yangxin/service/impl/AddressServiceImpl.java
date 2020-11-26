@@ -10,7 +10,7 @@ import org.springframework.util.CollectionUtils;
 import org.yangxin.enums.YesNoEnum;
 import org.yangxin.mapper.UserAddressMapper;
 import org.yangxin.pojo.UserAddress;
-import org.yangxin.pojo.query.AddressBO;
+import org.yangxin.pojo.bo.AddressBO;
 import org.yangxin.service.AddressService;
 
 import java.util.Date;

@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.yangxin.enums.SexEnum;
 import org.yangxin.mapper.UserMapper;
 import org.yangxin.pojo.User;
-import org.yangxin.pojo.query.UserBO;
+import org.yangxin.pojo.bo.UserBO;
 import org.yangxin.service.UserService;
 import org.yangxin.utils.DateUtil;
 import org.yangxin.utils.MD5Util;

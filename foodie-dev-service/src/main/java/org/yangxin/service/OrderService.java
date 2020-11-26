@@ -1,7 +1,7 @@
 package org.yangxin.service;
 
 import org.yangxin.pojo.OrderStatus;
-import org.yangxin.pojo.query.SubmitOrderBO;
+import org.yangxin.pojo.bo.SubmitOrderBO;
 import org.yangxin.pojo.vo.order.OrderVO;
 
 /**

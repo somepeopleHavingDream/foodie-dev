@@ -13,7 +13,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.yangxin.pojo.User;
-import org.yangxin.pojo.query.center.CenterUserBO;
+import org.yangxin.pojo.bo.center.CenterUserBO;
 import org.yangxin.pojo.vo.common.JSONVO;
 import org.yangxin.pojo.vo.user.UserVO;
 import org.yangxin.resource.FileUploadResource;
@@ -30,8 +30,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.yangxin.controller.BaseController.IMAGE_USER_FACE_LOCATION;
 
 /**
  * @author yangxin

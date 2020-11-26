@@ -1,7 +1,7 @@
 package org.yangxin.service;
 
 import org.yangxin.pojo.User;
-import org.yangxin.pojo.query.UserBO;
+import org.yangxin.pojo.bo.UserBO;
 
 /**
  * 用户

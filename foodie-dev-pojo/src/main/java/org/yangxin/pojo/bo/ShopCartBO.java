@@ -1,4 +1,4 @@
-package org.yangxin.pojo.query;
+package org.yangxin.pojo.bo;
 
 import lombok.Data;
 

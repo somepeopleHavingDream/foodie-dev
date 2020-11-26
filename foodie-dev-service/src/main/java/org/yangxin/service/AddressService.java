@@ -1,7 +1,7 @@
 package org.yangxin.service;
 
 import org.yangxin.pojo.UserAddress;
-import org.yangxin.pojo.query.AddressBO;
+import org.yangxin.pojo.bo.AddressBO;
 
 import java.util.List;
 

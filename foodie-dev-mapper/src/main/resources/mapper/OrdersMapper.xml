@@ -1,212 +1,273 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.yangxin.mapper.OrdersMapper">
-  <resultMap id="BaseResultMap" type="org.yangxin.pojo.Orders">
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="user_id" jdbcType="VARCHAR" property="userId" />
-    <result column="receiver_name" jdbcType="VARCHAR" property="receiverName" />
-    <result column="receiver_mobile" jdbcType="VARCHAR" property="receiverMobile" />
-    <result column="receiver_address" jdbcType="VARCHAR" property="receiverAddress" />
-    <result column="total_amount" jdbcType="INTEGER" property="totalAmount" />
-    <result column="real_pay_amount" jdbcType="INTEGER" property="realPayAmount" />
-    <result column="post_amount" jdbcType="INTEGER" property="postAmount" />
-    <result column="pay_method" jdbcType="INTEGER" property="payMethod" />
-    <result column="left_msg" jdbcType="VARCHAR" property="leftMsg" />
-    <result column="extand" jdbcType="VARCHAR" property="extand" />
-    <result column="is_comment" jdbcType="INTEGER" property="isComment" />
-    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
-    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
-    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, user_id, receiver_name, receiver_mobile, receiver_address, total_amount, real_pay_amount, 
-    post_amount, pay_method, left_msg, extand, is_comment, is_delete, created_time, updated_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from orders
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from orders
-    where id = #{id,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="org.yangxin.pojo.Orders">
-    insert into orders (id, user_id, receiver_name, 
-      receiver_mobile, receiver_address, total_amount, 
-      real_pay_amount, post_amount, pay_method, 
-      left_msg, extand, is_comment, 
-      is_delete, created_time, updated_time
-      )
-    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{receiverName,jdbcType=VARCHAR}, 
-      #{receiverMobile,jdbcType=VARCHAR}, #{receiverAddress,jdbcType=VARCHAR}, #{totalAmount,jdbcType=INTEGER}, 
-      #{realPayAmount,jdbcType=INTEGER}, #{postAmount,jdbcType=INTEGER}, #{payMethod,jdbcType=INTEGER}, 
-      #{leftMsg,jdbcType=VARCHAR}, #{extand,jdbcType=VARCHAR}, #{isComment,jdbcType=INTEGER}, 
-      #{isDelete,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="org.yangxin.pojo.Orders">
-    insert into orders
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="receiverName != null">
-        receiver_name,
-      </if>
-      <if test="receiverMobile != null">
-        receiver_mobile,
-      </if>
-      <if test="receiverAddress != null">
-        receiver_address,
-      </if>
-      <if test="totalAmount != null">
-        total_amount,
-      </if>
-      <if test="realPayAmount != null">
-        real_pay_amount,
-      </if>
-      <if test="postAmount != null">
-        post_amount,
-      </if>
-      <if test="payMethod != null">
-        pay_method,
-      </if>
-      <if test="leftMsg != null">
-        left_msg,
-      </if>
-      <if test="extand != null">
-        extand,
-      </if>
-      <if test="isComment != null">
-        is_comment,
-      </if>
-      <if test="isDelete != null">
-        is_delete,
-      </if>
-      <if test="createdTime != null">
-        created_time,
-      </if>
-      <if test="updatedTime != null">
-        updated_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="receiverName != null">
-        #{receiverName,jdbcType=VARCHAR},
-      </if>
-      <if test="receiverMobile != null">
-        #{receiverMobile,jdbcType=VARCHAR},
-      </if>
-      <if test="receiverAddress != null">
-        #{receiverAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="totalAmount != null">
-        #{totalAmount,jdbcType=INTEGER},
-      </if>
-      <if test="realPayAmount != null">
-        #{realPayAmount,jdbcType=INTEGER},
-      </if>
-      <if test="postAmount != null">
-        #{postAmount,jdbcType=INTEGER},
-      </if>
-      <if test="payMethod != null">
-        #{payMethod,jdbcType=INTEGER},
-      </if>
-      <if test="leftMsg != null">
-        #{leftMsg,jdbcType=VARCHAR},
-      </if>
-      <if test="extand != null">
-        #{extand,jdbcType=VARCHAR},
-      </if>
-      <if test="isComment != null">
-        #{isComment,jdbcType=INTEGER},
-      </if>
-      <if test="isDelete != null">
-        #{isDelete,jdbcType=INTEGER},
-      </if>
-      <if test="createdTime != null">
-        #{createdTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updatedTime != null">
-        #{updatedTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.Orders">
-    update orders
-    <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="receiverName != null">
+    <resultMap id="BaseResultMap" type="org.yangxin.pojo.Orders">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="receiver_name" jdbcType="VARCHAR" property="receiverName"/>
+        <result column="receiver_mobile" jdbcType="VARCHAR" property="receiverMobile"/>
+        <result column="receiver_address" jdbcType="VARCHAR" property="receiverAddress"/>
+        <result column="total_amount" jdbcType="INTEGER" property="totalAmount"/>
+        <result column="real_pay_amount" jdbcType="INTEGER" property="realPayAmount"/>
+        <result column="post_amount" jdbcType="INTEGER" property="postAmount"/>
+        <result column="pay_method" jdbcType="INTEGER" property="payMethod"/>
+        <result column="left_msg" jdbcType="VARCHAR" property="leftMsg"/>
+        <result column="extand" jdbcType="VARCHAR" property="extand"/>
+        <result column="is_comment" jdbcType="INTEGER" property="isComment"/>
+        <result column="is_delete" jdbcType="INTEGER" property="isDelete"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
+    </resultMap>
+    <resultMap id="myOrderVO" type="org.yangxin.pojo.vo.order.MyOrderVO">
+        <id column="orderId" property="orderId"/>
+        <result column="createdTime" property="createdTime"/>
+        <result column="payMethod" property="payMethod"/>
+        <result column="realPayAmount" property="realPayAmount"/>
+        <result column="postAmount" property="postAmount"/>
+        <result column="orderStatus" property="orderStatus"/>
+        <result column="isComment" property="isComment"/>
+
+        <collection property="subOrderItemList"
+                    select="getSubItems"
+                    column="orderId"
+                    ofType="org.yangxin.pojo.vo.order.MySubOrderItemVO">
+            <result column="itemId" property="itemId"/>
+            <result column="itemName" property="itemName"/>
+            <result column="itemImg" property="itemImg"/>
+            <result column="itemSpecId" property="itemSpecId"/>
+            <result column="itemSpecName" property="itemSpecName"/>
+            <result column="buyCounts" property="buyCounts"/>
+            <result column="price" property="price"/>
+        </collection>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, user_id, receiver_name, receiver_mobile, receiver_address, total_amount, real_pay_amount,
+        post_amount, pay_method, left_msg, extand, is_comment, is_delete, created_time, updated_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from orders
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="queryMyOrder" parameterType="map" resultMap="myOrderVO">
+        select o.id as orderId,
+            o.created_time as createdTime,
+            o.pay_method as payMethod,
+            o.real_pay_amount as payMethod,
+            o.post_amount as postAmount,
+            os.order_status as orderStatus,
+            oi.item_id as itemId,
+            oi.item_name as itemName,
+            oi.item_img as itemImg,
+            oi.item_spec_id as itemSpecId,
+            oi.item_spec_name as itemSpecName,
+            oi.buy_counts as buyCounts,
+            oi.price as price
+        from orders o
+        left join order_status os
+        on o.id = os.order_id
+        left join order_items oi
+        on o.id = oi.order_id
+        where o.user_id = #{paramMap.userId}
+        and o.is_delete = 0
+        <if test="paramMap.orderStatus != null">
+            and os.order_status = #{paramMap.orderStatus}
+        </if>
+        order by o.updated_time;
+    </select>
+    <select id="getSubItems" parameterType="String" resultType="org.yangxin.pojo.vo.order.MySubOrderItemVO">
+        select
+            oi.item_id as itemId,
+            oi.item_name as itemName,
+            oi.item_img as itemImg,
+            oi.item_spec_name as itemSpecName,
+            oi.buy_counts as buyCounts,
+            oi.price as price
+        from
+            order_items oi
+        where
+            oi.order_id = #{orderId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from orders
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="org.yangxin.pojo.Orders">
+        insert into orders (id, user_id, receiver_name,
+        receiver_mobile, receiver_address, total_amount,
+        real_pay_amount, post_amount, pay_method,
+        left_msg, extand, is_comment,
+        is_delete, created_time, updated_time
+        )
+        values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{receiverName,jdbcType=VARCHAR},
+        #{receiverMobile,jdbcType=VARCHAR}, #{receiverAddress,jdbcType=VARCHAR}, #{totalAmount,jdbcType=INTEGER},
+        #{realPayAmount,jdbcType=INTEGER}, #{postAmount,jdbcType=INTEGER}, #{payMethod,jdbcType=INTEGER},
+        #{leftMsg,jdbcType=VARCHAR}, #{extand,jdbcType=VARCHAR}, #{isComment,jdbcType=INTEGER},
+        #{isDelete,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="org.yangxin.pojo.Orders">
+        insert into orders
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="receiverName != null">
+                receiver_name,
+            </if>
+            <if test="receiverMobile != null">
+                receiver_mobile,
+            </if>
+            <if test="receiverAddress != null">
+                receiver_address,
+            </if>
+            <if test="totalAmount != null">
+                total_amount,
+            </if>
+            <if test="realPayAmount != null">
+                real_pay_amount,
+            </if>
+            <if test="postAmount != null">
+                post_amount,
+            </if>
+            <if test="payMethod != null">
+                pay_method,
+            </if>
+            <if test="leftMsg != null">
+                left_msg,
+            </if>
+            <if test="extand != null">
+                extand,
+            </if>
+            <if test="isComment != null">
+                is_comment,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverName != null">
+                #{receiverName,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverMobile != null">
+                #{receiverMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverAddress != null">
+                #{receiverAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="totalAmount != null">
+                #{totalAmount,jdbcType=INTEGER},
+            </if>
+            <if test="realPayAmount != null">
+                #{realPayAmount,jdbcType=INTEGER},
+            </if>
+            <if test="postAmount != null">
+                #{postAmount,jdbcType=INTEGER},
+            </if>
+            <if test="payMethod != null">
+                #{payMethod,jdbcType=INTEGER},
+            </if>
+            <if test="leftMsg != null">
+                #{leftMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="extand != null">
+                #{extand,jdbcType=VARCHAR},
+            </if>
+            <if test="isComment != null">
+                #{isComment,jdbcType=INTEGER},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=INTEGER},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.Orders">
+        update orders
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverName != null">
+                receiver_name = #{receiverName,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverMobile != null">
+                receiver_mobile = #{receiverMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverAddress != null">
+                receiver_address = #{receiverAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="totalAmount != null">
+                total_amount = #{totalAmount,jdbcType=INTEGER},
+            </if>
+            <if test="realPayAmount != null">
+                real_pay_amount = #{realPayAmount,jdbcType=INTEGER},
+            </if>
+            <if test="postAmount != null">
+                post_amount = #{postAmount,jdbcType=INTEGER},
+            </if>
+            <if test="payMethod != null">
+                pay_method = #{payMethod,jdbcType=INTEGER},
+            </if>
+            <if test="leftMsg != null">
+                left_msg = #{leftMsg,jdbcType=VARCHAR},
+            </if>
+            <if test="extand != null">
+                extand = #{extand,jdbcType=VARCHAR},
+            </if>
+            <if test="isComment != null">
+                is_comment = #{isComment,jdbcType=INTEGER},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete,jdbcType=INTEGER},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.Orders">
+        update orders
+        set user_id = #{userId,jdbcType=VARCHAR},
         receiver_name = #{receiverName,jdbcType=VARCHAR},
-      </if>
-      <if test="receiverMobile != null">
         receiver_mobile = #{receiverMobile,jdbcType=VARCHAR},
-      </if>
-      <if test="receiverAddress != null">
         receiver_address = #{receiverAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="totalAmount != null">
         total_amount = #{totalAmount,jdbcType=INTEGER},
-      </if>
-      <if test="realPayAmount != null">
         real_pay_amount = #{realPayAmount,jdbcType=INTEGER},
-      </if>
-      <if test="postAmount != null">
         post_amount = #{postAmount,jdbcType=INTEGER},
-      </if>
-      <if test="payMethod != null">
         pay_method = #{payMethod,jdbcType=INTEGER},
-      </if>
-      <if test="leftMsg != null">
         left_msg = #{leftMsg,jdbcType=VARCHAR},
-      </if>
-      <if test="extand != null">
         extand = #{extand,jdbcType=VARCHAR},
-      </if>
-      <if test="isComment != null">
         is_comment = #{isComment,jdbcType=INTEGER},
-      </if>
-      <if test="isDelete != null">
         is_delete = #{isDelete,jdbcType=INTEGER},
-      </if>
-      <if test="createdTime != null">
         created_time = #{createdTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updatedTime != null">
-        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.Orders">
-    update orders
-    set user_id = #{userId,jdbcType=VARCHAR},
-      receiver_name = #{receiverName,jdbcType=VARCHAR},
-      receiver_mobile = #{receiverMobile,jdbcType=VARCHAR},
-      receiver_address = #{receiverAddress,jdbcType=VARCHAR},
-      total_amount = #{totalAmount,jdbcType=INTEGER},
-      real_pay_amount = #{realPayAmount,jdbcType=INTEGER},
-      post_amount = #{postAmount,jdbcType=INTEGER},
-      pay_method = #{payMethod,jdbcType=INTEGER},
-      left_msg = #{leftMsg,jdbcType=VARCHAR},
-      extand = #{extand,jdbcType=VARCHAR},
-      is_comment = #{isComment,jdbcType=INTEGER},
-      is_delete = #{isDelete,jdbcType=INTEGER},
-      created_time = #{createdTime,jdbcType=TIMESTAMP},
-      updated_time = #{updatedTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
 </mapper>
