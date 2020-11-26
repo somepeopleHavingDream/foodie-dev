@@ -57,12 +57,7 @@
             o.real_pay_amount as payMethod,
             o.post_amount as postAmount,
             os.order_status as orderStatus,
-            oi.item_id as itemId,
-            oi.item_name as itemName,
-            oi.item_img as itemImg,
-            oi.item_spec_name as itemSpecName,
-            oi.buy_counts as buyCounts,
-            oi.price as price
+            o.is_comment as isComment
         from orders o
         left join order_status os
         on o.id = os.order_id
