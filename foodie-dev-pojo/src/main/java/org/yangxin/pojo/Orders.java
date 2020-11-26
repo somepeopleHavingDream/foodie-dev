@@ -1,11 +1,16 @@
 package org.yangxin.pojo;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Orders {
+
     private String id;
 
     private String userId;

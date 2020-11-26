@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.yangxin.pojo.vo.common.JSONVO;
 import org.yangxin.service.center.MyOrderService;
@@ -58,6 +59,53 @@ public class MyOrderController {
         }
 
         myOrderService.updateDeliverOrderStatus(orderId);
+        return JSONVO.ok();
+    }
+
+    /**
+     * 用户确认收货
+     */
+    @ApiOperation(value = "用户确认收货", notes = "用户确认收货", httpMethod = "POST")
+    @PostMapping("/confirmReceive")
+    public JSONVO confirmReceive(@ApiParam(name = "orderId", value = "订单Id", required = true)
+                                 @RequestParam String orderId,
+                                 @ApiParam(name = "userId", value = "用户Id", required = true)
+                                 @RequestParam String userId) {
+        JSONVO checkResult = checkUserOrder(userId, orderId);
+        if (checkResult.getStatus() != HttpStatus.OK.value()) {
+            return checkResult;
+        }
+
+        return JSONVO.ok();
+    }
+
+    /**
+     * 用户删除订单
+     */
+    @ApiOperation(value = "用户删除订单", notes = "用户删除订单", httpMethod = "POST")
+    @PostMapping("/delete")
+    public JSONVO delete(@ApiParam(name = "orderId", value = "订单Id", required = true)
+                                 @RequestParam String orderId,
+                                 @ApiParam(name = "userId", value = "用户Id", required = true)
+                                 @RequestParam String userId) {
+        JSONVO checkResult = checkUserOrder(userId, orderId);
+        if (checkResult.getStatus() != HttpStatus.OK.value()) {
+            return checkResult;
+        }
+
+        return JSONVO.ok();
+    }
+
+    /**
+     * 用于验证用户和订单是否有关联关系，避免非法用户调用
+     *
+     * @param userId 用户Id
+     * @param orderId 订单Id
+     */
+    private JSONVO checkUserOrder(String userId, String orderId) {
+        if (myOrderService.queryMyOrder(userId, orderId) == null) {
+            return JSONVO.errorMsg("订单不存在！");
+        }
         return JSONVO.ok();
     }
 }

@@ -23,4 +23,10 @@ order by o.updated_time;
 update order_status
 set order_status = 30,
     deliver_time = ''
-where order_id = ''
+where order_id = '';
+
+select *
+from orders
+where user_id = ''
+and id = ''
+and is_delete = 0;

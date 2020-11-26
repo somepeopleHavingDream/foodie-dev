@@ -22,4 +22,6 @@ public interface OrdersMapper {
     int updateByPrimaryKey(Orders record);
 
     List<MyOrderVO> queryMyOrder(@Param("paramMap") Map<String, Object> map);
+
+    Orders selectOne(Orders orders);
 }

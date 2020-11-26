@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.yangxin.enums.OrderStatusEnum;
+import org.yangxin.enums.YesNoEnum;
 import org.yangxin.mapper.OrderStatusMapper;
 import org.yangxin.mapper.OrdersMapper;
 import org.yangxin.pojo.OrderStatus;
+import org.yangxin.pojo.Orders;
 import org.yangxin.pojo.vo.order.MyOrderVO;
 import org.yangxin.service.center.MyOrderService;
 import org.yangxin.utils.PagedGridResult;
@@ -72,5 +74,16 @@ public class MyOrderServiceImpl implements MyOrderService {
         pagedGridResult.setTotal(pageList.getPages());
         pagedGridResult.setRecords(pageList.getTotal());
         return pagedGridResult;
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public Orders queryMyOrder(String userId, String orderId) {
+        Orders orders = Orders.builder()
+                .userId(userId)
+                .id(orderId)
+                .isDelete(YesNoEnum.NO.getType())
+                .build();
+        return ordersMapper.selectOne(orders);
     }
 }
