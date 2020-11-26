@@ -5,10 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.yangxin.pojo.vo.common.JSONVO;
 import org.yangxin.service.center.MyOrderService;
 import org.yangxin.utils.PagedGridResult;
@@ -47,5 +44,20 @@ public class MyOrderController {
         }
 
         return JSONVO.ok(myOrderService.queryMyOrders(userId, orderStatus, page, pageSize));
+    }
+
+    /**
+     * 商家发货没有后端，所以这个接口仅仅只是用于模拟
+     */
+    @ApiOperation(value = "商家发货", notes = "商家发货", httpMethod = "GET")
+    @GetMapping("/deliver")
+    public JSONVO deliver(@ApiParam(name = "orderId", value = "订单Id", required = true)
+                          @RequestParam String orderId) {
+        if (StringUtils.isBlank(orderId)) {
+            return JSONVO.errorMsg("订单Id不能为空");
+        }
+
+        myOrderService.updateDeliverOrderStatus(orderId);
+        return JSONVO.ok();
     }
 }

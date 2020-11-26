@@ -14,6 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderStatus {
+
     /**
      * 订单ID;对应订单表的主键id
      */

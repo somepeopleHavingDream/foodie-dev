@@ -6,11 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.yangxin.enums.OrderStatusEnum;
+import org.yangxin.mapper.OrderStatusMapper;
 import org.yangxin.mapper.OrdersMapper;
+import org.yangxin.pojo.OrderStatus;
 import org.yangxin.pojo.vo.order.MyOrderVO;
 import org.yangxin.service.center.MyOrderService;
 import org.yangxin.utils.PagedGridResult;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,14 +23,17 @@ import java.util.Map;
  * @author yangxin
  * 2020/11/26 20:54
  */
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Service
 public class MyOrderServiceImpl implements MyOrderService {
 
     private final OrdersMapper ordersMapper;
+    private final OrderStatusMapper orderStatusMapper;
 
     @Autowired
-    public MyOrderServiceImpl(OrdersMapper ordersMapper) {
+    public MyOrderServiceImpl(OrdersMapper ordersMapper, OrderStatusMapper orderStatusMapper) {
         this.ordersMapper = ordersMapper;
+        this.orderStatusMapper = orderStatusMapper;
     }
 
     @Override
@@ -42,6 +49,18 @@ public class MyOrderServiceImpl implements MyOrderService {
         List<MyOrderVO> list = ordersMapper.queryMyOrder(map);
 
         return setPagedGrid(list, page);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void updateDeliverOrderStatus(String orderId) {
+        OrderStatus orderStatus = OrderStatus.builder()
+                .orderStatus(OrderStatusEnum.WAIT_RECEIVE.getType())
+                .deliverTime(new Date())
+                .orderId(orderId)
+                .build();
+
+        orderStatusMapper.updateDeliverOrderStatus(orderStatus);
     }
 
     private PagedGridResult setPagedGrid(List<MyOrderVO> list, Integer page) {

@@ -19,4 +19,6 @@ public interface OrderStatusMapper {
     int updateByPrimaryKey(OrderStatus record);
 
     List<OrderStatus> select(OrderStatus orderStatus);
+
+    void updateDeliverOrderStatus(OrderStatus orderStatus);
 }

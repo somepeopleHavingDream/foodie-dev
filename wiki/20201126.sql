@@ -19,3 +19,8 @@ on o.id = oi.order_id
 where o.user_id = '1908189H7TNWDTXP'
 and o.is_delete = 0
 order by o.updated_time;
+
+update order_status
+set order_status = 30,
+    deliver_time = ''
+where order_id = ''

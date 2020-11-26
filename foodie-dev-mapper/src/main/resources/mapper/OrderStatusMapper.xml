@@ -1,135 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.yangxin.mapper.OrderStatusMapper">
-  <resultMap id="BaseResultMap" type="org.yangxin.pojo.OrderStatus">
-    <id column="order_id" jdbcType="VARCHAR" property="orderId" />
-    <result column="order_status" jdbcType="INTEGER" property="orderStatus" />
-    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
-    <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
-    <result column="deliver_time" jdbcType="TIMESTAMP" property="deliverTime" />
-    <result column="success_time" jdbcType="TIMESTAMP" property="successTime" />
-    <result column="close_time" jdbcType="TIMESTAMP" property="closeTime" />
-    <result column="comment_time" jdbcType="TIMESTAMP" property="commentTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    order_id, order_status, created_time, pay_time, deliver_time, success_time, close_time, 
-    comment_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from order_status
-    where order_id = #{orderId,jdbcType=VARCHAR}
-  </select>
-  <select id="select" parameterType="org.yangxin.pojo.OrderStatus" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from order_status
-    where order_id = #{orderStatus,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from order_status
-    where order_id = #{orderId,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="org.yangxin.pojo.OrderStatus">
-    insert into order_status (order_id, order_status, created_time,
-      pay_time, deliver_time, success_time,
-      close_time, comment_time)
-    values (#{orderId,jdbcType=VARCHAR}, #{orderStatus,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP},
-      #{payTime,jdbcType=TIMESTAMP}, #{deliverTime,jdbcType=TIMESTAMP}, #{successTime,jdbcType=TIMESTAMP},
-      #{closeTime,jdbcType=TIMESTAMP}, #{commentTime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="org.yangxin.pojo.OrderStatus">
-    insert into order_status
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="orderId != null">
-        order_id,
-      </if>
-      <if test="orderStatus != null">
-        order_status,
-      </if>
-      <if test="createdTime != null">
-        created_time,
-      </if>
-      <if test="payTime != null">
-        pay_time,
-      </if>
-      <if test="deliverTime != null">
-        deliver_time,
-      </if>
-      <if test="successTime != null">
-        success_time,
-      </if>
-      <if test="closeTime != null">
-        close_time,
-      </if>
-      <if test="commentTime != null">
-        comment_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="orderId != null">
-        #{orderId,jdbcType=VARCHAR},
-      </if>
-      <if test="orderStatus != null">
-        #{orderStatus,jdbcType=INTEGER},
-      </if>
-      <if test="createdTime != null">
-        #{createdTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="payTime != null">
-        #{payTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="deliverTime != null">
-        #{deliverTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="successTime != null">
-        #{successTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="closeTime != null">
-        #{closeTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="commentTime != null">
-        #{commentTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.OrderStatus">
-    update order_status
-    <set>
-      <if test="orderStatus != null">
-        order_status = #{orderStatus,jdbcType=INTEGER},
-      </if>
-      <if test="createdTime != null">
+    <resultMap id="BaseResultMap" type="org.yangxin.pojo.OrderStatus">
+        <id column="order_id" jdbcType="VARCHAR" property="orderId" />
+        <result column="order_status" jdbcType="INTEGER" property="orderStatus" />
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+        <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
+        <result column="deliver_time" jdbcType="TIMESTAMP" property="deliverTime" />
+        <result column="success_time" jdbcType="TIMESTAMP" property="successTime" />
+        <result column="close_time" jdbcType="TIMESTAMP" property="closeTime" />
+        <result column="comment_time" jdbcType="TIMESTAMP" property="commentTime" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        order_id, order_status, created_time, pay_time, deliver_time, success_time, close_time,
+        comment_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from order_status
+        where order_id = #{orderId,jdbcType=VARCHAR}
+    </select>
+    <select id="select" parameterType="org.yangxin.pojo.OrderStatus" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from order_status
+        where order_id = #{orderStatus,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from order_status
+        where order_id = #{orderId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="org.yangxin.pojo.OrderStatus">
+        insert into order_status (order_id, order_status, created_time,
+        pay_time, deliver_time, success_time,
+        close_time, comment_time)
+        values (#{orderId,jdbcType=VARCHAR}, #{orderStatus,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP},
+        #{payTime,jdbcType=TIMESTAMP}, #{deliverTime,jdbcType=TIMESTAMP}, #{successTime,jdbcType=TIMESTAMP},
+        #{closeTime,jdbcType=TIMESTAMP}, #{commentTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="org.yangxin.pojo.OrderStatus">
+        insert into order_status
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">
+                order_id,
+            </if>
+            <if test="orderStatus != null">
+                order_status,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="payTime != null">
+                pay_time,
+            </if>
+            <if test="deliverTime != null">
+                deliver_time,
+            </if>
+            <if test="successTime != null">
+                success_time,
+            </if>
+            <if test="closeTime != null">
+                close_time,
+            </if>
+            <if test="commentTime != null">
+                comment_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">
+                #{orderId,jdbcType=VARCHAR},
+            </if>
+            <if test="orderStatus != null">
+                #{orderStatus,jdbcType=INTEGER},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="payTime != null">
+                #{payTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deliverTime != null">
+                #{deliverTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="successTime != null">
+                #{successTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="closeTime != null">
+                #{closeTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="commentTime != null">
+                #{commentTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.OrderStatus">
+        update order_status
+        <set>
+            <if test="orderStatus != null">
+                order_status = #{orderStatus,jdbcType=INTEGER},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="payTime != null">
+                pay_time = #{payTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deliverTime != null">
+                deliver_time = #{deliverTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="successTime != null">
+                success_time = #{successTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="closeTime != null">
+                close_time = #{closeTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="commentTime != null">
+                comment_time = #{commentTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where order_id = #{orderId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.OrderStatus">
+        update order_status
+        set order_status = #{orderStatus,jdbcType=INTEGER},
         created_time = #{createdTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="payTime != null">
         pay_time = #{payTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="deliverTime != null">
         deliver_time = #{deliverTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="successTime != null">
         success_time = #{successTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="closeTime != null">
         close_time = #{closeTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="commentTime != null">
-        comment_time = #{commentTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where order_id = #{orderId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.OrderStatus">
-    update order_status
-    set order_status = #{orderStatus,jdbcType=INTEGER},
-      created_time = #{createdTime,jdbcType=TIMESTAMP},
-      pay_time = #{payTime,jdbcType=TIMESTAMP},
-      deliver_time = #{deliverTime,jdbcType=TIMESTAMP},
-      success_time = #{successTime,jdbcType=TIMESTAMP},
-      close_time = #{closeTime,jdbcType=TIMESTAMP},
-      comment_time = #{commentTime,jdbcType=TIMESTAMP}
-    where order_id = #{orderId,jdbcType=VARCHAR}
-  </update>
+        comment_time = #{commentTime,jdbcType=TIMESTAMP}
+        where order_id = #{orderId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateDeliverOrderStatus" parameterType="org.yangxin.pojo.OrderStatus">
+        update order_status
+        set order_status = #{orderStatus},
+            deliver_time = #{deliverTime}
+        where order_id = #{orderId}
+        and order_status = 20
+    </update>
 </mapper>
