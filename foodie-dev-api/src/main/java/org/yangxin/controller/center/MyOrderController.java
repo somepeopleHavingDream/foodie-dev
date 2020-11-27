@@ -115,4 +115,22 @@ public class MyOrderController extends BaseController {
         OrderStatusCountsVO result = myOrderService.getOrderStatusCounts(userId);
         return JSONVO.ok(result);
     }
+
+    /**
+     * 查询订单动向
+     */
+    @ApiOperation(value = "查询订单动向", notes = "查询订单动向", httpMethod = "POST")
+    @PostMapping("/trend")
+    public JSONVO query(@ApiParam(name = "userId", value = "用户Id", required = true)
+                        @RequestParam String userId,
+                        @ApiParam(name = "page", value = "查询下一页的第几页")
+                        @RequestParam(defaultValue = "1") Integer page,
+                        @ApiParam(name = "pageSize", value = "分页的每一页显示的条数")
+                        @RequestParam(defaultValue = "10") Integer pageSize) {
+        if (StringUtils.isBlank(userId)) {
+            return JSONVO.errorMsg(null);
+        }
+
+        return JSONVO.ok(myOrderService.getOrdersTrend(userId, page, pageSize));
+    }
 }

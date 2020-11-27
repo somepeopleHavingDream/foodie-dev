@@ -133,4 +133,16 @@ public class MyOrderServiceImpl extends BaseService implements MyOrderService {
 
         return new OrderStatusCountsVO(waitPayCounts, waitDeliverCounts, waitReceiveCounts, waitCommentCounts);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public PagedGridResult getOrdersTrend(String userId, Integer page, Integer pageSize) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+
+        PageHelper.startPage(page, pageSize);
+        List<OrderStatus> orderStatusList = ordersMapper.getMyOrderTrend(map);
+
+        return setPagedGrid(orderStatusList, page);
+    }
 }
