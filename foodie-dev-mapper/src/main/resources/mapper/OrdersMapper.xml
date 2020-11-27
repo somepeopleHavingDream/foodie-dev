@@ -101,6 +101,24 @@
             and o.is_comment = #{paramMap.isComment}
         </if>
     </select>
+    <select id="getMyOrderTrend" resultType="org.yangxin.pojo.OrderStatus" parameterType="Map">
+        select os.order_id as orderId,
+               os.order_status as orderStatus,
+               os.created_time as createdTime,
+               os.pay_time as payTime,
+               os.deliver_time as deliverTime,
+               os.success_time as sucessTime,
+               os.close_time as closeTime,
+               os.comment_time as commentTime
+        from orders o
+        left join order_status os
+        on o.id = os.order_id
+        where o.is_delete = 0
+        and o.user_id = #{paramMap.userId}
+        and os.order_status in (20, 30, 40)
+        order by os.order_id
+        desc
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete from orders
         where id = #{id,jdbcType=VARCHAR}

@@ -1,6 +1,7 @@
 package org.yangxin.mapper;
 
 import org.apache.ibatis.annotations.Param;
+import org.yangxin.pojo.OrderStatus;
 import org.yangxin.pojo.Orders;
 import org.yangxin.pojo.vo.order.MyOrderVO;
 
@@ -28,4 +29,6 @@ public interface OrdersMapper {
     int deleteOrder(Orders orders);
 
     int getMyOrderStatusCounts(@Param("paramMap") Map<String, Object> map);
+
+    List<OrderStatus> getMyOrderTrend(@Param("paramMap") Map<String, Object> map);
 }

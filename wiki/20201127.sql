@@ -20,5 +20,22 @@ from orders o
 left join order_status os
 on o.id = os.order_id
 where o.user_id = ''
-and os.order_status = 10
+and os.order_status = 10;
 # and o.is_comment = 0;
+
+select os.order_id as orderId,
+       os.order_status as orderStatus,
+       os.created_time as createdTime,
+       os.pay_time as payTime,
+       os.deliver_time as deliverTime,
+       os.success_time as sucessTime,
+       os.close_time as closeTime,
+       os.comment_time as commentTime
+from orders o
+left join order_status os
+on o.id = os.order_id
+where o.is_delete = 0
+and o.user_id = ''
+and os.order_status in (20, 30, 40)
+order by os.order_id
+desc;
