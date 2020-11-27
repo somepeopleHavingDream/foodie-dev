@@ -1,5 +1,6 @@
 package org.yangxin.service.impl.center;
 
+import com.github.pagehelper.PageHelper;
 import org.n3r.idworker.Sid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,10 @@ import org.yangxin.pojo.OrderItems;
 import org.yangxin.pojo.OrderStatus;
 import org.yangxin.pojo.Orders;
 import org.yangxin.pojo.bo.center.OrderItemsCommentBO;
+import org.yangxin.pojo.vo.comment.MyCommentVO;
+import org.yangxin.service.BaseService;
 import org.yangxin.service.center.MyCommentService;
+import org.yangxin.utils.PagedGridResult;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -27,7 +31,7 @@ import java.util.Map;
  */
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Service
-public class MyCommentServiceImpl implements MyCommentService {
+public class MyCommentServiceImpl extends BaseService implements MyCommentService {
 
     private final OrderItemsMapper orderItemsMapper;
     private final ItemsCommentsMapper itemsCommentsMapper;
@@ -80,5 +84,17 @@ public class MyCommentServiceImpl implements MyCommentService {
                 .commentTime(new Date())
                 .build();
         orderStatusMapper.updateByPrimaryKeySelective(orderStatus);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public PagedGridResult queryMyComments(String userId, Integer page, Integer pageSize) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+
+        PageHelper.startPage(page, pageSize);
+        List<MyCommentVO> myCommentVOList = itemsCommentsMapper.queryMyComments(map);
+
+        return setPagedGrid(myCommentVOList, page);
     }
 }

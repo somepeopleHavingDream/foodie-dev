@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,9 @@ import org.yangxin.pojo.OrderItems;
 import org.yangxin.pojo.Orders;
 import org.yangxin.pojo.bo.center.OrderItemsCommentBO;
 import org.yangxin.pojo.vo.common.JSONVO;
+import org.yangxin.pojo.vo.common.PagingGridVO;
 import org.yangxin.service.center.MyCommentService;
+import org.yangxin.utils.PagedGridResult;
 
 import java.util.List;
 import java.util.Objects;
@@ -92,5 +95,27 @@ public class MyCommentController extends BaseController {
         myCommentService.saveComments(orderId, userId, commentList);
 
         return JSONVO.ok();
+    }
+
+    /**
+     * 查询我的评价
+     */
+    @ApiOperation(value = "查询我的评价", notes = "查询我的评价", httpMethod = "POST")
+    @GetMapping("/query")
+    public JSONVO query(
+            @ApiParam(name = "userId", value = "用户Id", required = true)
+            @RequestParam String userId,
+            @ApiParam(name = "page", value = "查询第几页")
+            @RequestParam(defaultValue = "1") Integer page,
+            @ApiParam(name = "pageSize", value = "分页的每一页显示的条数")
+            @RequestParam(defaultValue = "10") Integer pageSize) {
+        log.info("page: [{}], pageSize: [{}]", page, pageSize);
+
+        if (StringUtils.isBlank(userId)) {
+            return JSONVO.errorMsg(null);
+        }
+
+        PagedGridResult pagedGridResult = myCommentService.queryMyComments(userId, page, pageSize);
+        return JSONVO.ok(pagedGridResult);
     }
 }

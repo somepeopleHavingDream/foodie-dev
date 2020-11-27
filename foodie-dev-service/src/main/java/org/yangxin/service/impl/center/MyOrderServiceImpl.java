@@ -13,6 +13,7 @@ import org.yangxin.mapper.OrdersMapper;
 import org.yangxin.pojo.OrderStatus;
 import org.yangxin.pojo.Orders;
 import org.yangxin.pojo.vo.order.MyOrderVO;
+import org.yangxin.service.BaseService;
 import org.yangxin.service.center.MyOrderService;
 import org.yangxin.utils.PagedGridResult;
 
@@ -27,7 +28,7 @@ import java.util.Map;
  */
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Service
-public class MyOrderServiceImpl implements MyOrderService {
+public class MyOrderServiceImpl extends BaseService implements MyOrderService {
 
     private final OrdersMapper ordersMapper;
     private final OrderStatusMapper orderStatusMapper;
@@ -65,16 +66,16 @@ public class MyOrderServiceImpl implements MyOrderService {
         orderStatusMapper.updateDeliverOrderStatus(orderStatus);
     }
 
-    private PagedGridResult setPagedGrid(List<MyOrderVO> list, Integer page) {
-        PageInfo<MyOrderVO> pageList = new PageInfo<>(list);
-
-        PagedGridResult pagedGridResult = new PagedGridResult();
-        pagedGridResult.setPage(page);
-        pagedGridResult.setRows(list);
-        pagedGridResult.setTotal(pageList.getPages());
-        pagedGridResult.setRecords(pageList.getTotal());
-        return pagedGridResult;
-    }
+//    private PagedGridResult setPagedGrid(List<MyOrderVO> list, Integer page) {
+//        PageInfo<MyOrderVO> pageList = new PageInfo<>(list);
+//
+//        PagedGridResult pagedGridResult = new PagedGridResult();
+//        pagedGridResult.setPage(page);
+//        pagedGridResult.setRows(list);
+//        pagedGridResult.setTotal(pageList.getPages());
+//        pagedGridResult.setRecords(pageList.getTotal());
+//        return pagedGridResult;
+//    }
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
