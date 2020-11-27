@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.yangxin.controller.BaseController;
 import org.yangxin.pojo.vo.common.JSONVO;
+import org.yangxin.pojo.vo.order.OrderStatusCountsVO;
 import org.yangxin.service.center.MyOrderService;
 import org.yangxin.utils.PagedGridResult;
 
@@ -20,13 +21,6 @@ import org.yangxin.utils.PagedGridResult;
 @RestController
 @RequestMapping("myorders")
 public class MyOrderController extends BaseController {
-
-//    private final MyOrderService myOrderService;
-
-//    @Autowired
-//    public MyOrderController(MyOrderService myOrderService) {
-//        this.myOrderService = myOrderService;
-//    }
 
     /**
      * 查询我的订单列表
@@ -107,16 +101,18 @@ public class MyOrderController extends BaseController {
         return JSONVO.ok();
     }
 
-//    /**
-//     * 用于验证用户和订单是否有关联关系，避免非法用户调用
-//     *
-//     * @param userId 用户Id
-//     * @param orderId 订单Id
-//     */
-//    private JSONVO checkUserOrder(String userId, String orderId) {
-//        if (myOrderService.queryMyOrder(userId, orderId) == null) {
-//            return JSONVO.errorMsg("订单不存在！");
-//        }
-//        return JSONVO.ok();
-//    }
+    /**
+     * 获得订单状态数概括
+     */
+    @ApiOperation(value = "获得订单状态数概括", notes = "获得订单状态数概括", httpMethod = "POST")
+    @PostMapping("/statusCounts")
+    public JSONVO statusCounts(@ApiParam(name = "userId", value = "用户Id", required = true)
+                         @RequestParam String userId) {
+        if (StringUtils.isBlank(userId)) {
+            return JSONVO.errorMsg(null);
+        }
+
+        OrderStatusCountsVO result = myOrderService.getOrderStatusCounts(userId);
+        return JSONVO.ok(result);
+    }
 }

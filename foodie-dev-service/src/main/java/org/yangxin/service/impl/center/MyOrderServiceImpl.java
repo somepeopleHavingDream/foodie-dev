@@ -1,7 +1,6 @@
 package org.yangxin.service.impl.center;
 
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -13,6 +12,7 @@ import org.yangxin.mapper.OrdersMapper;
 import org.yangxin.pojo.OrderStatus;
 import org.yangxin.pojo.Orders;
 import org.yangxin.pojo.vo.order.MyOrderVO;
+import org.yangxin.pojo.vo.order.OrderStatusCountsVO;
 import org.yangxin.service.BaseService;
 import org.yangxin.service.center.MyOrderService;
 import org.yangxin.utils.PagedGridResult;
@@ -110,5 +110,27 @@ public class MyOrderServiceImpl extends BaseService implements MyOrderService {
                 .id(orderId)
                 .build();
         return ordersMapper.deleteOrder(orders) == 1;
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public OrderStatusCountsVO getOrderStatusCounts(String userId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+
+        map.put("orderStatus", OrderStatusEnum.WAIT_PAY.getType());
+        int waitPayCounts = ordersMapper.getMyOrderStatusCounts(map);
+
+        map.put("orderStatus", OrderStatusEnum.WAIT_DELIVER.getType());
+        int waitDeliverCounts = ordersMapper.getMyOrderStatusCounts(map);
+
+        map.put("orderStatus", OrderStatusEnum.WAIT_RECEIVE.getType());
+        int waitReceiveCounts = ordersMapper.getMyOrderStatusCounts(map);
+
+        map.put("orderStatus", OrderStatusEnum.SUCCESS.getType());
+        map.put("isComment", YesNoEnum.NO.getType());
+        int waitCommentCounts = ordersMapper.getMyOrderStatusCounts(map);
+
+        return new OrderStatusCountsVO(waitPayCounts, waitDeliverCounts, waitReceiveCounts, waitCommentCounts);
     }
 }

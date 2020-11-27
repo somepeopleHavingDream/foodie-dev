@@ -1,6 +1,7 @@
 package org.yangxin.service.center;
 
 import org.yangxin.pojo.Orders;
+import org.yangxin.pojo.vo.order.OrderStatusCountsVO;
 import org.yangxin.utils.PagedGridResult;
 
 /**
@@ -46,4 +47,12 @@ public interface MyOrderService {
      * @return 是否删除
      */
     boolean deleteOrder(String userId, String orderId);
+
+    /**
+     * 查询用户订单数
+     *
+     * @param userId 用户Id
+     * @return 用户订单数据
+     */
+    OrderStatusCountsVO getOrderStatusCounts(String userId);
 }
