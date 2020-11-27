@@ -1,9 +1,14 @@
 package org.yangxin.pojo;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderItems {
+
     private String id;
 
     private String orderId;

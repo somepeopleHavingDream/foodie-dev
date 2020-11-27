@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.yangxin.controller.BaseController;
 import org.yangxin.pojo.vo.common.JSONVO;
 import org.yangxin.service.center.MyOrderService;
 import org.yangxin.utils.PagedGridResult;
@@ -18,14 +19,14 @@ import org.yangxin.utils.PagedGridResult;
 @Api(value = "用户中心我的订单", tags = {"用户中心我的订单相关接口"})
 @RestController
 @RequestMapping("myorders")
-public class MyOrderController {
+public class MyOrderController extends BaseController {
 
-    private final MyOrderService myOrderService;
+//    private final MyOrderService myOrderService;
 
-    @Autowired
-    public MyOrderController(MyOrderService myOrderService) {
-        this.myOrderService = myOrderService;
-    }
+//    @Autowired
+//    public MyOrderController(MyOrderService myOrderService) {
+//        this.myOrderService = myOrderService;
+//    }
 
     /**
      * 查询我的订单列表
@@ -106,16 +107,16 @@ public class MyOrderController {
         return JSONVO.ok();
     }
 
-    /**
-     * 用于验证用户和订单是否有关联关系，避免非法用户调用
-     *
-     * @param userId 用户Id
-     * @param orderId 订单Id
-     */
-    private JSONVO checkUserOrder(String userId, String orderId) {
-        if (myOrderService.queryMyOrder(userId, orderId) == null) {
-            return JSONVO.errorMsg("订单不存在！");
-        }
-        return JSONVO.ok();
-    }
+//    /**
+//     * 用于验证用户和订单是否有关联关系，避免非法用户调用
+//     *
+//     * @param userId 用户Id
+//     * @param orderId 订单Id
+//     */
+//    private JSONVO checkUserOrder(String userId, String orderId) {
+//        if (myOrderService.queryMyOrder(userId, orderId) == null) {
+//            return JSONVO.errorMsg("订单不存在！");
+//        }
+//        return JSONVO.ok();
+//    }
 }

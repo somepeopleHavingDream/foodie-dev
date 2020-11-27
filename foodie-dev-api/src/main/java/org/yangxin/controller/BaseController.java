@@ -1,12 +1,17 @@
 package org.yangxin.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.yangxin.pojo.Orders;
+import org.yangxin.pojo.vo.common.JSONVO;
+import org.yangxin.service.center.MyOrderService;
 
 import java.io.File;
 
 /**
  * Controller父类
  */
+@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Controller
 public class BaseController {
 
@@ -35,4 +40,26 @@ public class BaseController {
             File.separator + "yangxin" +
             File.separator + "Projects" +
             File.separator + "foodie-store";
+
+    @Autowired
+    public MyOrderService myOrderService;
+
+//    @Autowired
+//    public BaseController(MyOrderService myOrderService) {
+//        this.myOrderService = myOrderService;
+//    }
+
+    /**
+     * 用于验证用户和订单是否有关联关系，避免非法用户调用
+     *
+     * @param userId 用户Id
+     * @param orderId 订单Id
+     */
+    public JSONVO checkUserOrder(String userId, String orderId) {
+        Orders orders = myOrderService.queryMyOrder(userId, orderId);
+        if (orders == null) {
+            return JSONVO.errorMsg("订单不存在！");
+        }
+        return JSONVO.ok(orders);
+    }
 }
