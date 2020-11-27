@@ -14,3 +14,11 @@ where ic.user_id = ''
 and ii.is_main = 1
 order by ic.created_time
 desc;
+
+select count(*)
+from orders o
+left join order_status os
+on o.id = os.order_id
+where o.user_id = ''
+and os.order_status = 10
+# and o.is_comment = 0;

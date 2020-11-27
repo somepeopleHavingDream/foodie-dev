@@ -90,6 +90,17 @@
         and id = #{id}
         and is_delete = 0
     </select>
+    <select id="getMyOrderStatusCounts" resultType="int" parameterType="Map">
+        select count(*)
+        from orders o
+        left join order_status os
+        on o.id = os.order_id
+        where o.user_id = #{paramMap.userId}
+        and os.order_status = #{paramMap.orderStatus}
+        <if test="paramMap.isComment != null">
+            and o.is_comment = #{paramMap.isComment}
+        </if>
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete from orders
         where id = #{id,jdbcType=VARCHAR}

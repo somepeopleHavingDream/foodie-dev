@@ -26,4 +26,6 @@ public interface OrdersMapper {
     Orders selectOne(Orders orders);
 
     int deleteOrder(Orders orders);
+
+    int getMyOrderStatusCounts(@Param("paramMap") Map<String, Object> map);
 }
