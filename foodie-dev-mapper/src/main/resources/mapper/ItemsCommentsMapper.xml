@@ -13,6 +13,15 @@
         <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
         <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
     </resultMap>
+    <resultMap id="myComments" type="org.yangxin.pojo.vo.comment.MyCommentVO">
+        <id column="commentId" property="commentId"/>
+        <result column="content" property="content"/>
+        <result column="createdTime" property="createdTime"/>
+        <result column="itemId" property="itemId"/>
+        <result column="itemName" property="itemName"/>
+        <result column="sepcName" property="specName"/>
+        <result column="itemImg" property="itemImg"/>
+    </resultMap>
     <sql id="Base_Column_List">
         id, user_id, item_id, item_name, item_spec_id, sepc_name, comment_level, content,
         created_time, updated_time
@@ -43,6 +52,22 @@
         <if test="level != null">
             and ic.comment_level = #{level};
         </if>
+    </select>
+    <select id="queryMyComments" parameterType="Map" resultMap="myComments">
+        select ic.id as commentId,
+               ic.content as content,
+               ic.created_time as createdTime,
+               ic.item_id as itemId,
+               ic.item_name as itemName,
+               ic.sepc_name as sepcName,
+               ii.url as itemImg
+        from items_comments ic
+        left join items_img ii
+        on ic.item_id = ii.item_id
+        where ic.user_id = #{paramMap.userId}
+        and ii.is_main = 1
+        order by ic.created_time
+        desc
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete from items_comments

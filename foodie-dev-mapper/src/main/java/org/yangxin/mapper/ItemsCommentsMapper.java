@@ -1,7 +1,9 @@
 package org.yangxin.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.yangxin.pojo.ItemsComments;
 import org.yangxin.pojo.vo.comment.ItemCommentVO;
+import org.yangxin.pojo.vo.comment.MyCommentVO;
 
 import java.util.List;
 import java.util.Map;
@@ -38,4 +40,9 @@ public interface ItemsCommentsMapper {
      * 保存评论
      */
     void saveComments(Map<String, Object> map);
+
+    /**
+     * 查出我的评论
+     */
+    List<MyCommentVO> queryMyComments(@Param("paramMap") Map<String, Object> map);
 }
