@@ -125,6 +125,37 @@
             </if>
         </trim>
     </insert>
+    <insert id="saveComments" parameterType="Map">
+        insert into
+        items_comments
+        (
+        id,
+        user_id,
+        item_id,
+        item_name,
+        item_spec_id,
+        sepc_name,
+        comment_level,
+        content,
+        created_time,
+        updated_time
+        )
+        values
+        <foreach collection="commentList" item="item" index="index" separator=",">
+            (
+            #{item.commentId},
+            #{userId},
+            #{item.itemId},
+            #{item.itemName},
+            #{item.itemSpecId},
+            #{item.itemSpecName},
+            #{item.commentLevel},
+            #{item.content},
+            now(),
+            now()
+            )
+        </foreach>
+    </insert>
     <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.ItemsComments">
         update items_comments
         <set>

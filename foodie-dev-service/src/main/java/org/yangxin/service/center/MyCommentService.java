@@ -1,6 +1,7 @@
 package org.yangxin.service.center;
 
 import org.yangxin.pojo.OrderItems;
+import org.yangxin.pojo.bo.center.OrderItemsCommentBO;
 
 import java.util.List;
 
@@ -17,4 +18,13 @@ public interface MyCommentService {
      * @return 订单关联商品
      */
     List<OrderItems> queryPendingComment(String orderId);
+
+    /**
+     * 保存用户的评论
+     *
+     * @param orderId 订单Id
+     * @param userId 用户Id
+     * @param list 评论列表
+     */
+    void saveComments(String orderId, String userId, List<OrderItemsCommentBO> list);
 }

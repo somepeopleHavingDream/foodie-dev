@@ -89,6 +89,8 @@ public class MyCommentController extends BaseController {
             return JSONVO.errorMsg("评论内容不能为空！");
         }
 
+        myCommentService.saveComments(orderId, userId, commentList);
+
         return JSONVO.ok();
     }
 }

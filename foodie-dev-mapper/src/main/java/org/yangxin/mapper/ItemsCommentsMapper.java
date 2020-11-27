@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface ItemsCommentsMapper {
+
     int deleteByPrimaryKey(String id);
 
     int insert(ItemsComments record);
@@ -32,4 +33,9 @@ public interface ItemsCommentsMapper {
      * 查询商品评价
      */
     List<ItemCommentVO> selectItemComment(Map<String, Object> map);
+
+    /**
+     * 保存评论
+     */
+    void saveComments(Map<String, Object> map);
 }
