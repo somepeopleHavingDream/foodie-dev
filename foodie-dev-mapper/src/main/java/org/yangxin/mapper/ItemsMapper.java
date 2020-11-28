@@ -1,7 +1,7 @@
 package org.yangxin.mapper;
 
 import org.apache.ibatis.annotations.Param;
-import org.yangxin.pojo.Items;
+import org.yangxin.pojo.Item;
 import org.yangxin.pojo.vo.item.SearchItemsVO;
 import org.yangxin.pojo.vo.shopcart.ShopCartVO;
 
@@ -11,17 +11,17 @@ import java.util.Map;
 public interface ItemsMapper {
     int deleteByPrimaryKey(String id);
 
-    int insert(Items record);
+    int insert(Item record);
 
-    int insertSelective(Items record);
+    int insertSelective(Item record);
 
-    Items selectByPrimaryKey(String id);
+    Item selectByPrimaryKey(String id);
 
-    int updateByPrimaryKeySelective(Items record);
+    int updateByPrimaryKeySelective(Item record);
 
-    int updateByPrimaryKeyWithBLOBs(Items record);
+    int updateByPrimaryKeyWithBLOBs(Item record);
 
-    int updateByPrimaryKey(Items record);
+    int updateByPrimaryKey(Item record);
 
     /**
      * 减库存

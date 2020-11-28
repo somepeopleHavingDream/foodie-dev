@@ -89,7 +89,7 @@
         ii.url as itemUrl,
         i.created_time as createdTime
         from category c
-        left join items i
+        left join item i
         on c.id = i.root_cat_id
         left join items_img ii
         on i.id = ii.item_id

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.yangxin.mapper.ItemsParamMapper">
-  <resultMap id="BaseResultMap" type="org.yangxin.pojo.ItemsParam">
+  <resultMap id="BaseResultMap" type="org.yangxin.pojo.ItemParam">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="item_id" jdbcType="VARCHAR" property="itemId" />
     <result column="produc_place" jdbcType="VARCHAR" property="producPlace" />
@@ -36,7 +36,7 @@
     delete from items_param
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="org.yangxin.pojo.ItemsParam">
+  <insert id="insert" parameterType="org.yangxin.pojo.ItemParam">
     insert into items_param (id, item_id, produc_place, 
       foot_period, brand, factory_name, 
       factory_address, packaging_method, weight, 
@@ -48,7 +48,7 @@
       #{storageMethod,jdbcType=VARCHAR}, #{eatMethod,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
       #{updatedTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="org.yangxin.pojo.ItemsParam">
+  <insert id="insertSelective" parameterType="org.yangxin.pojo.ItemParam">
     insert into items_param
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -133,7 +133,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.ItemsParam">
+  <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.ItemParam">
     update items_param
     <set>
       <if test="itemId != null">
@@ -175,7 +175,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.ItemsParam">
+  <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.ItemParam">
     update items_param
     set item_id = #{itemId,jdbcType=VARCHAR},
       produc_place = #{producPlace,jdbcType=VARCHAR},

@@ -95,26 +95,26 @@ public class OrderServiceImpl implements OrderService {
             int buyCount = 1;
 
             // 根据规格id，查询规格的具体信息，主要获取价格
-            ItemsSpec itemsSpec = itemService.queryItemSpecById(itemSpecId);
-            totalAmount += itemsSpec.getPriceNormal() * buyCount;
-            realPayAmount += itemsSpec.getPriceDiscount() * buyCount;
+            ItemSpec itemSpec = itemService.queryItemSpecById(itemSpecId);
+            totalAmount += itemSpec.getPriceNormal() * buyCount;
+            realPayAmount += itemSpec.getPriceDiscount() * buyCount;
 
             // 根据商品Id，获取商品信息以及商品图片
-            String itemId = itemsSpec.getItemId();
-            Items items = itemService.queryItemById(itemId);
-            ItemsImg itemsImg = itemService.queryItemMainImageById(itemId);
+            String itemId = itemSpec.getItemId();
+            Item item = itemService.queryItemById(itemId);
+            ItemImg itemImg = itemService.queryItemMainImageById(itemId);
 
             // 循环保存子订单数据到数据库
             OrderItem orderItem = OrderItem.builder()
                     .id(sid.nextShort())
                     .orderId(order.getId())
                     .itemId(itemId)
-                    .itemName(items.getItemName())
-                    .itemImg(itemsImg == null ? "" : itemsImg.getUrl())
+                    .itemName(item.getItemName())
+                    .itemImg(itemImg == null ? "" : itemImg.getUrl())
                     .buyCounts(buyCount)
                     .itemSpecId(itemSpecId)
-                    .itemSpecName(itemsSpec.getName())
-                    .price(itemsSpec.getPriceDiscount())
+                    .itemSpecName(itemSpec.getName())
+                    .price(itemSpec.getPriceDiscount())
                     .build();
             orderItemsMapper.insert(orderItem);
 

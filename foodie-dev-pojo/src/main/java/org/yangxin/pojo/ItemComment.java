@@ -2,7 +2,8 @@ package org.yangxin.pojo;
 
 import java.util.Date;
 
-public class ItemsComments {
+public class ItemComment {
+
     private String id;
 
     private String userId;

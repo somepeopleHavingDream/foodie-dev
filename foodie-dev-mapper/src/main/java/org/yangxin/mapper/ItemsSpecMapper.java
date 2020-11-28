@@ -1,6 +1,6 @@
 package org.yangxin.mapper;
 
-import org.yangxin.pojo.ItemsSpec;
+import org.yangxin.pojo.ItemSpec;
 
 import java.util.List;
 
@@ -13,15 +13,15 @@ import java.util.List;
 public interface ItemsSpecMapper {
     int deleteByPrimaryKey(String id);
 
-    int insert(ItemsSpec record);
+    int insert(ItemSpec record);
 
-    int insertSelective(ItemsSpec record);
+    int insertSelective(ItemSpec record);
 
-    ItemsSpec selectByPrimaryKey(String id);
+    ItemSpec selectByPrimaryKey(String id);
 
-    int updateByPrimaryKeySelective(ItemsSpec record);
+    int updateByPrimaryKeySelective(ItemSpec record);
 
-    int updateByPrimaryKey(ItemsSpec record);
+    int updateByPrimaryKey(ItemSpec record);
 
     /**
      * 根据商品Id查询商品规格
@@ -29,5 +29,5 @@ public interface ItemsSpecMapper {
      * @param itemId 商品Id
      * @return 商品规格
      */
-    List<ItemsSpec> selectByItemId(String itemId);
+    List<ItemSpec> selectByItemId(String itemId);
 }

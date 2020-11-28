@@ -36,7 +36,7 @@
 
 <body>
 
-	<div id="items">
+	<div id="item">
 		<!--顶部导航条 -->
 		<div class="am-container header">
 			<ul class="message-l">
@@ -413,7 +413,7 @@
 	<script type="text/javascript " src="js/app.js"></script>
 	<script type="text/javascript">
 		var index = new Vue({
-			el: "#items",
+			el: "#item",
 			data: {
 				userIsLogin: false,
 				userInfo: {},
@@ -481,7 +481,7 @@
 					var serverUrl = app.serverUrl;
 					axios.defaults.withCredentials = true;
 					axios.get(
-							serverUrl + '/items/commentLevel?itemId=' + itemId, {})
+							serverUrl + '/item/commentLevel?itemId=' + itemId, {})
 						.then(res => {
 							if (res.data.status == 200) {
 								var countsVO = res.data.data;
@@ -509,7 +509,7 @@
 					var serverUrl = app.serverUrl;
 					axios.defaults.withCredentials = true;
 					axios.get(
-							serverUrl + '/items/comments?itemId=' + itemId + "&level=" + level + "&page=" + page +
+							serverUrl + '/item/comments?itemId=' + itemId + "&level=" + level + "&page=" + page +
 							"&pageSize=" + pageSize, {})
 						.then(res => {
 							if (res.data.status == 200) {
@@ -642,7 +642,7 @@
 				// 渲染商品信息
 				renderItemInfo(itemId) {
 					var serverUrl = app.serverUrl;
-					axios.get(serverUrl + '/items/info/' + itemId, {})
+					axios.get(serverUrl + '/item/info/' + itemId, {})
 						.then(res => {
 							if (res.data.status == 200) {
 								var itemInfo = res.data.data;

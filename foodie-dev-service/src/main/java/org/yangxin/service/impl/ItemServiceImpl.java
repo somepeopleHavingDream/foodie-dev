@@ -11,10 +11,10 @@ import org.yangxin.enums.CommentLevelEnum;
 import org.yangxin.enums.ResultEnum;
 import org.yangxin.exception.FoodieException;
 import org.yangxin.mapper.*;
-import org.yangxin.pojo.Items;
-import org.yangxin.pojo.ItemsImg;
-import org.yangxin.pojo.ItemsParam;
-import org.yangxin.pojo.ItemsSpec;
+import org.yangxin.pojo.Item;
+import org.yangxin.pojo.ItemImg;
+import org.yangxin.pojo.ItemParam;
+import org.yangxin.pojo.ItemSpec;
 import org.yangxin.pojo.vo.comment.CommentLevelCountVO;
 import org.yangxin.pojo.vo.comment.ItemCommentVO;
 import org.yangxin.pojo.vo.common.PagingGridVO;
@@ -52,25 +52,25 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public Items queryItemById(String itemId) {
+    public Item queryItemById(String itemId) {
         return itemsMapper.selectByPrimaryKey(itemId);
     }
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public List<ItemsImg> queryItemImageList(String itemId) {
+    public List<ItemImg> queryItemImageList(String itemId) {
         return itemsImgMapper.selectByItemId(itemId);
     }
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public List<ItemsSpec> queryItemSpecList(String itemId) {
+    public List<ItemSpec> queryItemSpecList(String itemId) {
         return itemsSpecMapper.selectByItemId(itemId);
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
-    public ItemsParam queryItemParam(String itemId) {
+    public ItemParam queryItemParam(String itemId) {
         return itemsParamMapper.selectByItemId(itemId);
     }
 
@@ -141,13 +141,13 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public ItemsSpec queryItemSpecById(String specId) {
+    public ItemSpec queryItemSpecById(String specId) {
         return itemsSpecMapper.selectByPrimaryKey(specId);
     }
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public ItemsImg queryItemMainImageById(String itemId) {
+    public ItemImg queryItemMainImageById(String itemId) {
         return itemsImgMapper.selectByItemIdIsMain(itemId);
     }
 

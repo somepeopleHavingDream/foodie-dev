@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.yangxin.mapper.ItemsCommentsMapper">
-    <resultMap id="BaseResultMap" type="org.yangxin.pojo.ItemsComments">
+    <resultMap id="BaseResultMap" type="org.yangxin.pojo.ItemComment">
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="user_id" jdbcType="VARCHAR" property="userId"/>
         <result column="item_id" jdbcType="VARCHAR" property="itemId"/>
@@ -73,7 +73,7 @@
         delete from items_comments
         where id = #{id,jdbcType=VARCHAR}
     </delete>
-    <insert id="insert" parameterType="org.yangxin.pojo.ItemsComments">
+    <insert id="insert" parameterType="org.yangxin.pojo.ItemComment">
         insert into items_comments (id, user_id, item_id,
         item_name, item_spec_id, sepc_name,
         comment_level, content, created_time,
@@ -83,7 +83,7 @@
         #{commentLevel,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP},
         #{updatedTime,jdbcType=TIMESTAMP})
     </insert>
-    <insert id="insertSelective" parameterType="org.yangxin.pojo.ItemsComments">
+    <insert id="insertSelective" parameterType="org.yangxin.pojo.ItemComment">
         insert into items_comments
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -181,7 +181,7 @@
             )
         </foreach>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.ItemsComments">
+    <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.ItemComment">
         update items_comments
         <set>
             <if test="userId != null">
@@ -214,7 +214,7 @@
         </set>
         where id = #{id,jdbcType=VARCHAR}
     </update>
-    <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.ItemsComments">
+    <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.ItemComment">
         update items_comments
         set user_id = #{userId,jdbcType=VARCHAR},
         item_id = #{itemId,jdbcType=VARCHAR},

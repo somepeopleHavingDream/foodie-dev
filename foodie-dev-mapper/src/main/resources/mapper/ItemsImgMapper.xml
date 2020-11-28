@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.yangxin.mapper.ItemsImgMapper">
-  <resultMap id="BaseResultMap" type="org.yangxin.pojo.ItemsImg">
+  <resultMap id="BaseResultMap" type="org.yangxin.pojo.ItemImg">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="item_id" jdbcType="VARCHAR" property="itemId" />
     <result column="url" jdbcType="VARCHAR" property="url" />
@@ -36,7 +36,7 @@
     delete from items_img
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="org.yangxin.pojo.ItemsImg">
+  <insert id="insert" parameterType="org.yangxin.pojo.ItemImg">
     insert into items_img (id, item_id, url, 
       sort, is_main, created_time, 
       updated_time)
@@ -44,7 +44,7 @@
       #{sort,jdbcType=INTEGER}, #{isMain,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, 
       #{updatedTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="org.yangxin.pojo.ItemsImg">
+  <insert id="insertSelective" parameterType="org.yangxin.pojo.ItemImg">
     insert into items_img
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -93,7 +93,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.ItemsImg">
+  <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.ItemImg">
     update items_img
     <set>
       <if test="itemId != null">
@@ -117,7 +117,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.ItemsImg">
+  <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.ItemImg">
     update items_img
     set item_id = #{itemId,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},

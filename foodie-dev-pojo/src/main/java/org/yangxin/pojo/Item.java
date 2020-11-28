@@ -2,7 +2,8 @@ package org.yangxin.pojo;
 
 import java.util.Date;
 
-public class Items {
+public class Item {
+
     private String id;
 
     private String itemName;

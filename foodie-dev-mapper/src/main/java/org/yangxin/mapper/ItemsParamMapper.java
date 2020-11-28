@@ -1,19 +1,19 @@
 package org.yangxin.mapper;
 
-import org.yangxin.pojo.ItemsParam;
+import org.yangxin.pojo.ItemParam;
 
 public interface ItemsParamMapper {
     int deleteByPrimaryKey(String id);
 
-    int insert(ItemsParam record);
+    int insert(ItemParam record);
 
-    int insertSelective(ItemsParam record);
+    int insertSelective(ItemParam record);
 
-    ItemsParam selectByPrimaryKey(String id);
+    ItemParam selectByPrimaryKey(String id);
 
-    int updateByPrimaryKeySelective(ItemsParam record);
+    int updateByPrimaryKeySelective(ItemParam record);
 
-    int updateByPrimaryKey(ItemsParam record);
+    int updateByPrimaryKey(ItemParam record);
 
     /**
      * 根据商品Id查询商品参数
@@ -21,5 +21,5 @@ public interface ItemsParamMapper {
      * @param itemId 商品Id
      * @return 商品参数
      */
-    ItemsParam selectByItemId(String itemId);
+    ItemParam selectByItemId(String itemId);
 }

@@ -7,10 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.yangxin.pojo.Items;
-import org.yangxin.pojo.ItemsImg;
-import org.yangxin.pojo.ItemsParam;
-import org.yangxin.pojo.ItemsSpec;
+import org.yangxin.pojo.Item;
+import org.yangxin.pojo.ItemImg;
+import org.yangxin.pojo.ItemParam;
+import org.yangxin.pojo.ItemSpec;
 import org.yangxin.pojo.vo.item.ItemInfoVO;
 import org.yangxin.pojo.vo.common.JSONVO;
 import org.yangxin.pojo.vo.common.PagingGridVO;
@@ -51,16 +51,16 @@ public class ItemsController {
             return JSONVO.errorMsg(null);
         }
 
-        Items items = itemService.queryItemById(itemId);
-        List<ItemsImg> itemImageList = itemService.queryItemImageList(itemId);
-        List<ItemsSpec> itemsSpecList = itemService.queryItemSpecList(itemId);
-        ItemsParam itemsParam = itemService.queryItemParam(itemId);
+        Item item = itemService.queryItemById(itemId);
+        List<ItemImg> itemImageList = itemService.queryItemImageList(itemId);
+        List<ItemSpec> itemSpecList = itemService.queryItemSpecList(itemId);
+        ItemParam itemParam = itemService.queryItemParam(itemId);
 
         ItemInfoVO itemInfoVO = ItemInfoVO.builder()
-                .item(items)
+                .item(item)
                 .itemImgList(itemImageList)
-                .itemSpecList(itemsSpecList)
-                .itemParams(itemsParam)
+                .itemSpecList(itemSpecList)
+                .itemParams(itemParam)
                 .build();
 
         return JSONVO.ok(itemInfoVO);

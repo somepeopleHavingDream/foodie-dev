@@ -2,10 +2,10 @@ package org.yangxin.pojo.vo.item;
 
 import lombok.Builder;
 import lombok.Data;
-import org.yangxin.pojo.Items;
-import org.yangxin.pojo.ItemsImg;
-import org.yangxin.pojo.ItemsParam;
-import org.yangxin.pojo.ItemsSpec;
+import org.yangxin.pojo.Item;
+import org.yangxin.pojo.ItemImg;
+import org.yangxin.pojo.ItemParam;
+import org.yangxin.pojo.ItemSpec;
 
 import java.util.List;
 
@@ -21,20 +21,20 @@ public class ItemInfoVO {
     /**
      * 商品
      */
-    private Items item;
+    private Item item;
 
     /**
      * 商品图片
      */
-    private List<ItemsImg> itemImgList;
+    private List<ItemImg> itemImgList;
 
     /**
      * 商品规格
      */
-    private List<ItemsSpec> itemSpecList;
+    private List<ItemSpec> itemSpecList;
 
     /**
      * 商品参数
      */
-    private ItemsParam itemParams;
+    private ItemParam itemParams;
 }

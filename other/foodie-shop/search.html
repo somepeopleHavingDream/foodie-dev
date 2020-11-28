@@ -288,7 +288,7 @@
 					// debugger;
 					var serverUrl = app.serverUrl;
 					axios.defaults.withCredentials = true;
-					axios.get(serverUrl + '/items/search?keywords=' + keywords + "&sort=" + sort + "&page=" + page + "&pageSize=" + pageSize, {})
+					axios.get(serverUrl + '/item/search?keywords=' + keywords + "&sort=" + sort + "&page=" + page + "&pageSize=" + pageSize, {})
 						.then(res => {
 							if (res.data.status == 200) {
 								var grid = res.data.data;

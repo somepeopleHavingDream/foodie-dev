@@ -1,7 +1,7 @@
 package org.yangxin.mapper;
 
 import org.apache.ibatis.annotations.Param;
-import org.yangxin.pojo.ItemsComments;
+import org.yangxin.pojo.ItemComment;
 import org.yangxin.pojo.vo.comment.ItemCommentVO;
 import org.yangxin.pojo.vo.comment.MyCommentVO;
 
@@ -12,15 +12,15 @@ public interface ItemsCommentsMapper {
 
     int deleteByPrimaryKey(String id);
 
-    int insert(ItemsComments record);
+    int insert(ItemComment record);
 
-    int insertSelective(ItemsComments record);
+    int insertSelective(ItemComment record);
 
-    ItemsComments selectByPrimaryKey(String id);
+    ItemComment selectByPrimaryKey(String id);
 
-    int updateByPrimaryKeySelective(ItemsComments record);
+    int updateByPrimaryKeySelective(ItemComment record);
 
-    int updateByPrimaryKey(ItemsComments record);
+    int updateByPrimaryKey(ItemComment record);
 
     /**
      * 查询评价数量

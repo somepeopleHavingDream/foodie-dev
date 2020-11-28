@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.yangxin.mapper.ItemsMapper">
-    <resultMap id="BaseResultMap" type="org.yangxin.pojo.Items">
+    <resultMap id="BaseResultMap" type="org.yangxin.pojo.Item">
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="item_name" jdbcType="VARCHAR" property="itemName"/>
         <result column="cat_id" jdbcType="INTEGER" property="catId"/>
@@ -11,7 +11,7 @@
         <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
         <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
     </resultMap>
-    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="org.yangxin.pojo.Items">
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="org.yangxin.pojo.Item">
         <result column="content" jdbcType="LONGVARCHAR" property="content"/>
     </resultMap>
     <sql id="Base_Column_List">
@@ -25,7 +25,7 @@
         <include refid="Base_Column_List"/>
         ,
         <include refid="Blob_Column_List"/>
-        from items
+        from item
         where id = #{id,jdbcType=VARCHAR}
     </select>
     <select id="selectItem" parameterType="Map" resultType="org.yangxin.pojo.vo.item.SearchItemsVO">
@@ -36,7 +36,7 @@
         ii.url as imgUrl,
         tempSpec.price_discount as price
         FROM
-        items i
+        item i
         LEFT JOIN
         items_img ii
         on
@@ -74,7 +74,7 @@
         ii.url as imgUrl,
         tempSpec.price_discount as price
         FROM
-        items i
+        item i
         LEFT JOIN
         items_img ii
         on
@@ -108,7 +108,7 @@
         t_items_spec.price_discount as priceDiscount,
         t_items_spec.price_normal as priceNormal
         from items_spec t_items_spec
-        left join items t_items
+        left join item t_items
         on t_items.id = t_items_spec.item_id
         left join items_img t_items_img
         on t_items_img.item_id = t_items.id
@@ -120,11 +120,11 @@
         </foreach>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        delete from items
+        delete from item
         where id = #{id,jdbcType=VARCHAR}
     </delete>
-    <insert id="insert" parameterType="org.yangxin.pojo.Items">
-        insert into items (id, item_name, cat_id,
+    <insert id="insert" parameterType="org.yangxin.pojo.Item">
+        insert into item (id, item_name, cat_id,
         root_cat_id, sell_counts, on_off_status,
         created_time, updated_time, content
         )
@@ -133,8 +133,8 @@
         #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
         )
     </insert>
-    <insert id="insertSelective" parameterType="org.yangxin.pojo.Items">
-        insert into items
+    <insert id="insertSelective" parameterType="org.yangxin.pojo.Item">
+        insert into item
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
@@ -194,8 +194,8 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.Items">
-        update items
+    <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.Item">
+        update item
         <set>
             <if test="itemName != null">
                 item_name = #{itemName,jdbcType=VARCHAR},
@@ -224,8 +224,8 @@
         </set>
         where id = #{id,jdbcType=VARCHAR}
     </update>
-    <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.yangxin.pojo.Items">
-        update items
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.yangxin.pojo.Item">
+        update item
         set item_name = #{itemName,jdbcType=VARCHAR},
         cat_id = #{catId,jdbcType=INTEGER},
         root_cat_id = #{rootCatId,jdbcType=INTEGER},
@@ -236,8 +236,8 @@
         content = #{content,jdbcType=LONGVARCHAR}
         where id = #{id,jdbcType=VARCHAR}
     </update>
-    <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.Items">
-        update items
+    <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.Item">
+        update item
         set item_name = #{itemName,jdbcType=VARCHAR},
         cat_id = #{catId,jdbcType=INTEGER},
         root_cat_id = #{rootCatId,jdbcType=INTEGER},

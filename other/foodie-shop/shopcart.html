@@ -174,7 +174,7 @@
 							<span class="txt">已选商品</span>
 							<em id="J_SelectedItemsCount">{{allSelectedCounts}}</em><span class="txt">件</span>
 							<div class="arrow-box">
-								<span class="selected-items-arrow"></span>
+								<span class="selected-item-arrow"></span>
 								<span class="arrow"></span>
 							</div>
 						</div>
@@ -412,7 +412,7 @@
 						var serverUrl = app.serverUrl;
 							axios.defaults.withCredentials = true;
 							axios.get(
-									serverUrl + '/items/refresh?itemSpecIds=' + itemSpecIds, 
+									serverUrl + '/item/refresh?itemSpecIds=' + itemSpecIds,
 									{},)
 									.then(res => {
 										if (res.data.status == 200) {

@@ -2,7 +2,8 @@ package org.yangxin.pojo;
 
 import java.util.Date;
 
-public class ItemsParam {
+public class ItemParam {
+
     private String id;
 
     private String itemId;

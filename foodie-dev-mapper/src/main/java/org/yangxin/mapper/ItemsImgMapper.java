@@ -1,21 +1,21 @@
 package org.yangxin.mapper;
 
-import org.yangxin.pojo.ItemsImg;
+import org.yangxin.pojo.ItemImg;
 
 import java.util.List;
 
 public interface ItemsImgMapper {
     int deleteByPrimaryKey(String id);
 
-    int insert(ItemsImg record);
+    int insert(ItemImg record);
 
-    int insertSelective(ItemsImg record);
+    int insertSelective(ItemImg record);
 
-    ItemsImg selectByPrimaryKey(String id);
+    ItemImg selectByPrimaryKey(String id);
 
-    int updateByPrimaryKeySelective(ItemsImg record);
+    int updateByPrimaryKeySelective(ItemImg record);
 
-    int updateByPrimaryKey(ItemsImg record);
+    int updateByPrimaryKey(ItemImg record);
 
     /**
      * 根据商品Id查询商品图片列表
@@ -23,7 +23,7 @@ public interface ItemsImgMapper {
      * @param itemId 商品Id
      * @return 商品图片
      */
-    List<ItemsImg> selectByItemId(String itemId);
+    List<ItemImg> selectByItemId(String itemId);
 
     /**
      * 根据商品Id，获得商品图片主图url
@@ -31,5 +31,5 @@ public interface ItemsImgMapper {
      * @param itemId 商品Id
      * @return 商品图片主图url
      */
-    ItemsImg selectByItemIdIsMain(String itemId);
+    ItemImg selectByItemIdIsMain(String itemId);
 }

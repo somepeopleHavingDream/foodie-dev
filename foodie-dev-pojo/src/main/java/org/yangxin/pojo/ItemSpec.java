@@ -3,7 +3,8 @@ package org.yangxin.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class ItemsSpec {
+public class ItemSpec {
+
     private String id;
 
     private String itemId;

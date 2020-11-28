@@ -1,9 +1,9 @@
 package org.yangxin.service;
 
-import org.yangxin.pojo.Items;
-import org.yangxin.pojo.ItemsImg;
-import org.yangxin.pojo.ItemsParam;
-import org.yangxin.pojo.ItemsSpec;
+import org.yangxin.pojo.Item;
+import org.yangxin.pojo.ItemImg;
+import org.yangxin.pojo.ItemParam;
+import org.yangxin.pojo.ItemSpec;
 import org.yangxin.pojo.vo.comment.CommentLevelCountVO;
 import org.yangxin.pojo.vo.common.PagingGridVO;
 import org.yangxin.pojo.vo.shopcart.ShopCartVO;
@@ -23,7 +23,7 @@ public interface ItemService {
      * @param itemId 商品Id
      * @return 商品
      */
-    Items queryItemById(String itemId);
+    Item queryItemById(String itemId);
 
     /**
      * 根据商品Id查询商品图片列表
@@ -31,7 +31,7 @@ public interface ItemService {
      * @param itemId 商品Id
      * @return 商品图片
      */
-    List<ItemsImg> queryItemImageList(String itemId);
+    List<ItemImg> queryItemImageList(String itemId);
 
     /**
      * 根据商品Id查询商品规格
@@ -39,7 +39,7 @@ public interface ItemService {
      * @param itemId 商品Id
      * @return 商品规格
      */
-    List<ItemsSpec> queryItemSpecList(String itemId);
+    List<ItemSpec> queryItemSpecList(String itemId);
 
     /**
      * 根据商品Id查询商品参数
@@ -47,7 +47,7 @@ public interface ItemService {
      * @param itemId 商品Id
      * @return 商品参数
      */
-    ItemsParam queryItemParam(String itemId);
+    ItemParam queryItemParam(String itemId);
 
     /**
      * 根据商品Id查询商品评价
@@ -88,7 +88,7 @@ public interface ItemService {
      * @param specId 商品规格Id
      * @return 规格对象
      */
-    ItemsSpec queryItemSpecById(String specId);
+    ItemSpec queryItemSpecById(String specId);
 
     /**
      * 根据商品Id，获得商品图片主图url
@@ -96,7 +96,7 @@ public interface ItemService {
      * @param itemId 商品Id
      * @return 商品图片主图url
      */
-    ItemsImg queryItemMainImageById(String itemId);
+    ItemImg queryItemMainImageById(String itemId);
 
     /**
      * 减少库存
