@@ -12,7 +12,7 @@ import org.yangxin.mapper.OrderItemsMapper;
 import org.yangxin.mapper.OrderStatusMapper;
 import org.yangxin.mapper.OrdersMapper;
 import org.yangxin.pojo.Order;
-import org.yangxin.pojo.OrderItems;
+import org.yangxin.pojo.OrderItem;
 import org.yangxin.pojo.OrderStatus;
 import org.yangxin.pojo.bo.center.OrderItemsCommentBO;
 import org.yangxin.pojo.vo.comment.MyCommentVO;
@@ -51,11 +51,11 @@ public class MyCommentServiceImpl extends BaseService implements MyCommentServic
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public List<OrderItems> queryPendingComment(String orderId) {
-        OrderItems orderItems = OrderItems.builder()
+    public List<OrderItem> queryPendingComment(String orderId) {
+        OrderItem orderItem = OrderItem.builder()
                 .orderId(orderId)
                 .build();
-        return orderItemsMapper.select(orderItems);
+        return orderItemsMapper.select(orderItem);
     }
 
     @Override

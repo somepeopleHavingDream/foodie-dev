@@ -1,6 +1,6 @@
 package org.yangxin.service.center;
 
-import org.yangxin.pojo.OrderItems;
+import org.yangxin.pojo.OrderItem;
 import org.yangxin.pojo.bo.center.OrderItemsCommentBO;
 import org.yangxin.utils.PagedGridResult;
 
@@ -18,7 +18,7 @@ public interface MyCommentService {
      * @param orderId 订单Id
      * @return 订单关联商品
      */
-    List<OrderItems> queryPendingComment(String orderId);
+    List<OrderItem> queryPendingComment(String orderId);
 
     /**
      * 保存用户的评论

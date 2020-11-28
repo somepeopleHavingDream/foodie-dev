@@ -1,6 +1,6 @@
 package org.yangxin.mapper;
 
-import org.yangxin.pojo.OrderItems;
+import org.yangxin.pojo.OrderItem;
 
 import java.util.List;
 
@@ -8,15 +8,15 @@ public interface OrderItemsMapper {
 
     int deleteByPrimaryKey(String id);
 
-    int insert(OrderItems record);
+    int insert(OrderItem record);
 
-    int insertSelective(OrderItems record);
+    int insertSelective(OrderItem record);
 
-    OrderItems selectByPrimaryKey(String id);
+    OrderItem selectByPrimaryKey(String id);
 
-    int updateByPrimaryKeySelective(OrderItems record);
+    int updateByPrimaryKeySelective(OrderItem record);
 
-    int updateByPrimaryKey(OrderItems record);
+    int updateByPrimaryKey(OrderItem record);
 
-    List<OrderItems> select(OrderItems orderItems);
+    List<OrderItem> select(OrderItem orderItem);
 }

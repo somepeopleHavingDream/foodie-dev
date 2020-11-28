@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.yangxin.mapper.OrderItemsMapper">
-    <resultMap id="BaseResultMap" type="org.yangxin.pojo.OrderItems">
+    <resultMap id="BaseResultMap" type="org.yangxin.pojo.OrderItem">
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="order_id" jdbcType="VARCHAR" property="orderId"/>
         <result column="item_id" jdbcType="VARCHAR" property="itemId"/>
@@ -22,7 +22,7 @@
         from order_items
         where id = #{id,jdbcType=VARCHAR}
     </select>
-    <select id="select" parameterType="org.yangxin.pojo.OrderItems" resultMap="BaseResultMap">
+    <select id="select" parameterType="org.yangxin.pojo.OrderItem" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from order_items
@@ -32,7 +32,7 @@
     delete from order_items
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-    <insert id="insert" parameterType="org.yangxin.pojo.OrderItems">
+    <insert id="insert" parameterType="org.yangxin.pojo.OrderItem">
     insert into order_items (id, order_id, item_id, 
       item_img, item_name, item_spec_id, 
       item_spec_name, price, buy_counts
@@ -42,7 +42,7 @@
       #{itemSpecName,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER}, #{buyCounts,jdbcType=INTEGER}
       )
   </insert>
-    <insert id="insertSelective" parameterType="org.yangxin.pojo.OrderItems">
+    <insert id="insertSelective" parameterType="org.yangxin.pojo.OrderItem">
         insert into order_items
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -103,7 +103,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.OrderItems">
+    <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.OrderItem">
         update order_items
         <set>
             <if test="orderId != null">
@@ -133,7 +133,7 @@
         </set>
         where id = #{id,jdbcType=VARCHAR}
     </update>
-    <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.OrderItems">
+    <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.OrderItem">
     update order_items
     set order_id = #{orderId,jdbcType=VARCHAR},
       item_id = #{itemId,jdbcType=VARCHAR},

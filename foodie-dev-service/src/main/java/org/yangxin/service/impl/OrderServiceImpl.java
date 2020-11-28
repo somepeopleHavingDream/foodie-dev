@@ -105,7 +105,7 @@ public class OrderServiceImpl implements OrderService {
             ItemsImg itemsImg = itemService.queryItemMainImageById(itemId);
 
             // 循环保存子订单数据到数据库
-            OrderItems orderItems = OrderItems.builder()
+            OrderItem orderItem = OrderItem.builder()
                     .id(sid.nextShort())
                     .orderId(order.getId())
                     .itemId(itemId)
@@ -116,7 +116,7 @@ public class OrderServiceImpl implements OrderService {
                     .itemSpecName(itemsSpec.getName())
                     .price(itemsSpec.getPriceDiscount())
                     .build();
-            orderItemsMapper.insert(orderItems);
+            orderItemsMapper.insert(orderItem);
 
             // 在用户提交订单以后，规格表中需要扣除库存
             itemService.decreaseItemSpecStock(itemSpecId, buyCount);

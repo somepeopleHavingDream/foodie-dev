@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.yangxin.controller.BaseController;
 import org.yangxin.enums.YesNoEnum;
-import org.yangxin.pojo.OrderItems;
+import org.yangxin.pojo.OrderItem;
 import org.yangxin.pojo.Order;
 import org.yangxin.pojo.bo.center.OrderItemsCommentBO;
 import org.yangxin.pojo.vo.common.JSONVO;
@@ -61,8 +61,8 @@ public class MyCommentController extends BaseController {
             return JSONVO.errorMsg("该笔订单已经评价。");
         }
 
-        List<OrderItems> orderItemsList = myCommentService.queryPendingComment(orderId);
-        return JSONVO.ok(orderItemsList);
+        List<OrderItem> orderItemList = myCommentService.queryPendingComment(orderId);
+        return JSONVO.ok(orderItemList);
     }
 
     /**
