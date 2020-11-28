@@ -18,6 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class Swagger2 {
+
     /**
      * 配置swagger2核心配置docket
      * 访问路径是http:localhost:8088/swagger-ui.html、http:localhost:8088/doc.html
