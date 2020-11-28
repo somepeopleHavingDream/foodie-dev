@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.yangxin.mapper.OrdersMapper">
-    <resultMap id="BaseResultMap" type="org.yangxin.pojo.Orders">
+    <resultMap id="BaseResultMap" type="org.yangxin.pojo.Order">
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="user_id" jdbcType="VARCHAR" property="userId"/>
         <result column="receiver_name" jdbcType="VARCHAR" property="receiverName"/>
@@ -47,7 +47,7 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from orders
+        from order
         where id = #{id,jdbcType=VARCHAR}
     </select>
     <select id="queryMyOrder" parameterType="map" resultMap="myOrderVO">
@@ -58,7 +58,7 @@
             o.post_amount as postAmount,
             os.order_status as orderStatus,
             o.is_comment as isComment
-        from orders o
+        from order o
         left join order_status os
         on o.id = os.order_id
         left join order_items oi
@@ -83,16 +83,16 @@
         where
             oi.order_id = #{orderId}
     </select>
-    <select id="selectOne" parameterType="org.yangxin.pojo.Orders" resultType="org.yangxin.pojo.Orders">
+    <select id="selectOne" parameterType="org.yangxin.pojo.Order" resultType="org.yangxin.pojo.Order">
         select *
-        from orders
+        from order
         where user_id = #{userId}
         and id = #{id}
         and is_delete = 0
     </select>
     <select id="getMyOrderStatusCounts" resultType="int" parameterType="Map">
         select count(*)
-        from orders o
+        from order o
         left join order_status os
         on o.id = os.order_id
         where o.user_id = #{paramMap.userId}
@@ -110,7 +110,7 @@
                os.success_time as sucessTime,
                os.close_time as closeTime,
                os.comment_time as commentTime
-        from orders o
+        from order o
         left join order_status os
         on o.id = os.order_id
         where o.is_delete = 0
@@ -120,11 +120,11 @@
         desc
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        delete from orders
+        delete from order
         where id = #{id,jdbcType=VARCHAR}
     </delete>
-    <insert id="insert" parameterType="org.yangxin.pojo.Orders">
-        insert into orders (id, user_id, receiver_name,
+    <insert id="insert" parameterType="org.yangxin.pojo.Order">
+        insert into order (id, user_id, receiver_name,
         receiver_mobile, receiver_address, total_amount,
         real_pay_amount, post_amount, pay_method,
         left_msg, extand, is_comment,
@@ -137,8 +137,8 @@
         #{isDelete,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}
         )
     </insert>
-    <insert id="insertSelective" parameterType="org.yangxin.pojo.Orders">
-        insert into orders
+    <insert id="insertSelective" parameterType="org.yangxin.pojo.Order">
+        insert into order
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
@@ -234,8 +234,8 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.Orders">
-        update orders
+    <update id="updateByPrimaryKeySelective" parameterType="org.yangxin.pojo.Order">
+        update order
         <set>
             <if test="userId != null">
                 user_id = #{userId,jdbcType=VARCHAR},
@@ -282,8 +282,8 @@
         </set>
         where id = #{id,jdbcType=VARCHAR}
     </update>
-    <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.Orders">
-        update orders
+    <update id="updateByPrimaryKey" parameterType="org.yangxin.pojo.Order">
+        update order
         set user_id = #{userId,jdbcType=VARCHAR},
         receiver_name = #{receiverName,jdbcType=VARCHAR},
         receiver_mobile = #{receiverMobile,jdbcType=VARCHAR},
@@ -300,8 +300,8 @@
         updated_time = #{updatedTime,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=VARCHAR}
     </update>
-    <update id="deleteOrder" parameterType="org.yangxin.pojo.Orders">
-        update orders
+    <update id="deleteOrder" parameterType="org.yangxin.pojo.Order">
+        update order
         set is_delete = #{isDelete},
             updated_time = #{updateTime}
         where id = #{id}

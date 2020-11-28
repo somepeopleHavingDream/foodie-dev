@@ -11,7 +11,7 @@ select o.id as orderId,
        oi.item_spec_name as itemSpecName,
        oi.buy_counts as buyCounts,
        oi.price as price
-from orders o
+from order o
 left join order_status os
 on o.id = os.order_id
 left join order_items oi
@@ -26,7 +26,7 @@ set order_status = 30,
 where order_id = '';
 
 select *
-from orders
+from order
 where user_id = ''
 and id = ''
 and is_delete = 0;
@@ -37,7 +37,7 @@ set order_status = 40,
 where order_id = ''
 and order_status = 30;
 
-update orders
+update order
 set is_delete = 1,
     updated_time = ''
 where id = ''

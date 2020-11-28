@@ -1,8 +1,8 @@
 package org.yangxin.mapper;
 
 import org.apache.ibatis.annotations.Param;
+import org.yangxin.pojo.Order;
 import org.yangxin.pojo.OrderStatus;
-import org.yangxin.pojo.Orders;
 import org.yangxin.pojo.vo.order.MyOrderVO;
 
 import java.util.List;
@@ -12,21 +12,21 @@ public interface OrdersMapper {
 
     int deleteByPrimaryKey(String id);
 
-    int insert(Orders record);
+    int insert(Order record);
 
-    int insertSelective(Orders record);
+    int insertSelective(Order record);
 
-    Orders selectByPrimaryKey(String id);
+    Order selectByPrimaryKey(String id);
 
-    int updateByPrimaryKeySelective(Orders record);
+    int updateByPrimaryKeySelective(Order record);
 
-    int updateByPrimaryKey(Orders record);
+    int updateByPrimaryKey(Order record);
 
     List<MyOrderVO> queryMyOrder(@Param("paramMap") Map<String, Object> map);
 
-    Orders selectOne(Orders orders);
+    Order selectOne(Order order);
 
-    int deleteOrder(Orders orders);
+    int deleteOrder(Order order);
 
     int getMyOrderStatusCounts(@Param("paramMap") Map<String, Object> map);
 

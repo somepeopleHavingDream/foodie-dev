@@ -67,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
         UserAddress userAddress = addressService.queryUserAddress(userId, addressId);
 
         // 新订单数据保存
-        Orders orders = Orders.builder()
+        Order order = Order.builder()
                 .id(orderId)
                 .userId(userId)
                 .receiverName(userAddress.getReceiver())
@@ -107,7 +107,7 @@ public class OrderServiceImpl implements OrderService {
             // 循环保存子订单数据到数据库
             OrderItems orderItems = OrderItems.builder()
                     .id(sid.nextShort())
-                    .orderId(orders.getId())
+                    .orderId(order.getId())
                     .itemId(itemId)
                     .itemName(items.getItemName())
                     .itemImg(itemsImg == null ? "" : itemsImg.getUrl())
@@ -122,13 +122,13 @@ public class OrderServiceImpl implements OrderService {
             itemService.decreaseItemSpecStock(itemSpecId, buyCount);
         }
 
-        orders.setTotalAmount(totalAmount);
-        orders.setRealPayAmount(realPayAmount);
-        ordersMapper.insert(orders);
+        order.setTotalAmount(totalAmount);
+        order.setRealPayAmount(realPayAmount);
+        ordersMapper.insert(order);
 
         // 保存订单状态表
         OrderStatus orderStatus = OrderStatus.builder()
-                .orderId(orders.getId())
+                .orderId(order.getId())
                 .orderStatus(OrderStatusEnum.WAIT_PAY.getType())
                 .createdTime(new Date())
                 .build();

@@ -121,7 +121,7 @@
                     var serverUrl = app.serverUrl;
 					axios.defaults.withCredentials = true;
 					axios.post(
-                            serverUrl + '/orders/getPaidOrderInfo?orderId=' + orderId, 
+                            serverUrl + '/order/getPaidOrderInfo?orderId=' + orderId,
 							{},
 							{
 								headers: {

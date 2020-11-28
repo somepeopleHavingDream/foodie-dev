@@ -34,7 +34,7 @@ import static org.yangxin.controller.BaseController.PAYMENT_URL;
  * 2019/12/06 10:23
  */
 @Api(value = "订单相关", tags = {"订单相关的api接口"})
-@RequestMapping("/orders")
+@RequestMapping("/order")
 @RestController
 @Slf4j
 public class OrderController {

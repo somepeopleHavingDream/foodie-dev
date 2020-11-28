@@ -16,7 +16,7 @@ order by ic.created_time
 desc;
 
 select count(*)
-from orders o
+from order o
 left join order_status os
 on o.id = os.order_id
 where o.user_id = ''
@@ -31,7 +31,7 @@ select os.order_id as orderId,
        os.success_time as sucessTime,
        os.close_time as closeTime,
        os.comment_time as commentTime
-from orders o
+from order o
 left join order_status os
 on o.id = os.order_id
 where o.is_delete = 0

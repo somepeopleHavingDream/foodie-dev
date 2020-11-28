@@ -9,8 +9,8 @@ import org.yangxin.enums.OrderStatusEnum;
 import org.yangxin.enums.YesNoEnum;
 import org.yangxin.mapper.OrderStatusMapper;
 import org.yangxin.mapper.OrdersMapper;
+import org.yangxin.pojo.Order;
 import org.yangxin.pojo.OrderStatus;
-import org.yangxin.pojo.Orders;
 import org.yangxin.pojo.vo.order.MyOrderVO;
 import org.yangxin.pojo.vo.order.OrderStatusCountsVO;
 import org.yangxin.service.BaseService;
@@ -79,13 +79,13 @@ public class MyOrderServiceImpl extends BaseService implements MyOrderService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public Orders queryMyOrder(String userId, String orderId) {
-        Orders orders = Orders.builder()
+    public Order queryMyOrder(String userId, String orderId) {
+        Order order = Order.builder()
                 .userId(userId)
                 .id(orderId)
                 .isDelete(YesNoEnum.NO.getType())
                 .build();
-        return ordersMapper.selectOne(orders);
+        return ordersMapper.selectOne(order);
     }
 
     @Override
@@ -103,13 +103,13 @@ public class MyOrderServiceImpl extends BaseService implements MyOrderService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public boolean deleteOrder(String userId, String orderId) {
-        Orders orders = Orders.builder()
+        Order order = Order.builder()
                 .isDelete(YesNoEnum.YES.getType())
                 .updatedTime(new Date())
                 .userId(userId)
                 .id(orderId)
                 .build();
-        return ordersMapper.deleteOrder(orders) == 1;
+        return ordersMapper.deleteOrder(order) == 1;
     }
 
     @Override

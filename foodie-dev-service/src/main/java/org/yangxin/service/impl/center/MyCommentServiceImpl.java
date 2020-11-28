@@ -11,9 +11,9 @@ import org.yangxin.mapper.ItemsCommentsMapper;
 import org.yangxin.mapper.OrderItemsMapper;
 import org.yangxin.mapper.OrderStatusMapper;
 import org.yangxin.mapper.OrdersMapper;
+import org.yangxin.pojo.Order;
 import org.yangxin.pojo.OrderItems;
 import org.yangxin.pojo.OrderStatus;
-import org.yangxin.pojo.Orders;
 import org.yangxin.pojo.bo.center.OrderItemsCommentBO;
 import org.yangxin.pojo.vo.comment.MyCommentVO;
 import org.yangxin.service.BaseService;
@@ -71,12 +71,12 @@ public class MyCommentServiceImpl extends BaseService implements MyCommentServic
         map.put("commentList", commentList);
         itemsCommentsMapper.saveComments(map);
 
-        // 2. 修改订单表，改为已评价 orders
-        Orders orders = Orders.builder()
+        // 2. 修改订单表，改为已评价 order
+        Order order = Order.builder()
                 .id(orderId)
                 .isComment(YesNoEnum.YES.getType())
                 .build();
-        ordersMapper.updateByPrimaryKeySelective(orders);
+        ordersMapper.updateByPrimaryKeySelective(order);
 
         // 3. 修改订单状态表的留言时间 order_status
         OrderStatus orderStatus = OrderStatus.builder()

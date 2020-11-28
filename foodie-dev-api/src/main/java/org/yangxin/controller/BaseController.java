@@ -2,7 +2,7 @@ package org.yangxin.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.yangxin.pojo.Orders;
+import org.yangxin.pojo.Order;
 import org.yangxin.pojo.vo.common.JSONVO;
 import org.yangxin.service.center.MyOrderService;
 
@@ -31,7 +31,7 @@ public class BaseController {
      * 微信支付成功 -> 支付中心 -> 天天吃货平台
      * |-> 回调通知的url
      */
-    public static final String PAY_RETURN_URL = "http://localhost:8088/foodie-dev-api/orders/notifyMerchantOrderPaid";
+    public static final String PAY_RETURN_URL = "http://localhost:8088/foodie-dev-api/order/notifyMerchantOrderPaid";
 
     /**
      * 用户上传头像的位置
@@ -56,10 +56,10 @@ public class BaseController {
      * @param orderId 订单Id
      */
     public JSONVO checkUserOrder(String userId, String orderId) {
-        Orders orders = myOrderService.queryMyOrder(userId, orderId);
-        if (orders == null) {
+        Order order = myOrderService.queryMyOrder(userId, orderId);
+        if (order == null) {
             return JSONVO.errorMsg("订单不存在！");
         }
-        return JSONVO.ok(orders);
+        return JSONVO.ok(order);
     }
 }

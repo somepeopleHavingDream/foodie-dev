@@ -1,6 +1,6 @@
 package org.yangxin.service.center;
 
-import org.yangxin.pojo.Orders;
+import org.yangxin.pojo.Order;
 import org.yangxin.pojo.vo.order.OrderStatusCountsVO;
 import org.yangxin.utils.PagedGridResult;
 
@@ -29,7 +29,7 @@ public interface MyOrderService {
      * @param orderId 订单Id
      * @return 我的订单
      */
-    Orders queryMyOrder(String userId, String orderId);
+    Order queryMyOrder(String userId, String orderId);
 
     /**
      * 更新订单状态->确认收货

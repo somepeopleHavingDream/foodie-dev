@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import org.yangxin.controller.BaseController;
 import org.yangxin.enums.YesNoEnum;
 import org.yangxin.pojo.OrderItems;
-import org.yangxin.pojo.Orders;
+import org.yangxin.pojo.Order;
 import org.yangxin.pojo.bo.center.OrderItemsCommentBO;
 import org.yangxin.pojo.vo.common.JSONVO;
-import org.yangxin.pojo.vo.common.PagingGridVO;
 import org.yangxin.service.center.MyCommentService;
 import org.yangxin.utils.PagedGridResult;
 
@@ -57,7 +56,7 @@ public class MyCommentController extends BaseController {
         }
 
         // 判断该笔订单是否已经评价过，评价过了就不再继续
-        Orders myOrder = (Orders) checkResult.getData();
+        Order myOrder = (Order) checkResult.getData();
         if (Objects.equals(myOrder.getIsComment(), YesNoEnum.YES.getType())) {
             return JSONVO.errorMsg("该笔订单已经评价。");
         }
