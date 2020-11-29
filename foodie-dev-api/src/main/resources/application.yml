@@ -20,6 +20,8 @@ spring:
       max-file-size: 512000
       # 请求大小限制为500kb
       max-request-size: 512000
+  profiles:
+    active: dev
 
 mybatis:
   type-aliases-package: org.yangxin.pojo
