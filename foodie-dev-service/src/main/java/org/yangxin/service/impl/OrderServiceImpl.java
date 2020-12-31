@@ -49,6 +49,9 @@ public class OrderServiceImpl implements OrderService {
         this.sid = sid;
     }
 
+    /**
+     * 这里的创建订单并没有对“超卖现象”做处理
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public OrderVO createOrder(SubmitOrderBO submitOrderBO) {

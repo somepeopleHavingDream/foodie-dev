@@ -62,7 +62,7 @@ public class OrderController {
             return JSONVO.errorMsg(ResultEnum.PAY_METHOD_NOT_SUPPORTED.getMessage());
         }
 
-        // 创建订单
+        // 创建订单（并没有对超卖现象做处理）
         OrderVO orderVO = orderService.createOrder(submitOrderBO);
         String orderId = orderVO.getOrderId();
 
