@@ -8,6 +8,7 @@ import org.yangxin.pojo.vo.shopcart.ShopCartVO;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings({"AlibabaAbstractMethodOrInterfaceMethodMustUseJavadoc", "unused", "AlibabaLowerCamelCaseVariableNaming"})
 public interface ItemsMapper {
     int deleteByPrimaryKey(String id);
 

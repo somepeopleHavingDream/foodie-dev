@@ -28,7 +28,7 @@ import java.util.List;
  * @author yangxin
  * 2019/12/06 10:44
  */
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+@SuppressWarnings({"SpringJavaInjectionPointsAutowiringInspection", "AlibabaUndefineMagicConstant", "AlibabaMethodTooLong"})
 @Service
 public class OrderServiceImpl implements OrderService {
 
@@ -53,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
      * 这里的创建订单并没有对“超卖现象”做处理
      */
     @Override
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
     public OrderVO createOrder(SubmitOrderBO submitOrderBO) {
         String userId = submitOrderBO.getUserId();
         String addressId = submitOrderBO.getAddressId();

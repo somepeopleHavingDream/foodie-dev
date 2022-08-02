@@ -8,6 +8,7 @@ import org.yangxin.pojo.Stu;
  * @author yangxin
  * 2019/11/12 22:16
  */
+@SuppressWarnings("AlibabaAbstractMethodOrInterfaceMethodMustUseJavadoc")
 public interface StuService {
     Stu getStuInfo(int id);
 

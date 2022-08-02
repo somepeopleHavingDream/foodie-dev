@@ -10,6 +10,7 @@ import org.yangxin.pojo.vo.order.OrderVO;
  * @author yangxin
  * 2019/12/06 10:43
  */
+@SuppressWarnings("AlibabaAbstractMethodOrInterfaceMethodMustUseJavadoc")
 public interface OrderService {
 
     /**

@@ -152,7 +152,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
     public void decreaseItemSpecStock(String specId, Integer buyCount) {
         // 库存作为一种共享资源，需要控制
         // synchronized 不推荐使用，集群下无用，性能低下

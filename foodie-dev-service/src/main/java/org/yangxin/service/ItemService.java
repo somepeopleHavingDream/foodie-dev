@@ -16,7 +16,9 @@ import java.util.List;
  * @author yangxin
  * 2019/11/27 21:53
  */
+@SuppressWarnings("AlibabaAbstractMethodOrInterfaceMethodMustUseJavadoc")
 public interface ItemService {
+
     /**
      * 根据商品Id查询详情
      *
@@ -69,6 +71,7 @@ public interface ItemService {
      * @param sort 排序字段
      * @param page 当前页
      * @param pageSize 每页显示的记录数
+     * @return 分页对象
      */
     PagingGridVO queryItem(String keyword, String sort, Integer page, Integer pageSize);
 
