@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+@SuppressWarnings({"AlibabaClassMustHaveAuthor", "AlibabaCommentsMustBeJavadocFormat"})
 @SpringBootApplication
 // 扫描mybatis通用mapper所在包
 @MapperScan(basePackages = "org.yangxin.mapper")

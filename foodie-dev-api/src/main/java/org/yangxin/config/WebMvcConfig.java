@@ -20,7 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * 2020/03/19 21:02
  */
 @Configuration
-public class WebMVCConfig implements WebMvcConfigurer {
+public class WebMvcConfig implements WebMvcConfigurer {
 
     /*
         1. @Bean注解在返回实例的方法上，如果未通过@Bean指定bean的名称，则默认与标注的方法名相同；
@@ -28,6 +28,7 @@ public class WebMVCConfig implements WebMvcConfigurer {
         3. 既然@Bean的作用是注册bean对象，那么完全可以使用@Component、@Controller、@Service、@Repository等注解注册bean，
         当然也需要配置@ComponentScan注解进行自动扫描
      */
+
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder.build();
